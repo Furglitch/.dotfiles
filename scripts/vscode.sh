@@ -60,4 +60,4 @@ echo "{
             \"color\": \"#a6e3a1\",
         }
     ]
-}" | sudo tee $HOME/.config/Code/User/settings.json > /dev/null
+}" > $HOME/.config/Code/User/settings.json

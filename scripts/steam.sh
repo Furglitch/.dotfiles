@@ -42,7 +42,7 @@ function fixDesktop { # Fixes an issue with the Steam desktop file
         Icon=steam
         Terminal=False
         Categories=Network;FileTransfer;Game;
-        MimeType=x-scheme-handler/steam;x-scheme-handler/steamlink;" | sudo tee "/usr/share/applications/steam.desktop" > /dev/null
+        MimeType=x-scheme-handler/steam;x-scheme-handler/steamlink;" > "/usr/share/applications/steam.desktop"
     else
         echo "Error: /usr/share/applications/steam.desktop not found!"
     fi
