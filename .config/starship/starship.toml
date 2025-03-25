@@ -1,0 +1,100 @@
+add_newline = true
+
+format = """
+[░▒▓](#6c7086)\
+$os\
+[](bg:#89dceb fg:#6c7086)\
+$directory\
+[](bg:#585b70 fg:#89dceb)\
+$git_branch\
+$git_status\
+[](bg:#45475a fg:#585b70)\
+$shell\
+$python\
+$docker_content\
+$java\
+[](bg:#313244 fg:#45475a)\
+$time\
+[](fg:#313244)\
+\n$character
+"""
+
+[directory]
+format = "[ $path ]($style)"
+style = "bg:#89dceb fg:#1e1e2e"
+truncation_length = 3
+truncation_symbol = ".../"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+[os]
+format = "[ $symbol ]($style)"
+style = "bg:#6c7086 fg:#89dceb"
+disabled = false
+
+# This is the default symbols table.
+[os.symbols]
+Android = "󰀲 "
+Arch = "󰣇 "
+CentOS = "󱄚 "
+Debian = "󰣚 "
+Fedora = "󰣛 "
+FreeBSD = "󰣠 "
+Gentoo = "󰣨 "
+Linux = "󰌽 "
+Macos = "󰀵 "
+Manjaro = "󱘊 "
+Mint = "󰣭 "
+Raspbian = "󰐿 "
+Redhat = "󱄛 "
+RedHatEnterprise = "󱄛 "
+Ubuntu = "󰕈 "
+Unknown = "󱔢 "
+Void = "  "
+Windows = "󰖳 "
+
+[git_branch]
+format = "[ $symbol $branch ]($style)"
+style = "bg:#585b70 fg:#89dceb"
+symbol = "󰘬"
+
+[git_status]
+format = "[ $all_status$ahead_behind ]($style)"
+style = "bg:#585b70 fg:#89dceb"
+
+[python]
+format = "[ $symbol ($version) ]($style)"
+style = "bg:#45475a fg:#89dceb"
+symbol = "󰌠"
+
+[docker_context]
+format = "[ $symbol $context ]($style)"
+style = "bg:#45475a fg:#89dceb"
+symbol = "󰡨"
+
+[java]
+format = "[ $symbol ($version) ]($style)"
+style = "bg:#45475a fg:#89dceb"
+symbol = "󰬷"
+
+[shell]
+format = "[ $indicator ]($style)"
+style = "bg:#45475a fg:#89dceb"
+bash_indicator = "󱆃"
+fish_indicator = "󰈺"
+powershell_indicator = "󰨊"
+
+[character]
+format = "[ $symbol  ](bold)"
+success_symbol = "[󰁕](#a6e3a1)"
+error_symbol = "[󰁕](#f38ba8)"
+
+[time]
+disabled = false
+time_format = "%T" # Hour:Minute Format
+style = "bg:#313244"
+format = '[ 󰥔 $time ]($style)'
