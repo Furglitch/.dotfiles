@@ -1,3 +1,5 @@
+# Based on Tokyo Night preset - https://starship.rs/presets/tokyo-night
+
 add_newline = true
 
 format = """
