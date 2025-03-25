@@ -5,8 +5,9 @@ dotfiles w/ installer for ArchLinux and Hyprland
 **WM:** [hyprland](https://github.com/hyprwm/Hyprland)<br>
 **Theme:** [Catppuccin Mocha](https://github.com/catppuccin/catppuccin)<br>
 **Terminal:** [Kitty](https://github.com/kovidgoyal/kitty)<br>
+<br>
 
-### Installation
+## Installation
 > This script assumes you installed Arch via [archinstall](https://wiki.archlinux.org/title/Archinstall) with the following parameters<br>
 > **Profile:** Desktop - Hyprland<br>
 > **Greeter:** SDDM<br>
@@ -23,8 +24,9 @@ Run the installer script
 ```bash
 bash ~/scripts/install.sh
 ```
+<br>
 
-### Attributions
+## Attributions
 
 [catppuccin/kitty](https://github.com/catppuccin/kitty)            - kitty theme<br>
 [catppuccin/dunst](https://github.com/catppuccin/dunst)            - dunst theme<br>
