@@ -26,6 +26,9 @@ fonts='nerd-fonts ttf-google-fonts-git'
 social='vesktop-bin telegram-desktop-bin'
 yay -Sy --needed --noconfirm $utilities $themed $fonts $social
 
+# Discord
+bash $HOME/scripts/discord.sh
+
 # LibreWolf
 bash $HOME/scripts/librewolf.sh
 
