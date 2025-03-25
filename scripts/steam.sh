@@ -49,16 +49,11 @@ function fixDesktop { # Fixes an issue with the Steam desktop file
 }
 
 if ! command -v steam 2>&1 /dev/null; then
-    zenity --question --text="Would you like to install Steam?" --title=".dotfiles setup - Steam" 
-    if [ $? -eq 0 ]; then
-        echo "Installing Steam..."
-        yay -Sy steam --noconfirm
-        echo "Steam installed!"
-        fixDesktop
-        themeSteam
-    else
-        echo "Steam will not be installed."
-    fi
+    echo "Installing Steam..."
+    yay -Sy steam --noconfirm
+    echo "Steam installed!"
+    fixDesktop
+    themeSteam
 else
     echo "Steam is already installed."
     themeSteam
