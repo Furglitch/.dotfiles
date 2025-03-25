@@ -1,8 +1,10 @@
+#!/bin/bash
+
 function themeSteam { # Applies the Adwaita catppuccin-mocha theme to Steam
-    if [ -f ~/.steam/steam/steamui/css/library.original.css ]; then
+    if [ -f $HOME/.steam/steam/steamui/css/library.original.css ]; then
         echo "Steam theme already installed."
     else
-        if [ -f ~/.steam/steam/steamui/css/library.css ]; then
+        if [ -f $HOME/.steam/steam/steamui/css/library.css ]; then
             echo "Steam files exist, skipping to theme installation..."
         else
             echo "Running Steam first-time setup..."
@@ -25,8 +27,8 @@ function themeSteam { # Applies the Adwaita catppuccin-mocha theme to Steam
 
         sleep 2s && echo "Installing theme..."
         killall steam && sleep 3s
-        mkdir ~/.steam/adwaita && git clone git@github.com:tkashkin/Adwaita-for-Steam.git ~/.steam/adwaita
-        cd ~/.steam/adwaita && ./install.py -c catppuccin-mocha -e library/hide_whats_new
+        mkdir $HOME/.steam/adwaita && git clone git@github.com:tkashkin/Adwaita-for-Steam.git $HOME/.steam/adwaita
+        cd $HOME/.steam/adwaita && ./install.py -c catppuccin-mocha -e library/hide_whats_new
 
     fi
 }
@@ -45,7 +47,6 @@ function fixDesktop { # Fixes an issue with the Steam desktop file
         echo "Error: /usr/share/applications/steam.desktop not found!"
     fi
 }
-
 
 if ! command -v steam 2>&1 /dev/null; then
     zenity --question --text="Would you like to install Steam?" --title=".dotfiles setup - Steam" 
