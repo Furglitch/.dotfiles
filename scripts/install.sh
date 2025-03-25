@@ -20,11 +20,12 @@ sudo pacman -Syu --noconfirm && yay -Syu --sudoloop --noconfirm
 
 # Install additional packages
 echo "Installing additional packages..."
-utilities='neofetch gparted git p7zip-gui timeshift systemsettings yadm zenity'
+utilities='gparted git librewolf-bin neofetch p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
 themed='starship'
 fonts='nerd-fonts ttf-google-fonts-git'
 social='vesktop-bin telegram-desktop-bin'
-yay -Sy --needed --noconfirm $utilities $themed $fonts $social
+game='steam'
+yay -Sy --needed --noconfirm $utilities $themed $fonts $social $game
 
 # Themeing & Setup
 bash $HOME/scripts/discord.sh

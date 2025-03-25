@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Install LibreWolf
-echo "Installing LibreWolf..."
-yay -Sy --needed --noconfirm librewolf-bin
+# Enable Mozilla sync
+echo "Enabling Mozilla sync..."
+sudo sed -i 's/^defaultPref("identity\.fxaccounts\.enabled".*/defaultPref("identity.fxaccounts.enabled", true);/' /usr/lib/librewolf/librewolf.cfg
 
 # Install LibreWolf extensions
 echo "LibreWolf extensions require manual installation..."
@@ -10,10 +10,6 @@ echo "Opening LibreWolf extensions pages..."
 xdg-open https://addons.mozilla.org/en-US/firefox/addon/firefox-color/
 xdg-open https://addons.mozilla.org/en-US/firefox/addon/styl-us/
 zenity --info --text="Click [OK] after installing the extensions." --title=".dotfiles setup - LibreWolf"
-
-# Set default preference for disabling Firefox Accounts
-echo "Enabling Mozilla sync..."
-sudo sed -i 's/^defaultPref("identity\.fxaccounts\.enabled".*/defaultPref("identity.fxaccounts.enabled", true);/' /usr/lib/librewolf/librewolf.cfg
 
 # Install LibreWolf themes
 echo "LibreWolf themes require manual installation..."

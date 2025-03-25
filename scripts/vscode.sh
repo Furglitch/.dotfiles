@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "Installing VSCode..."
-yay -S visual-studio-code-bin --noconfirm
-
 echo "Installing VSCode extensions..."
 extensions=(
     "GitHub.copilot"
