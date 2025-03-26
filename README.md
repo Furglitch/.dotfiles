@@ -1,5 +1,5 @@
 # .dotfiles
-dotfiles w/ installer for ArchLinux and Hyprland
+> **⚠️ Note:** Currently under development. Files are subject to change and may not work as intended.
 
 **Theme:** [Catppuccin Mocha](https://github.com/catppuccin/catppuccin)<br>
 **OS:** ArchLinux<br>
@@ -38,3 +38,6 @@ bash ~/.dotfiles/scripts/install.sh
 [PROxZIMA/.dotfiles](https://github.com/PROxZIMA/.dotfiles)          - wofi config*<br>
 [linuxmobile/hyprland-dots](https://github.com/linuxmobile/hyprland-dots)   - hyprland animations<br>
 <sup>* modifications made</sup>
+
+## License
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
