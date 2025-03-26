@@ -1,5 +1,12 @@
 #!/bin/bash
 
+mkdir -p $HOME/.config/dunst
+mkdir -p $HOME/.config/hypr
+mkdir -p $HOME/.config/kitty
+mkdir -p $HOME/.config/starship
+mkdir -p $HOME/.config/vesktop/settings
+mkdir -p $HOME/.config/wofi
+
 echo 'Creating symlinks...'
 ln -s $HOME/.dotfiles/.bashrc $HOME/.bashrc
 ln -s $HOME/.dotfiles/.config/dunst/dunstrc $HOME/.config/dunst/dunstrc
