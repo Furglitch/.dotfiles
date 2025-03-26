@@ -2,10 +2,10 @@
 
 steam --reset 2>%1 /dev/null &
 while true; do
-    if tail -n 100 "$HOME/.steam/steam/logs/console-linux.txt" | grep -q "Download Complete." && tail -n 100 "$HOME/.steam/steam/logs/console-linux.txt" | grep -q "Verification complete"; then
+    if [ -f "$HOME/.steam/steam/config/steamui_login.txt" ]; then
         break
     else
-    echo "Waiting for Steam to finish setup..."
+        echo "Waiting for Steam to finish setup..."
         sleep 1s
     fi
 done
