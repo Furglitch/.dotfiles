@@ -11,7 +11,7 @@ sudo pacman -Sy --needed --noconfirm $archinstall_desktop $archinstall_hyprland
 
 # yay AUR helper installation
 echo 'Installing yay AUR helper...'
-#cd $HOME && git clone https://aur.archlinux.org/yay.git $HOME/.yay
+cd $HOME && git clone https://aur.archlinux.org/yay.git $HOME/.yay
 cd .yay && makepkg -si --sudoloop
 
 # Update packages
