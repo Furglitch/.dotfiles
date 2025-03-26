@@ -6,13 +6,13 @@ sudo bash $HOME/.dotfiles/scripts/install.title.sh
 echo 'Validating base packages...'
 archinstall_desktop='htop iwd nano openssh smartmontools wpa_supplicant vim wget wireless_tools xdg-utils'
 archinstall_hyprland='dolphin dunst grim hyprland kitty polkit-kde-agent qt5-wayland qt6-wayland slurp wofi xdg-desktop-portal-hyprland'
-archinstall_extra='sddm networkmanager pipewire'
+archinstall_extra='sddm networkmanager pipewire base-devel'
 sudo pacman -Sy --needed --noconfirm $archinstall_desktop $archinstall_hyprland
 
 # yay AUR helper installation
 echo 'Installing yay AUR helper...'
 cd $HOME && git clone https://aur.archlinux.org/yay.git $HOME/.yay
-cd .yay && makepkg -si
+cd .yay && makepkg -si --noconfirm
 
 # Update packages
 echo "Updating packages..."
