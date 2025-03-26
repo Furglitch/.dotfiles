@@ -25,7 +25,7 @@ themed='starship'
 fonts='nerd-fonts ttf-google-fonts-git'
 social='vesktop-bin telegram-desktop-bin'
 game='steam'
-yay -Sy --needed --noconfirm $utilities $themed $fonts $social $game
+yay -Sy --needed --sudoloop --noconfirm $utilities $themed $fonts $social $game
 
 # Themeing & Setup
 bash $HOME/.dotfiles/scripts/discord.sh
