@@ -12,3 +12,5 @@ ln -s $HOME/.dotfiles/.config/starship/starship.toml $HOME/.config/starship/star
 ls -s $HOME/.dotfiles/.config/vesktop/settings.json $HOME/.config/vesktop/settings.json
 ln -s $HOME/.dotfiles/.config/vesktop/state.json $HOME/.config/vesktop/state.json
 ln -s $HOME/.dotfiles/.config/vesktop/settings/settings.json $HOME/.config/vesktop/settings/settings.json
+ln -s $HOME/.dotfiles/.config/wofi/config $HOME/.config/wofi/config
+ln -s $HOME/.dotfiles/.config/wofi/style.css $HOME/.config/wofi/style.css
