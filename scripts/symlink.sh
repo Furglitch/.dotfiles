@@ -14,6 +14,8 @@ sudo rm -rf $HOME/.config/vesktop/state.json
 sudo rm -rf $HOME/.config/vesktop/settings/settings.json
 sudo rm -rf $HOME/.config/wofi/config
 sudo rm -rf $HOME/.config/wofi/style.css
+sudo rm -rf $HOME/.config/waybar/config.jsonc
+sudo rm -rf $HOME/.config/waybar/style.css
 
 echo 'Ensuring directories exist...'
 mkdir -p $HOME/.config/dunst
@@ -22,6 +24,7 @@ mkdir -p $HOME/.config/kitty
 mkdir -p $HOME/.config/starship
 mkdir -p $HOME/.config/vesktop/settings
 mkdir -p $HOME/.config/wofi
+mkdir -p $HOME/.config/waybar
 
 echo 'Creating symlinks...'
 ln -sf $HOME/.dotfiles/.bashrc $HOME/.bashrc
@@ -37,3 +40,5 @@ ln -sf $HOME/.dotfiles/.config/vesktop/state.json $HOME/.config/vesktop/state.js
 ln -sf $HOME/.dotfiles/.config/vesktop/settings/settings.json $HOME/.config/vesktop/settings/settings.json
 ln -sf $HOME/.dotfiles/.config/wofi/config $HOME/.config/wofi/config
 ln -sf $HOME/.dotfiles/.config/wofi/style.css $HOME/.config/wofi/style.css
+ln -sf $HOME/.dotfiles/.config/waybar/config.jsonc $HOME/.config/waybar/config.jsonc
+ln -sf $HOME/.dotfiles/.config/waybar/style.css $HOME/.config/waybar/style.css

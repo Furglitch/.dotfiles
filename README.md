@@ -37,6 +37,8 @@ bash ~/.dotfiles/scripts/install.sh
 [starship/starship](https://github.com/starship/starship)           - starship theme*<br>
 [PROxZIMA/.dotfiles](https://github.com/PROxZIMA/.dotfiles)          - wofi config*<br>
 [linuxmobile/hyprland-dots](https://github.com/linuxmobile/hyprland-dots)   - hyprland animations<br>
+[yurihikari/garuda-hyprdots](https://github.com/yurihikari/garuda-hyprdots) - waybar (inspiration)
+[catppuccin/waybar](https://github.com/catppuccin/waybar)   - waybar (coloring)
 <sup>* modifications made</sup>
 
 ## License

@@ -1,0 +1,54 @@
+// waybar config file
+// -*- mode: jsonc -*-
+{
+    "spacing": 5,
+    "modules-left": [
+        "custom/launcher",
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "custom/power"
+    ],
+
+
+
+    // modules-left config
+    "custom/launcher": {
+        "format": "󰋜 ",
+        "on-click": "wofi --show drun",
+        "tooltip": false
+    },
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "format": " {icon} ",
+        "format-icons": {
+            "default": " ",
+            "urgent": " ",
+            "active": " "
+        },
+        "persistent-workspaces": {
+            "DP-1": 5,
+            "DP-2": 5
+        }
+    },
+
+    // modules-center config
+    "clock": {
+        "format": "{:%Y-%m-%d %H:%M}",
+        "interval": 1
+    },
+
+    // modules-right config
+    "custom/power": {
+        "format": "  ",
+        "on-click": "syspower",
+        "tooltip": false
+    }
+}
+
+// TODO - multi-monitor (modular)
+// TODO - custom/power switch screens

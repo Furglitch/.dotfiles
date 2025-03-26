@@ -1,0 +1,54 @@
+@import "mocha.css";
+
+/* 
+    padding: top right bottom left;
+    border-radius: top-left top-right bottom-right bottom-left;
+*/
+
+* {
+    border: 0;
+    padding: 0 0;
+    font-family: 'UbuntuMono Nerd Font';
+    font-size: 18px;
+    color: @sky;
+}
+
+window#waybar {
+    background-color: @crust-alpha;
+    border-bottom: 1px solid @sky;
+}
+
+#custom-launcher,
+#workspaces,
+#clock,
+#custom-power {
+    padding: 5px 5px;
+    margin: 8px 8px;
+    border-radius: 10px;
+    background-color: @base;
+    opacity: 1;
+}
+
+#workspaces button *{
+    font-size: 12px;
+}
+
+#custom-launcher,
+#custom-power {
+    padding: 5px 10px;
+    margin: 0 0 2px 0;
+    background-color: @base;
+    color: @sky;
+}
+
+#custom-launcher {
+    border-radius: 0 10px 0 0;
+}
+
+#custom-power {
+    border-radius: 10px 0 0 0;
+}
+
+#clock {
+    padding: 5px 10px;
+}
