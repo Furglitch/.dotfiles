@@ -7,7 +7,8 @@ echo 'Validating base packages...'
 archinstall_desktop='htop iwd nano openssh smartmontools wpa_supplicant vim wget wireless_tools xdg-utils'
 archinstall_hyprland='dolphin dunst grim hyprland kitty polkit-kde-agent qt5-wayland qt6-wayland slurp wofi xdg-desktop-portal-hyprland'
 archinstall_extra='sddm networkmanager pipewire base-devel'
-sudo pacman -Sy --needed --noconfirm $archinstall_desktop $archinstall_hyprland
+sudo pacman -Sy --needed --noconfirm $archinstall_desktop
+sudo pacman -Sy --needed --noconfirm $archinstall_hyprland
 
 # yay AUR helper installation
 echo 'Installing yay AUR helper...'
@@ -25,7 +26,11 @@ themed='starship'
 fonts='nerd-fonts ttf-google-fonts-git'
 social='vesktop-bin telegram-desktop-bin'
 game='steam'
-yay -Sy --needed --sudoloop --noconfirm $utilities $themed $fonts $social $game
+yay -Sy --needed --sudoloop --noconfirm $utilities
+yay -Sy --needed --sudoloop --noconfirm $themed
+yay -Sy --needed --sudoloop --noconfirm $fonts
+yay -Sy --needed --sudoloop --noconfirm $social
+yay -Sy --needed --sudoloop --noconfirm $game
 
 # Themeing & Setup
 bash $HOME/.dotfiles/scripts/symlink.sh
