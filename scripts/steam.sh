@@ -1,12 +1,15 @@
 #!/bin/bash
 
 steam --reset 2>%1 /dev/null &
+output=false
 while true; do
     if [ -f "$HOME/.steam/steam/logs/steamui_login.txt" ]; then
         break
     else
-        echo "Waiting for Steam to finish setup..."
-        sleep 1s
+        if [ "$output" = false ]; then
+            echo "Waiting for Steam to finish setup..."
+            output=true
+        fi
     fi
 done
 
