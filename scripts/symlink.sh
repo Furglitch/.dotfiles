@@ -9,3 +9,6 @@ ln -s $HOME/.dotfiles/.config/hypr/keybinds.conf $HOME/.config/hypr/keybinds.con
 ln -s $HOME/.dotfiles/.config/hypr/programs.conf $HOME/.config/hypr/programs.conf
 ln -s $HOME/.dotfiles/.config/kitty/kitty.conf $HOME/.config/kitty/kitty.conf
 ln -s $HOME/.dotfiles/.config/starship/starship.toml $HOME/.config/starship/starship.toml
+ls -s $HOME/.dotfiles/.config/vesktop/settings.json $HOME/.config/vesktop/settings.json
+ln -s $HOME/.dotfiles/.config/vesktop/state.json $HOME/.config/vesktop/state.json
+ln -s $HOME/.dotfiles/.config/vesktop/settings/settings.json $HOME/.config/vesktop/settings/settings.json
