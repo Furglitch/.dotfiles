@@ -28,6 +28,7 @@ game='steam'
 yay -Sy --needed --sudoloop --noconfirm $utilities $themed $fonts $social $game
 
 # Themeing & Setup
+bash $HOME/.dotfiles/scripts/symlink.sh
 bash $HOME/.dotfiles/scripts/discord.sh
 bash $HOME/.dotfiles/scripts/librewolf.sh
 bash $HOME/.dotfiles/scripts/vscode.sh
