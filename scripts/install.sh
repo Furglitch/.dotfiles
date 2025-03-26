@@ -23,7 +23,7 @@ sudo pacman -Syu --noconfirm && yay -Syu --sudoloop --noconfirm
 echo "Installing additional packages..."
 fonts='nerd-fonts ttf-google-fonts-git'
 game='steam'
-interface='starship waybar'
+interface='kvantum starship waybar'
 social='vesktop-bin telegram-desktop-bin'
 utilities='gparted git librewolf-bin neofetch p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
 yay -Sy --needed --sudoloop --noconfirm $fonts
@@ -34,11 +34,11 @@ yay -Sy --needed --sudoloop --noconfirm $game
 
 # Themeing & Setup
 bash $HOME/.dotfiles/scripts/discord.sh
+bash $HOME/.dotfiles/scripts/kvantum.sh
 bash $HOME/.dotfiles/scripts/librewolf.sh
 bash $HOME/.dotfiles/scripts/vscode.sh
 bash $HOME/.dotfiles/scripts/steam.sh
 bash $HOME/.dotfiles/scripts/symlink.sh
-
 reboot
 
 # TODO
@@ -49,7 +49,6 @@ reboot
 # - hyprcursor (catppuccin/cursor)
 # - hyprpicker
 # - cliphist
-# - kvantum
 
 # TODO
 # configure the following:
