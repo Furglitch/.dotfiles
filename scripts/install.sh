@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo bash $HOME/scripts/install.title.sh
+sudo bash $HOME/.dotfiles/scripts/install.title.sh
 
 # ArchInstall package verification
 echo 'Validating base packages...'
@@ -28,7 +28,7 @@ game='steam'
 yay -Sy --needed --noconfirm $utilities $themed $fonts $social $game
 
 # Themeing & Setup
-bash $HOME/scripts/discord.sh
-bash $HOME/scripts/librewolf.sh
-bash $HOME/scripts/vscode.sh
-bash $HOME/scripts/steam.sh
+bash $HOME/.dotfiles/scripts/discord.sh
+bash $HOME/.dotfiles/scripts/librewolf.sh
+bash $HOME/.dotfiles/scripts/vscode.sh
+bash $HOME/.dotfiles/scripts/steam.sh

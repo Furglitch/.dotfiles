@@ -13,16 +13,18 @@ dotfiles w/ installer for ArchLinux and Hyprland
 > **Greeter:** SDDM<br>
 > **Network Config:** NetworkManager<br>
 > **Audio:** Pipewire<br>
+> **Additional Packages:** git<br>
+> **Optional Repositories:** multilib<br>
 > but will also re/install those dependencies as needed.<br>
 
 Install via git clone:
 ```bash
-git clone git@github.com:furglitch/.dotfiles.git $HOME\.dotfiles
+git clone https://github.com/furglitch/.dotfiles.git $HOME/.dotfiles
 ```
 
 Run the installer script
 ```bash
-bash ~/scripts/install.sh
+bash ~/.dotfiles/scripts/install.sh
 ```
 <br>
 
