@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo 'Removing existing files and directories...'
+echo 'Removing existing dotfiles...'
 sudo rm -rf $HOME/.bashrc
 sudo rm -rf $HOME/.config/dunst/dunstrc
 sudo rm -rf $HOME/.config/hypr/hyprland.conf
@@ -14,6 +14,14 @@ sudo rm -rf $HOME/.config/vesktop/state.json
 sudo rm -rf $HOME/.config/vesktop/settings/settings.json
 sudo rm -rf $HOME/.config/wofi/config
 sudo rm -rf $HOME/.config/wofi/style.css
+
+echo 'Ensuring directories exist...'
+mkdir -p $HOME/.config/dunst
+mkdir -p $HOME/.config/hypr
+mkdir -p $HOME/.config/kitty
+mkdir -p $HOME/.config/starship
+mkdir -p $HOME/.config/vesktop/settings
+mkdir -p $HOME/.config/wofi
 
 echo 'Creating symlinks...'
 ln -sf $HOME/.dotfiles/.bashrc $HOME/.bashrc
