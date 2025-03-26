@@ -2,7 +2,7 @@
 
 steam --reset 2>%1 /dev/null &
 while true; do
-    if [ -f "$HOME/.steam/steam/config/steamui_login.txt" ]; then
+    if [ -f "$HOME/.steam/steam/logs/steamui_login.txt" ]; then
         break
     else
         echo "Waiting for Steam to finish setup..."
