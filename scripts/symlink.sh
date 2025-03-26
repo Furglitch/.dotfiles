@@ -14,6 +14,7 @@ sudo rm -rf $HOME/.config/vesktop/state.json
 sudo rm -rf $HOME/.config/vesktop/settings/settings.json
 sudo rm -rf $HOME/.config/wofi/config
 sudo rm -rf $HOME/.config/wofi/style.css
+sudo rm -rf $HOME/.config/wofi/wofi-power.sh
 sudo rm -rf $HOME/.config/waybar/config.jsonc
 sudo rm -rf $HOME/.config/waybar/style.css
 
@@ -40,5 +41,6 @@ ln -sf $HOME/.dotfiles/.config/vesktop/state.json $HOME/.config/vesktop/state.js
 ln -sf $HOME/.dotfiles/.config/vesktop/settings/settings.json $HOME/.config/vesktop/settings/settings.json
 ln -sf $HOME/.dotfiles/.config/wofi/config $HOME/.config/wofi/config
 ln -sf $HOME/.dotfiles/.config/wofi/style.css $HOME/.config/wofi/style.css
+ln -sf $HOME/.dotfiles/.config/wofi/wofi-power.sh $HOME/.config/wofi/wofi-power.sh
 ln -sf $HOME/.dotfiles/.config/waybar/config.jsonc $HOME/.config/waybar/config.jsonc
 ln -sf $HOME/.dotfiles/.config/waybar/style.css $HOME/.config/waybar/style.css

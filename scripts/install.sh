@@ -23,7 +23,7 @@ sudo pacman -Syu --noconfirm && yay -Syu --sudoloop --noconfirm
 echo "Installing additional packages..."
 fonts='nerd-fonts ttf-google-fonts-git'
 game='steam'
-interface='starship waybar syspower'
+interface='starship waybar'
 social='vesktop-bin telegram-desktop-bin'
 utilities='gparted git librewolf-bin neofetch p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
 yay -Sy --needed --sudoloop --noconfirm $fonts
