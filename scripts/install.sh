@@ -33,10 +33,10 @@ yay -Sy --needed --sudoloop --noconfirm $social
 yay -Sy --needed --sudoloop --noconfirm $game
 
 # Themeing & Setup
-bash $HOME/.dotfiles/scripts/symlink.sh
 bash $HOME/.dotfiles/scripts/discord.sh
 bash $HOME/.dotfiles/scripts/librewolf.sh
 bash $HOME/.dotfiles/scripts/vscode.sh
 bash $HOME/.dotfiles/scripts/steam.sh
+bash $HOME/.dotfiles/scripts/symlink.sh
 
 reboot
