@@ -21,14 +21,14 @@ sudo pacman -Syu --noconfirm && yay -Syu --sudoloop --noconfirm
 
 # Install additional packages
 echo "Installing additional packages..."
-utilities='gparted git librewolf-bin neofetch p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
-themed='starship'
 fonts='nerd-fonts ttf-google-fonts-git'
-social='vesktop-bin telegram-desktop-bin'
 game='steam'
-yay -Sy --needed --sudoloop --noconfirm $utilities
-yay -Sy --needed --sudoloop --noconfirm $themed
+interface='starship'
+social='vesktop-bin telegram-desktop-bin'
+utilities='gparted git librewolf-bin neofetch p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
 yay -Sy --needed --sudoloop --noconfirm $fonts
+yay -Sy --needed --sudoloop --noconfirm $utilities
+yay -Sy --needed --sudoloop --noconfirm $interface
 yay -Sy --needed --sudoloop --noconfirm $social
 yay -Sy --needed --sudoloop --noconfirm $game
 
