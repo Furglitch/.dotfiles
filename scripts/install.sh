@@ -40,3 +40,24 @@ bash $HOME/.dotfiles/scripts/steam.sh
 bash $HOME/.dotfiles/scripts/symlink.sh
 
 reboot
+
+# TODO
+# Install and configure the following:
+# - waybar
+# - hyprpaper
+# - hyprlock
+# - hypridle
+# - hyprcursor (catppuccin/cursor)
+# - hyprpicker
+# - cliphist
+# - kvantum
+
+# TODO
+# configure the following:
+# - dolphin
+# - kdesystemsettings
+# - telegram
+
+# TODO
+# reconfigure the following:
+# - LibreWolf (open in tabs, not windows)
