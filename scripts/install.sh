@@ -38,3 +38,5 @@ bash $HOME/.dotfiles/scripts/discord.sh
 bash $HOME/.dotfiles/scripts/librewolf.sh
 bash $HOME/.dotfiles/scripts/vscode.sh
 bash $HOME/.dotfiles/scripts/steam.sh
+
+reboot
