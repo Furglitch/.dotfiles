@@ -15,7 +15,7 @@ done
 
 sleep 2s && echo "Installing theme..."
 killall steam && sleep 3s
-mkdir $HOME/.steam/adwaita && git clone git@github.com:tkashkin/Adwaita-for-Steam.git $HOME/.steam/adwaita
+mkdir $HOME/.steam/adwaita && git clone https://github.com/tkashkin/Adwaita-for-Steam.git $HOME/.steam/adwaita
 cd $HOME/.steam/adwaita && ./install.py -c catppuccin-mocha -e library/hide_whats_new
 
 # Fix an issue with the Steam desktop file
