@@ -44,7 +44,7 @@ sudo mkdir -p $HOME/.config/vesktop/settings/
 sudo mkdir -p $HOME/.config/vesktop/themes/
 sudo mkdir -p $HOME/.config/waybar/scripts/
 sudo mkdir -p $HOME/.config/wofi/
-sudo mkdir -p $HOME/.local/share/PrismLauncher/themes/
+sudo mkdir -p $HOME/.local/share/PrismLauncher/themes/catppucin-mocha/
 
 echo -e "\033[0;34mCreating symlinks...\033[0m"
 sudo ln -sf $HOME/.dotfiles/.bashrc $HOME/.bashrc
