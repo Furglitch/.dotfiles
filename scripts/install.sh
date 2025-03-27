@@ -22,7 +22,7 @@ sudo pacman -Syu --noconfirm && yay -Syu --sudoloop --noconfirm
 # Install additional packages
 echo "Installing additional packages..."
 fonts='nerd-fonts ttf-google-fonts-git'
-game='steam'
+game='steam prismlauncher'
 interface='hyprpaper kvantum starship waybar hyprcursor catppuccin-cursors-mocha'
 social='vesktop-bin telegram-desktop-bin'
 utilities='copyq-git gparted git hypridle hyprlock hyprpicker librewolf-bin neofetch p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'

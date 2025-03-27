@@ -20,6 +20,9 @@ sudo rm -rf $HOME/.config/wofi/style.css
 sudo rm -rf $HOME/.config/wofi/wofi-power.sh
 sudo rm -rf $HOME/.config/waybar/config.jsonc
 sudo rm -rf $HOME/.config/waybar/style.css
+sudo rm -rf $HOME/.config/waybar/mocha.css
+sudo rm -rf $HOME/.config/copyq/catppuccin-mocha.ini
+sudo rm -rf $HOME/.local/share/PrismLauncher/
 
 echo 'Ensuring directories exist...'
 mkdir -p $HOME/.config/dunst
@@ -30,6 +33,7 @@ mkdir -p $HOME/.config/starship
 mkdir -p $HOME/.config/vesktop/settings
 mkdir -p $HOME/.config/wofi
 mkdir -p $HOME/.config/waybar
+mkdir -p $HOME/.local/share/PrismLauncher/themes
 
 echo 'Creating symlinks...'
 ln -sf $HOME/.dotfiles/.bashrc $HOME/.bashrc
@@ -52,4 +56,6 @@ ln -sf $HOME/.dotfiles/.config/wofi/wofi-power.sh $HOME/.config/wofi/wofi-power.
 ln -sf $HOME/.dotfiles/.config/waybar/config.jsonc $HOME/.config/waybar/config.jsonc
 ln -sf $HOME/.dotfiles/.config/waybar/style.css $HOME/.config/waybar/style.css
 ln -sf $HOME/.dotfiles/themes/mocha.css $HOME/.config/waybar/mocha.css
-ln -sf $HOME/.dotfiles/themes/copyq.ini $HOME/.config/waybar/catppuccin-mocha.ini
+ln -sf $HOME/.dotfiles/themes/copyq.ini $HOME/.config/copyq/catppuccin-mocha.ini
+ln -sf $HOME/.dotfiles/themes/prismlauncher/ $HOME/.local/share/PrismLauncher/themes/mocha/
+ln -sf $HOME/.dotfiles/themes/prismlauncher/prismlauncher.cfg $HOME/.local/share/PrismLauncher/prismlauncher.cfg
