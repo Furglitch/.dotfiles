@@ -40,7 +40,11 @@ bash $HOME/.dotfiles/scripts/vscode.sh
 bash $HOME/.dotfiles/scripts/steam.sh
 bash $HOME/.dotfiles/scripts/symlink.sh
 
-reboot
+echo "Installation complete!"
+read -n 1 -p "Would you like to reboot now to apply themes? [y/n]: " reboot
+if [ $reboot == 'y' ]; then
+    reboot
+fi
 
 # TODO
 # Install and configure the following:
