@@ -52,3 +52,4 @@ ln -sf $HOME/.dotfiles/.config/wofi/wofi-power.sh $HOME/.config/wofi/wofi-power.
 ln -sf $HOME/.dotfiles/.config/waybar/config.jsonc $HOME/.config/waybar/config.jsonc
 ln -sf $HOME/.dotfiles/.config/waybar/style.css $HOME/.config/waybar/style.css
 ln -sf $HOME/.dotfiles/themes/mocha.css $HOME/.config/waybar/mocha.css
+ln -sf $HOME/.dotfiles/themes/copyq.ini $HOME/.config/waybar/catppuccin-mocha.ini

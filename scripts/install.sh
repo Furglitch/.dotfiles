@@ -25,7 +25,7 @@ fonts='nerd-fonts ttf-google-fonts-git'
 game='steam'
 interface='hyprpaper kvantum starship waybar hyprcursor catppuccin-cursors-mocha'
 social='vesktop-bin telegram-desktop-bin'
-utilities='gparted git hypridle hyprlock hyprpicker librewolf-bin neofetch p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
+utilities='copyq-git gparted git hypridle hyprlock hyprpicker librewolf-bin neofetch p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
 yay -Sy --needed --sudoloop --noconfirm $fonts
 yay -Sy --needed --sudoloop --noconfirm $utilities
 yay -Sy --needed --sudoloop --noconfirm $interface
@@ -45,10 +45,6 @@ read -n 1 -p "Would you like to reboot now to apply themes? [y/n]: " reboot
 if [ $reboot == 'y' ]; then
     reboot
 fi
-
-# TODO
-# Install and configure the following:
-# - cliphist
 
 # TODO
 # reconfigure the following:
