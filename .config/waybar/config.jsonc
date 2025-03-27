@@ -45,7 +45,7 @@
     // modules-right config
     "custom/power": {
         "format": "  ",
-        "on-click": "bash ~/.config/wofi/wofi-power.sh",
+        "on-click": "bash ~/.config/waybar/scripts/wofi-power.sh",
         "tooltip": false
     }
 }
