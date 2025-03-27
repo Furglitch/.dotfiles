@@ -7,6 +7,9 @@ sudo rm -rf $HOME/.config/hypr/hyprland.conf
 sudo rm -rf $HOME/.config/hypr/animation.conf
 sudo rm -rf $HOME/.config/hypr/keybinds.conf
 sudo rm -rf $HOME/.config/hypr/programs.conf
+sudo rm -rf $HOME/.config/hypr/hyprpaper.conf
+sudo rm -rf $HOME/.config/hypr/hyprpaper.sh
+sudo rm -rf $HOME/.config/hypr/hyprpapers/
 sudo rm -rf $HOME/.config/kitty/kitty.conf
 sudo rm -rf $HOME/.config/starship/starship.toml
 sudo rm -rf $HOME/.config/vesktop/settings.json
@@ -21,6 +24,7 @@ sudo rm -rf $HOME/.config/waybar/style.css
 echo 'Ensuring directories exist...'
 mkdir -p $HOME/.config/dunst
 mkdir -p $HOME/.config/hypr
+mkdir -p $HOME/.config/hypr/hyprpapers
 mkdir -p $HOME/.config/kitty
 mkdir -p $HOME/.config/starship
 mkdir -p $HOME/.config/vesktop/settings
@@ -34,6 +38,9 @@ ln -sf $HOME/.dotfiles/.config/hypr/hyprland.conf $HOME/.config/hypr/hyprland.co
 ln -sf $HOME/.dotfiles/.config/hypr/animation.conf $HOME/.config/hypr/animation.conf
 ln -sf $HOME/.dotfiles/.config/hypr/keybinds.conf $HOME/.config/hypr/keybinds.conf
 ln -sf $HOME/.dotfiles/.config/hypr/programs.conf $HOME/.config/hypr/programs.conf
+ln -sf $HOME/.dotfiles/.config/hypr/hyprpaper.conf $HOME/.config/hypr/hyprpaper.conf
+ln -sf $HOME/.dotfiles/.config/hypr/hyprpaper.sh $HOME/.config/hypr/hyprpaper.sh
+ln -sf $HOME/.dotfiles/.config/hypr/hyprpapers/ $HOME/.config/hypr/hyprpapers/
 ln -sf $HOME/.dotfiles/.config/kitty/kitty.conf $HOME/.config/kitty/kitty.conf
 ln -sf $HOME/.dotfiles/.config/starship/starship.toml $HOME/.config/starship/starship.toml
 ln -sf $HOME/.dotfiles/.config/vesktop/settings.json $HOME/.config/vesktop/settings.json

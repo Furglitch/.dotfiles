@@ -23,7 +23,7 @@ sudo pacman -Syu --noconfirm && yay -Syu --sudoloop --noconfirm
 echo "Installing additional packages..."
 fonts='nerd-fonts ttf-google-fonts-git'
 game='steam'
-interface='kvantum starship waybar'
+interface='hyprpaper kvantum starship waybar'
 social='vesktop-bin telegram-desktop-bin'
 utilities='gparted git librewolf-bin neofetch p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
 yay -Sy --needed --sudoloop --noconfirm $fonts
@@ -39,6 +39,7 @@ bash $HOME/.dotfiles/scripts/librewolf.sh
 bash $HOME/.dotfiles/scripts/vscode.sh
 bash $HOME/.dotfiles/scripts/steam.sh
 bash $HOME/.dotfiles/scripts/symlink.sh
+
 reboot
 
 # TODO
