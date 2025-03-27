@@ -59,3 +59,4 @@ ln -sf $HOME/.dotfiles/themes/mocha.css $HOME/.config/waybar/mocha.css
 ln -sf $HOME/.dotfiles/themes/copyq.ini $HOME/.config/copyq/catppuccin-mocha.ini
 ln -sf $HOME/.dotfiles/themes/prismlauncher/ $HOME/.local/share/PrismLauncher/themes/mocha/
 ln -sf $HOME/.dotfiles/themes/prismlauncher/prismlauncher.cfg $HOME/.local/share/PrismLauncher/prismlauncher.cfg
+sudo ln -sf $HOME/.config/Kvantum/themes/catppuccin-mocha-sky/ /usr/share/Kvantum/
