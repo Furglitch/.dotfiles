@@ -7,7 +7,7 @@ validate() {
         return
     else
         echo -e "\033[0;31mVerify sudo access for ${1} package installation:\033[0m"
-        sudo -S -v || { echo -e "\033[0;31mPassword not received. Exiting installation.\033[0m"; pkill -f ~/scripts/install.sh; exit 1; }
+        sudo -S -v || { echo -e "\033[0;31mPassword not received. Exiting installation.\033[0m"; pkill -f $HOME/scripts/install.sh; exit 1; }
     fi
 }
 

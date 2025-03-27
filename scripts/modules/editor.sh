@@ -14,12 +14,12 @@ vesktop 2>%1 > /dev/null & disown && sleep 2s && pkill -f 'vesktop'
 
 # Kvantum theme for KDE Plasma applications
 echo -e"\033[0;34mApplying theme to KDE Plasma applications..."
-sudo sed -i 's/^widgetStyle=.*$/widgetStyle=kvantum-dark/' ~/.config/kdeglobals
+sudo sed -i 's/^widgetStyle=.*$/widgetStyle=kvantum-dark/' $HOME/.config/kdeglobals
 
 # Kvantum theme for Dolphin
 echo "\033[0;34mApplying theme to Dolphin..."
-if ! sudo sed -i 's/^ColorScheme=.*$/ColorScheme=kvantum-dark/' ~/.config/kdeglobals; then
-    sudo sed -i 's/^\[UiSettings\].*$/\[UiSettings\]\nColorScheme=kvantum-dark/' ~/.config/kdeglobals
+if ! sudo sed -i 's/^ColorScheme=.*$/ColorScheme=kvantum-dark/' $HOME/.config/kdeglobals; then
+    sudo sed -i 's/^\[UiSettings\].*$/\[UiSettings\]\nColorScheme=kvantum-dark/' $HOME/.config/kdeglobals
 fi
 
 # Enable Mozilla sync on LibreWolf
