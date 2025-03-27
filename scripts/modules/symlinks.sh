@@ -33,11 +33,6 @@ sudo rm -rf $HOME/.config/wofi/style.css
 sudo rm -rf $HOME/.local/share/PrismLauncher/prismlauncher.cfg
 sudo rm -rf $HOME/.local/share/PrismLauncher/themes/catppuccin-mocha/
 
-sudo rm -rf $HOME/.config/waybar/mocha.css.license
-sudo rm -rf $HOME/.config/vesktop/themes/catppuccin-mocha.theme.css.license
-sudo rm -rf $HOME/.config/Kvantum/themes/catppuccin-mocha-sky.license
-sudo rm -rf $HOME/.config/kitty/mocha.conf.license
-
 echo -e "\033[0;34mEnsuring directories exist...\033[0m"
 sudo mkdir -p $HOME/.config/dunst/
 sudo mkdir -p $HOME/.config/fastfetch/
