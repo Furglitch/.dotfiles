@@ -1,6 +1,9 @@
 #!/bin/bash
+silent=$1
+spin=$2
 
-echo "Installing VSCode extensions..."
+# Install Visual Studio Code extensions
+echo -e "\033[0;34mInstalling VSCode extensions...\033[0m"
 extensions=(
     "GitHub.copilot"
     "Catppuccin.catppuccin-vsc-pack"
@@ -15,11 +18,27 @@ extensions=(
     "oderwat.indent-rainbow"
     "alefragnani.project-manager"
 )
-for extension in "${extensions[@]}"; do
-    code --install-extension "$extension"
-done
 
-echo "Configuring VSCode..."
+if [ "$silent" == false ]; then
+    for extension in "${extensions[@]}"; do
+        code --install-extension "$extension"
+    done
+else
+    for extension in "${extensions[@]}"; do
+        code --install-extension "$extension" > /dev/null 2>&1 &
+        pid=$! && i=0
+        while kill -0 $pid 2>/dev/null; do
+            i=$(( (i+1) % 8 ))
+            printf "\r\033[0;36m\033[KInstalling VSCode extensions... %s \033[0m" "${spin:$i:1}"
+            sleep 0.1
+        done
+    done
+    wait $pid
+fi
+printf "\r\033[0;32m\033[KVSCode extensions installation complete!\033[0m\n"
+
+# Configure Visual Studio Code
+echo -e "\033[0;34mConfiguring VSCode...\033[0m"
 mkdir -p $HOME/.config/Code/User
 echo "{
     \"workbench.colorTheme\": \"Catppuccin Mocha\",

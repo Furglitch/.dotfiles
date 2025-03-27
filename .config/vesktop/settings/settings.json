@@ -5,7 +5,7 @@
     "themeLinks": [],
     "eagerPatches": false,
     "enabledThemes": [
-        "catppuccin-mocha.css"
+        "catppuccin-mocha.theme.css"
     ],
     "enableReactDevtools": false,
     "frameless": false,

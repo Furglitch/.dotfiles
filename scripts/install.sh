@@ -1,51 +1,33 @@
 #!/bin/bash
+OPTIND=1
+silent=false
+spin='⣾⣽⣻⢿⡿⣟⣯⣷' # spinner from rickd-uk
 
-sudo bash $HOME/.dotfiles/scripts/install.title.sh
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        -h|--help)
+            echo "Usage: $0 [-h|--help] [-s|--silent]"
+            exit 0
+            ;;
+        -s|--silent)
+            silent=true
+            echo -e "\033 Silent mode enabled."
+            ;;
+        *)
+            echo "Unknown option: $1"
+            exit 1
+            ;;
+    esac
+    shift
+done
 
-# ArchInstall package verification
-echo 'Validating base packages...'
-archinstall_desktop='htop iwd nano openssh smartmontools wpa_supplicant vim wget wireless_tools xdg-utils'
-archinstall_hyprland='dolphin dunst grim hyprland kitty polkit-kde-agent qt5-wayland qt6-wayland slurp wofi xdg-desktop-portal-hyprland'
-archinstall_extra='sddm networkmanager pipewire base-devel'
-sudo pacman -Sy --needed --noconfirm $archinstall_desktop
-sudo pacman -Sy --needed --noconfirm $archinstall_hyprland
+bash ~/scripts/modules/title.sh
+bash ~/scripts/modules/packages.sh $silent $spin
+bash ~/scripts/modules/symlinks.sh $silent
+bash ~/scripts/modules/editor.sh
+bash ~/scripts/modules/steam.sh $silent $spin
+bash ~/scripts/modules/librewolf.sh $silent $spin
+bash ~/scripts/modules/vscode.sh $silent $spin
+bash ~/scripts/modules/reboot.sh
 
-# yay AUR helper installation
-echo 'Installing yay AUR helper...'
-cd $HOME && git clone https://aur.archlinux.org/yay.git $HOME/.yay
-cd .yay && makepkg -si --noconfirm
-
-# Update packages
-echo "Updating packages..."
-sudo pacman -Syu --noconfirm && yay -Syu --sudoloop --noconfirm
-
-# Install additional packages
-echo "Installing additional packages..."
-fonts='nerd-fonts ttf-google-fonts-git'
-game='steam prismlauncher'
-interface='hyprpaper kvantum starship waybar hyprcursor catppuccin-cursors-mocha'
-social='vesktop-bin telegram-desktop-bin'
-utilities='copyq-git fastfetch gparted git hypridle hyprlock hyprpicker librewolf-bin p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
-yay -Sy --needed --sudoloop --noconfirm $fonts
-yay -Sy --needed --sudoloop --noconfirm $utilities
-yay -Sy --needed --sudoloop --noconfirm $interface
-yay -Sy --needed --sudoloop --noconfirm $social
-yay -Sy --needed --sudoloop --noconfirm $game
-
-# Themeing & Setup
-bash $HOME/.dotfiles/scripts/discord.sh
-bash $HOME/.dotfiles/scripts/kvantum.sh
-bash $HOME/.dotfiles/scripts/librewolf.sh
-bash $HOME/.dotfiles/scripts/vscode.sh
-bash $HOME/.dotfiles/scripts/steam.sh
-bash $HOME/.dotfiles/scripts/symlink.sh
-
-echo "Installation complete!"
-read -n 1 -p "Would you like to reboot now to apply themes? [y/n]: " reboot
-if [ "$reboot" == "y" ]; then
-    reboot
-fi
-
-# TODO
-# reconfigure the following:
-# - LibreWolf (open in tabs, not windows)
+# TODO - Replace ~/ with ~/.dotfiles/
