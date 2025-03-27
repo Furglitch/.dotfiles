@@ -25,7 +25,7 @@ fonts='nerd-fonts ttf-google-fonts-git'
 game='steam prismlauncher'
 interface='hyprpaper kvantum starship waybar hyprcursor catppuccin-cursors-mocha'
 social='vesktop-bin telegram-desktop-bin'
-utilities='copyq-git gparted git hypridle hyprlock hyprpicker librewolf-bin neofetch p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
+utilities='copyq-git fastfetch gparted git hypridle hyprlock hyprpicker librewolf-bin p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
 yay -Sy --needed --sudoloop --noconfirm $fonts
 yay -Sy --needed --sudoloop --noconfirm $utilities
 yay -Sy --needed --sudoloop --noconfirm $interface
