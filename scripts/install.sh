@@ -25,7 +25,7 @@ fonts='nerd-fonts ttf-google-fonts-git'
 game='steam'
 interface='hyprpaper kvantum starship waybar hyprcursor catppuccin-cursors-mocha'
 social='vesktop-bin telegram-desktop-bin'
-utilities='gparted git librewolf-bin neofetch p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
+utilities='gparted git hyprpicker librewolf-bin neofetch p7zip-gui systemsettings timeshift visual-studio-code-bin yadm zenity'
 yay -Sy --needed --sudoloop --noconfirm $fonts
 yay -Sy --needed --sudoloop --noconfirm $utilities
 yay -Sy --needed --sudoloop --noconfirm $interface
@@ -50,7 +50,6 @@ fi
 # Install and configure the following:
 # - hyprlock
 # - hypridle
-# - hyprpicker
 # - cliphist
 
 # TODO
