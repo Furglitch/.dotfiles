@@ -1,5 +1,5 @@
 #!/bin/bash
-DIR=$HOME/.config/hypr/wallpapers
+DIR=$HOME/.config/hypr/hyprpapers
 
 
 CURRENT=$(hyprctl hyprpaper listactive | grep "DP-1")
