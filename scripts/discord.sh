@@ -15,5 +15,4 @@ gtk-update-icon-cache /usr/share/icons/*
 # Run Vesktop to allow for theme installation
 echo "Running Discord to apply theme..."
 echo "This may or may not work." && echo "If it doesn't automatically apply, you can apply it manually by going to the settings and selecting the theme."
-vesktop 2>%1 > /dev/null
-sleep 5s && pkill -f 'vesktop'
+vesktop 2>%1 > /dev/null & disown && sleep 3s && pkill -f 'vesktop'
