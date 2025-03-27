@@ -3,18 +3,25 @@ silent=$1
 spin=$2
 
 # Run first-time setup
-steam 2>%1 /dev/null &
-logged=false
-while true; do
-    if [ -f "$HOME/.steam/steam/logs/steamui_login.txt" ]; then
-        break
-    else
-        if [ "$logged" = false ]; then
+if [ "$silent" == false ]; then
+    steam --reset
+    while true; do
+        if [ -f "$HOME/.steam/steam/logs/steamui_login.txt" ]; then
+            break
+        else
             echo -e "\033[1;33mWaiting for Steam to finish setup...\033[0m"
-            logged=true
+            sleep 2s
         fi
-    fi
-done
+    done
+else
+    steam --reset > /dev/null 2>&1 &
+    pid=$! && i=0
+    while kill -0 $pid 2>/dev/null || [ ! -f "$HOME/.steam/steam/logs/steamui_login.txt" ]; do
+        i=$(( (i+1) % 8 ))
+        printf "\r\033[0;36m\033[KWaiting for Steam to finish setup... %s \033[0m" "${spin:$i:1}"
+        sleep 0.1
+    done
+fi
 
 sleep 2s
 echo -e "\033[1;33mInstalling theme...\033[0m"
