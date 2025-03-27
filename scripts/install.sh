@@ -42,7 +42,7 @@ bash $HOME/.dotfiles/scripts/symlink.sh
 
 echo "Installation complete!"
 read -n 1 -p "Would you like to reboot now to apply themes? [y/n]: " reboot
-if [ $reboot == 'y' ]; then
+if [ "$reboot" == "y" ]; then
     reboot
 fi
 
