@@ -87,10 +87,10 @@ installYayPkg() {
     set -- "${!1}"
 
     if [ $silent == false ]; then
-        sudo yay -Sy --needed --noconfirm $1
+        yay -Sy --needed --noconfirm $1
     else
         for package in $1; do 
-            sudo yay -Sy --needed --noconfirm $package > /dev/null 2>&1 &
+            yay -Sy --needed --noconfirm $package > /dev/null 2>&1 &
             pid=$! && i=0
             while kill -0 $pid 2>/dev/null; do
                 i=$(( (i+1) % 8 ))
