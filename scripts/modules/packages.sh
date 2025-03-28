@@ -16,9 +16,9 @@ installPacmanPkg() {
 
     variable=$(echo "$1" | sed -E 's/archinstall_([a-z]+)/\1/')
     if [[ "$1" == archinstall_* ]]; then
-        echo -e "\033[0;34mVerifying archinstall $variable package installation..."
+        echo -e "\033[0;34mVerifying archinstall $variable package installation...\033[0m"
     else
-        echo -e "\033[0;34mInstalling $variable packages..."
+        echo -e "\033[0;34mInstalling $variable packages...\033[0m"
     fi
     set -- "${!1}"
 
