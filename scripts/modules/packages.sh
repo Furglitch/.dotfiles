@@ -165,7 +165,6 @@ utilities=(
     copyq-git
     fastfetch
     gparted
-    handbrake-full
     hypridle
     hyprlock
     hyprpicker
