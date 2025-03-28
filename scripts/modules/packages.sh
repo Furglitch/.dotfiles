@@ -20,7 +20,7 @@ installPacmanPkg() {
     else
         echo -e "\033[0;34mInstalling $variable packages...\033[0m"
     fi
-    packages=("${!1}")
+    declare -n packages=$1
 
     if [ "$silent" == false ]; then
         for package in "${packages[@]}"; do 
@@ -86,7 +86,7 @@ installYayPkg() {
     validate yay
 
     echo -e "\033[0;34mInstalling $1 packages...\033[0m"
-    packages=("${!1}")
+    declare -n packages=$1
 
     if [ "$silent" == false ]; then
         for package in "${packages[@]}"; do 
