@@ -32,7 +32,11 @@ installPacmanPkg() {
             pid=$! && i=0
             while kill -0 $pid 2>/dev/null; do
                 i=$(( (i+1) % 8 ))
-                printf "\r\033[0;36m\033[KInstalling ${package}... %s \033[0m" "${spin:$i:1}"
+                if [[ "$1" == archinstall_* ]]; then
+                    printf "\r\033[0;36m\033[KVerifying ${package} installation... %s \033[0m" "${spin:$i:1}"
+                else
+                    printf "\r\033[0;36m\033[KInstalling ${package}... %s \033[0m" "${spin:$i:1}"
+                fi
                 sleep 0.1
             done
         done
