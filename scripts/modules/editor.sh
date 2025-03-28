@@ -34,3 +34,10 @@ if ! sudo sed -i 's/^GRUB_THEME=.*$/GRUB_THEME=\/boot\/grub\/themes\/catppuccin-
     echo -e "GRUB_THEME=/boot/grub/themes/catppuccin-mocha-grub-theme/theme.txt" >> /etc/default/grub
 fi
 sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+# Change SDDM theme
+echo -e "\033[0;34mChanging SDDM theme..."
+if ! sudo sed -i 's/^Current=.*/Current=catppuccin-mocha/' /etc/sddm.conf; then
+    if ~ sudo sed -i 's/^\[Theme\].*$/\[Theme\]\nCurrent=catppuccin-mocha/' /etc/sddm.conf; then
+        echo -e "[Theme]\nCurrent=catppuccin-mocha" >> /etc/sddm.conf
+fi
