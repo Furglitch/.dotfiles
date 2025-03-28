@@ -168,7 +168,7 @@ utilities=(
     hypridle
     hyprlock
     hyprpicker
-    librewolf
+    librewolf-bin
     libreoffice-still
     orca-slicer
     p7zip-gui
