@@ -63,7 +63,7 @@ sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprlock.conf $HOME/.config/hypr/
 sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprpaper.conf $HOME/.config/hypr/
 sudo cp -r $HOME/.dotfiles/.config/hypr/hyprpapers/ $HOME/.config/hypr/
 sudo ln -sf $HOME/.dotfiles/.config/kitty/kitty.conf $HOME/.config/kitty/
-sudo ln -sf $HOME/.dotfiles/.config/kitty/mocha.conf $HOME/.config/kitty/
+sudo ln -sf $HOME/.dotfiles/.config/kitty/catppuccin-mocha.conf $HOME/.config/kitty/
 sudo ln -sf $HOME/.dotfiles/.config/Kvantum/themes/catppuccin-mocha-sky/ $HOME/.config/Kvantum/
 sudo ln -sf $HOME/.dotfiles/.config/Kvantum/kvantum.kvconfig $HOME/.config/Kvantum/
 sudo ln -sf $HOME/.dotfiles/.config/starship/starship.toml $HOME/.config/starship/
@@ -72,7 +72,7 @@ sudo ln -sf $HOME/.dotfiles/.config/vesktop/settings/settings.json $HOME/.config
 sudo ln -sf $HOME/.dotfiles/.config/vesktop/state.json $HOME/.config/vesktop/
 sudo ln -sf $HOME/.dotfiles/.config/vesktop/themes/catppuccin-mocha.css $HOME/.config/vesktop/themes/
 sudo ln -sf $HOME/.dotfiles/.config/waybar/config.jsonc $HOME/.config/waybar/
-sudo ln -sf $HOME/.dotfiles/.config/waybar/mocha.css $HOME/.config/waybar/
+sudo ln -sf $HOME/.dotfiles/.config/waybar/catppuccin-mocha.css $HOME/.config/waybar/
 sudo ln -sf $HOME/.dotfiles/.config/waybar/scripts/wofi-power.sh $HOME/.config/waybar/scripts/
 sudo ln -sf $HOME/.dotfiles/.config/waybar/style.css $HOME/.config/waybar/
 sudo ln -sf $HOME/.dotfiles/.config/wofi/config $HOME/.config/wofi/
