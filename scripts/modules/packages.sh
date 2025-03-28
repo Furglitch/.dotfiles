@@ -174,7 +174,7 @@ utilities=(
     p7zip-gui
     pinta
     qdirstat
-    rustdesk
+    rustdesk-bin
     systemsettings
     timeshift
     visual-studio-code-bin
