@@ -4,7 +4,7 @@ spin=$2
 
 # Run first-time setup
 if [ "$silent" == false ]; then
-    steam --reset
+    steam --reset &
     while true; do
         if [ -f "$HOME/.steam/steam/logs/webhelper.txt" ]; then
             break
@@ -16,15 +16,19 @@ if [ "$silent" == false ]; then
 else
     steam --reset > /dev/null 2>&1 &
     pid=$! && i=0
-    while ! kill -0 $pid 2>/dev/null || [ ! -f "$HOME/.steam/steam/logs/webhelper.txt" ]; do
-        i=$(( (i+1) % 8 ))
-        printf "\r\033[0;36m\033[KWaiting for Steam to finish setup... %s \033[0m" "${spin:$i:1}"
-        sleep 0.1
+    while true; do
+        if ! kill -0 $pid 2>/dev/null || [ ! -f "$HOME/.steam/steam/logs/webhelper.txt" ]; then
+            i=$(( (i+1) % 8 ))
+            printf "\r\033[0;36m\033[KWaiting for Steam to finish setup... %s \033[0m" "${spin:$i:1}"
+            sleep 0.1
+        else
+            break
+        fi
     done
 fi
 
 sleep 2s
-echo -e "\033[1;33mInstalling theme...\033[0m"
+echo -e "\n\033[1;33mInstalling theme...\033[0m"
 killall steam
 sleep 3s
 mkdir $HOME/.steam/adwaita
