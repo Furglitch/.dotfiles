@@ -36,18 +36,6 @@ fi
 echo -e "\033[0;34mEnabling Mozilla sync for LibreWolf...\033[0m"
 sudo sed -i 's/^defaultPref("identity\.fxaccounts\.enabled".*/defaultPref("identity.fxaccounts.enabled", true);/' /usr/lib/librewolf/librewolf.cfg
 
-# Change GRUB theme
-echo -e "\033[0;34mChanging GRUB theme...\033[0m"
-if ! sudo sed -i 's/^#\?GRUB_THEME=.*$/GRUB_THEME=\/usr\/share\/grub\/themes\/catppuccin-mocha-grub-theme\/theme.txt/' /etc/default/grub; then
-    if ! sudo sed -i 's/^GRUB_THEME=.*$/GRUB_THEME=\/usr\/share\/grub\/themes\/catppuccin-mocha-grub-theme\/theme.txt/' /etc/default/grub; then
-        echo -e "GRUB_THEME=/usr/share/grub/themes/catppuccin-mocha-grub-theme/theme.txt" >> /etc/default/grub
-    fi
-fi
-if [ "$silent" == false ]; then
-    sudo grub-mkconfig -o /boot/grub/grub.cfg
-else
-    sudo grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1 &
-fi
 
 # Change SDDM theme
 sudo touch /etc/sddm.conf
@@ -74,8 +62,34 @@ if grep -q '^HOOKS=.*' /etc/mkinitcpio.conf; then
 else
     echo 'HOOKS=(base plymouth)' | sudo tee -a /etc/mkinitcpio.conf
 fi
+
+if grep -q '^GRUB_CMDLINE_LINUX_DEFAULT=' /etc/default/grub; then
+    if ! cat /etc/default/grub | grep 'quiet' > /dev/null 2>&1; then
+        sudo sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/"\([^"]*\)"/"\1 quiet"/' /etc/default/grub
+    fi
+    if ! cat /etc/default/grub | grep 'splash' > /dev/null 2>&1; then
+        sudo sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/"\([^"]*\)"/"\1 splash"/' /etc/default/grub
+    fi
+else
+    echo 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"' | sudo tee -a /etc/default/grub
+fi
+
 if [ "$silent" == false ]; then
     sudo mkinitcpio -P
 else
-    sudo mkinitcpio -P > /dev/null 2>&1 &
+    sudo mkinitcpio -P > /dev/null 2>&1
+fi
+
+# Change GRUB theme
+echo -e "\033[0;34mChanging GRUB theme...\033[0m"
+if ! sudo sed -i 's/^#\?GRUB_THEME=.*$/GRUB_THEME=\/usr\/share\/grub\/themes\/catppuccin-mocha-grub-theme\/theme.txt/' /etc/default/grub; then
+    if ! sudo sed -i 's/^GRUB_THEME=.*$/GRUB_THEME=\/usr\/share\/grub\/themes\/catppuccin-mocha-grub-theme\/theme.txt/' /etc/default/grub; then
+        echo -e "GRUB_THEME=/usr/share/grub/themes/catppuccin-mocha-grub-theme/theme.txt" >> /etc/default/grub
+    fi
+fi
+
+if [ "$silent" == false ]; then
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+else
+    sudo grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1 &
 fi
