@@ -32,9 +32,6 @@ sudo rm -rf $HOME/.config/wofi/config
 sudo rm -rf $HOME/.config/wofi/style.css
 sudo rm -rf $HOME/.local/share/PrismLauncher/prismlauncher.cfg
 sudo rm -rf $HOME/.local/share/PrismLauncher/themes/catppuccin-mocha/
-sudo rm -rf /usr/share/grub/themes/catppuccin-mocha-grub-theme/
-sudo rm -rf /usr/share/sddm/themes/catppuccin-mocha/
-sudo rm -rf /usr/share/plymouth/themes/catppuccin-mocha/
 
 echo -e "\033[0;34mEnsuring directories exist...\033[0m"
 sudo mkdir -p $HOME/.config/dunst/
