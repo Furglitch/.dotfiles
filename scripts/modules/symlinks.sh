@@ -2,55 +2,55 @@
 silent=$1
 
 echo -e "\033[0;34mClearing existing dotfiles...\033[0m"
-sudo rm -rf $HOME/.bashrc
-sudo rm -rf $HOME/.config/dunst/dunstrc
-sudo rm -rf $HOME/.config/fastfetch/config.jsonc
-sudo rm -rf $HOME/.config/hypr/hypridle.conf
-sudo rm -rf $HOME/.config/hypr/hyprland.animations.conf
-sudo rm -rf $HOME/.config/hypr/hyprland.conf
-sudo rm -rf $HOME/.config/hypr/hyprland.display.conf
-sudo rm -rf $HOME/.config/hypr/hyprland.keybinds.conf
-sudo rm -rf $HOME/.config/hypr/hyprland.programs.conf
-sudo rm -rf $HOME/.config/hypr/hyprlock.conf
-sudo rm -rf $HOME/.config/hypr/hyprpaper.conf
-sudo rm -rf $HOME/.config/hypr/hyprpapers/
-sudo rm -rf $HOME/.config/kitty/kitty.conf
-sudo rm -rf $HOME/.config/kitty/mocha.conf
-sudo rm -rf $HOME/.config/Kvantum/themes/catppuccin-mocha-sky/catppuccin-mocha-sky.kvconfig
-sudo rm -rf $HOME/.config/Kvantum/themes/catppuccin-mocha-sky/catppuccin-mocha-sky.svg
-sudo rm -rf $HOME/.config/Kvantum/kvantum.kvconfig
-sudo rm -rf $HOME/.config/starship/starship.toml
-sudo rm -rf $HOME/.config/vesktop/settings.json
-sudo rm -rf $HOME/.config/vesktop/settings/settings.json
-sudo rm -rf $HOME/.config/vesktop/state.json
-sudo rm -rf $HOME/.config/vesktop/themes/catppuccin-mocha.theme.css
-sudo rm -rf $HOME/.config/waybar/config.jsonc
-sudo rm -rf $HOME/.config/waybar/mocha.css
-sudo rm -rf $HOME/.config/waybar/scripts/wofi-power.sh
-sudo rm -rf $HOME/.config/waybar/style.css
-sudo rm -rf $HOME/.config/wofi/config
-sudo rm -rf $HOME/.config/wofi/style.css
-sudo rm -rf $HOME/.local/share/PrismLauncher/prismlauncher.cfg
-sudo rm -rf $HOME/.local/share/PrismLauncher/themes/catppuccin-mocha/
-sudo rm -rf /usr/share/grub/themes/catppuccin-mocha-grub-theme/
-sudo rm -rf /usr/share/sddm/themes/catppuccin-mocha/
-sudo rm -rf /usr/share/plymouth/themes/catppuccin-mocha/
+sudo rm -rf $HOME/.bashrc \
+    $HOME/.config/dunst/dunstrc \
+    $HOME/.config/fastfetch/config.jsonc \
+    $HOME/.config/hypr/hypridle.conf \
+    $HOME/.config/hypr/hyprland.animations.conf \
+    $HOME/.config/hypr/hyprland.conf \
+    $HOME/.config/hypr/hyprland.display.conf \
+    $HOME/.config/hypr/hyprland.keybinds.conf \
+    $HOME/.config/hypr/hyprland.programs.conf \
+    $HOME/.config/hypr/hyprlock.conf \
+    $HOME/.config/hypr/hyprpaper.conf \
+    $HOME/.config/hypr/hyprpapers/ \
+    $HOME/.config/kitty/kitty.conf \
+    $HOME/.config/kitty/mocha.conf \
+    $HOME/.config/Kvantum/themes/catppuccin-mocha-sky/catppuccin-mocha-sky.kvconfig \
+    $HOME/.config/Kvantum/themes/catppuccin-mocha-sky/catppuccin-mocha-sky.svg \
+    $HOME/.config/Kvantum/kvantum.kvconfig \
+    $HOME/.config/starship/starship.toml \
+    $HOME/.config/vesktop/settings.json \
+    $HOME/.config/vesktop/settings/settings.json \
+    $HOME/.config/vesktop/state.json \
+    $HOME/.config/vesktop/themes/catppuccin-mocha.theme.css \
+    $HOME/.config/waybar/config.jsonc \
+    $HOME/.config/waybar/mocha.css \
+    $HOME/.config/waybar/scripts/wofi-power.sh \
+    $HOME/.config/waybar/style.css \
+    $HOME/.config/wofi/config \
+    $HOME/.config/wofi/style.css \
+    $HOME/.local/share/PrismLauncher/prismlauncher.cfg \
+    $HOME/.local/share/PrismLauncher/themes/catppuccin-mocha/ \
+    /usr/share/grub/themes/catppuccin-mocha-grub-theme/ \
+    /usr/share/sddm/themes/catppuccin-mocha/ \
+    /usr/share/plymouth/themes/catppuccin-mocha/
 
 echo -e "\033[0;34mEnsuring directories exist...\033[0m"
-sudo mkdir -p $HOME/.config/dunst/
-sudo mkdir -p $HOME/.config/fastfetch/
-sudo mkdir -p $HOME/.config/hypr/hyprpapers/
-sudo mkdir -p $HOME/.config/kitty/
-sudo mkdir -p $HOME/.config/Kvantum/themes/catppuccin-mocha-sky/
-sudo mkdir -p $HOME/.config/starship/
-sudo mkdir -p $HOME/.config/vesktop/settings/
-sudo mkdir -p $HOME/.config/vesktop/themes/
-sudo mkdir -p $HOME/.config/waybar/scripts/
-sudo mkdir -p $HOME/.config/wofi/
-sudo mkdir -p $HOME/.local/share/PrismLauncher/themes/catppucin-mocha/
-sudo mkdir -p /usr/share/grub/themes/catppuccin-mocha-grub-theme/
-sudo mkdir -p /usr/share/sddm/themes/catppuccin-mocha/
-sudo mkdir -p /usr/share/plymouth/themes/catppuccin-mocha/
+sudo mkdir -p   $HOME/.config/dunst/ \
+    $HOME/.config/fastfetch/ \
+    $HOME/.config/hypr/hyprpapers/ \
+    $HOME/.config/kitty/ \
+    $HOME/.config/Kvantum/themes/catppuccin-mocha-sky/ \
+    $HOME/.config/starship/ \
+    $HOME/.config/vesktop/settings/ \
+    $HOME/.config/vesktop/themes/ \
+    $HOME/.config/waybar/scripts/ \
+    $HOME/.config/wofi/ \
+    $HOME/.local/share/PrismLauncher/themes/catppuccin-mocha/ \
+    /usr/share/grub/themes/catppuccin-mocha-grub-theme/ \
+    /usr/share/sddm/themes/catppuccin-mocha/ \
+    /usr/share/plymouth/themes/catppuccin-mocha/
 
 echo -e "\033[0;34mCreating symlinks...\033[0m"
 sudo ln -sf $HOME/.dotfiles/.bashrc $HOME/.bashrc
@@ -84,3 +84,18 @@ sudo ln -sf $HOME/.dotfiles/.local/share/PrismLauncher/themes/catppuccin-mocha/ 
 sudo ln -sf $HOME/.dotfiles/usr/share/grub/themes/catppuccin-mocha-grub-theme/ /usr/share/grub/themes/
 sudo ln -sf $HOME/.dotfiles/usr/share/sddm/themes/catppuccin-mocha/ /usr/share/sddm/themes/
 sudo ln -sf $HOME/.dotfiles/usr/share/plymouth/themes/catppuccin-mocha/ /usr/share/plymouth/themes/
+
+echo -e "\033[0;34mSetting permissions to ${USER}:${USER}...\033[0m"
+sudo chown -R $USER:$USER $HOME/.config/dunst/ \
+    $HOME/.config/fastfetch/ \
+    $HOME/.config/hypr/ \
+    $HOME/.config/kitty/ \
+    $HOME/.config/Kvantum/ \
+    $HOME/.config/starship/ \
+    $HOME/.config/vesktop/ \
+    $HOME/.config/waybar/ \
+    $HOME/.config/wofi/ \
+    $HOME/.local/share/PrismLauncher/ \
+    /usr/share/grub/themes/catppuccin-mocha-grub-theme/ \
+    /usr/share/sddm/themes/catppuccin-mocha/ \
+    /usr/share/plymouth/themes/catppuccin-mocha/
