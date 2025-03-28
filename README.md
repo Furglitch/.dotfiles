@@ -28,7 +28,7 @@ git clone https://github.com/furglitch/.dotfiles.git $HOME/.dotfiles
 
 Run the installer script
 ```bash
-bash ~/.dotfiles/scripts/install.sh
+bash ~/.dotfiles/scripts/install.sh [--silent]
 ```
 
 ## Attributions
