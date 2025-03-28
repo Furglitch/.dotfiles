@@ -162,7 +162,7 @@ social=(
     vesktop
 )
 utilities=(
-    copyq-git
+    copyq
     fastfetch
     gparted
     hypridle
@@ -178,7 +178,7 @@ utilities=(
     systemsettings
     timeshift
     visual-studio-code-bin
-    vlc-git
+    vlc
     yadm
     zenity
 )
