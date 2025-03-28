@@ -34,6 +34,7 @@ sudo rm -rf $HOME/.local/share/PrismLauncher/prismlauncher.cfg
 sudo rm -rf $HOME/.local/share/PrismLauncher/themes/catppuccin-mocha/
 sudo rm -rf /usr/share/grub/themes/catppuccin-mocha-grub-theme/
 sudo rm -rf /usr/share/sddm/themes/catppuccin-mocha/
+sudo rm -rf /usr/share/plymouth/themes/catppuccin-mocha/
 
 echo -e "\033[0;34mEnsuring directories exist...\033[0m"
 sudo mkdir -p $HOME/.config/dunst/
@@ -49,6 +50,7 @@ sudo mkdir -p $HOME/.config/wofi/
 sudo mkdir -p $HOME/.local/share/PrismLauncher/themes/catppucin-mocha/
 sudo mkdir -p /usr/share/grub/themes/catppuccin-mocha-grub-theme/
 sudo mkdir -p /usr/share/sddm/themes/catppuccin-mocha/
+sudo mkdir -p /usr/share/plymouth/themes/catppuccin-mocha/
 
 echo -e "\033[0;34mCreating symlinks...\033[0m"
 sudo ln -sf $HOME/.dotfiles/.bashrc $HOME/.bashrc
@@ -81,3 +83,4 @@ sudo ln -sf $HOME/.dotfiles/.local/share/PrismLauncher/prismlauncher.cfg $HOME/.
 sudo ln -sf $HOME/.dotfiles/.local/share/PrismLauncher/themes/catppuccin-mocha/ $HOME/.local/share/PrismLauncher/themes/catppuccin-mocha/
 sudo ln -sf $HOME/.dotfiles/usr/share/grub/themes/catppuccin-mocha-grub-theme/ /usr/share/grub/themes/catppuccin-mocha-grub-theme/
 sudo ln -sf $HOME/.dotfiles/usr/share/sddm/themes/catppuccin-mocha/ /usr/share/sddm/themes/catppuccin-mocha/
+sudo ln -sf $HOME/.dotfiles/usr/share/plymouth/themes/catppuccin-mocha/ /usr/share/plymouth/themes/catppuccin-mocha/

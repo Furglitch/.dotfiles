@@ -15,13 +15,19 @@ vesktop 2>%1 > /dev/null & disown && sleep 2s && pkill -f 'vesktop'
 # Kvantum theme for KDE Plasma applications
 echo -e "\033[0;34mApplying theme to KDE Plasma applications..."
 touch $HOME/.config/kdeglobals
-sudo sed -i 's/^widgetStyle=.*$/widgetStyle=kvantum-dark/' $HOME/.config/kdeglobals
+    
+if ! sudo sed -i 's/^widgetStyle=.*$/widgetStyle=kvantum-dark/' $HOME/.config/kdeglobals; then
+    if ! sudo sed -i 's/^\[KDE\].*$/\[KDE\]\nwidgetStyle=kvantum-dark/' $HOME/.config/kdeglobals; then
+        echo -e "[KDE]\nwidgetStyle=kvantum-dark" >> $HOME/.config/kdeglobals
+    fi
+fi
 
 # Kvantum theme for Dolphin
 echo -e "\033[0;34mApplying theme to Dolphin..."
 if ! sudo sed -i 's/^ColorScheme=.*$/ColorScheme=kvantum-dark/' $HOME/.config/kdeglobals; then
     if ! sudo sed -i 's/^\[UiSettings\].*$/\[UiSettings\]\nColorScheme=kvantum-dark/' $HOME/.config/kdeglobals; then
         echo -e "[UiSettings]\nColorScheme=kvantum-dark" >> $HOME/.config/kdeglobals
+    fi
 fi
 
 # Enable Mozilla sync on LibreWolf
@@ -38,6 +44,11 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 # Change SDDM theme
 echo -e "\033[0;34mChanging SDDM theme..."
 if ! sudo sed -i 's/^Current=.*/Current=catppuccin-mocha/' /etc/sddm.conf; then
-    if ~ sudo sed -i 's/^\[Theme\].*$/\[Theme\]\nCurrent=catppuccin-mocha/' /etc/sddm.conf; then
+    if ! sudo sed -i 's/^\[Theme\].*$/\[Theme\]\nCurrent=catppuccin-mocha/' /etc/sddm.conf; then
         echo -e "[Theme]\nCurrent=catppuccin-mocha" >> /etc/sddm.conf
+    fi
 fi
+
+# Change Plymouth theme
+echo -e "\033[0;34mChanging Plymouth theme..."
+sudo plymouth-set-default-theme -R catppuccin-mocha

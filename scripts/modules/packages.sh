@@ -153,6 +153,7 @@ interface=(
     hyprcursor
     hyprpaper
     kvantum
+    plymouth
     starship
     waybar
 )
