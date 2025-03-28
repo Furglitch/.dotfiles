@@ -8,17 +8,17 @@ sudo sed -i 's|^Icon=vesktop$|Icon=/usr/share/applications/discord.png|' /usr/sh
 gtk-update-icon-cache /usr/share/icons/*
 
 # Run Vesktop to allow for theme installation
-echo "-e \033[0;34mRunning Discord to apply theme..."
+echo -e "\033[0;34mRunning Discord to apply theme..."
 echo -e "\033[0;34mThis may or may not work.\n\nIf it doesn't automatically apply, you can apply it manually by going to the settings and selecting the theme."
 vesktop 2>%1 > /dev/null & disown && sleep 2s && pkill -f 'vesktop'
 
 # Kvantum theme for KDE Plasma applications
-echo -e"\033[0;34mApplying theme to KDE Plasma applications..."
+echo -e "\033[0;34mApplying theme to KDE Plasma applications..."
 touch $HOME/.config/kdeglobals
 sudo sed -i 's/^widgetStyle=.*$/widgetStyle=kvantum-dark/' $HOME/.config/kdeglobals
 
 # Kvantum theme for Dolphin
-echo "\033[0;34mApplying theme to Dolphin..."
+echo -e "\033[0;34mApplying theme to Dolphin..."
 if ! sudo sed -i 's/^ColorScheme=.*$/ColorScheme=kvantum-dark/' $HOME/.config/kdeglobals; then
     sudo sed -i 's/^\[UiSettings\].*$/\[UiSettings\]\nColorScheme=kvantum-dark/' $HOME/.config/kdeglobals
 fi
