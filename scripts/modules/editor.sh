@@ -38,9 +38,9 @@ sudo sed -i 's/^defaultPref("identity\.fxaccounts\.enabled".*/defaultPref("ident
 
 # Change GRUB theme
 echo -e "\033[0;34mChanging GRUB theme...\033[0m"
-if ! sudo sed -i 's/^#\?GRUB_THEME=.*$/GRUB_THEME=\/boot\/grub\/themes\/catppuccin-mocha-grub-theme\/theme.txt/' /etc/default/grub; then
-    if ! sudo sed -i 's/^GRUB_THEME=.*$/GRUB_THEME=\/boot\/grub\/themes\/catppuccin-mocha-grub-theme\/theme.txt/' /etc/default/grub; then
-        echo -e "GRUB_THEME=/boot/grub/themes/catppuccin-mocha-grub-theme/theme.txt" >> /etc/default/grub
+if ! sudo sed -i 's/^#\?GRUB_THEME=.*$/GRUB_THEME=\/usr\/share\/grub\/themes\/catppuccin-mocha-grub-theme\/theme.txt/' /etc/default/grub; then
+    if ! sudo sed -i 's/^GRUB_THEME=.*$/GRUB_THEME=\/usr\/share\/grub\/themes\/catppuccin-mocha-grub-theme\/theme.txt/' /etc/default/grub; then
+        echo -e "GRUB_THEME=/usr/share/grub/themes/catppuccin-mocha-grub-theme/theme.txt" >> /etc/default/grub
     fi
 fi
 if [ "$silent" == false ]; then
@@ -61,6 +61,12 @@ fi
 sudo chown root:root /etc/sddm.conf
 
 # Change Plymouth theme
+
+echo -e "\033[0;34mChanging Plymouth theme...\033[0m"
+sudo chown $USER:$USER /etc/plymouth/plymouthd.conf
+echo -e "[Daemon]\nTheme=catppuccin-mocha\nShowDelay=0" > /etc/plymouth/plymouthd.conf
+sudo chown root:root /etc/plymouth/plymouthd.conf
+
 echo -e "\033[0;34mEnabling Plymouth...\033[0m"
 if grep -q '^HOOKS=.*' /etc/mkinitcpio.conf; then
     sudo sed -i '/^HOOKS=/ s/\(systemd\|base\)\([^)]*\)\(encrypt\|sd-encrypt\)\?/& plymouth/' /etc/mkinitcpio.conf
@@ -72,11 +78,4 @@ if [ "$silent" == false ]; then
     sudo mkinitcpio -P
 else
     sudo mkinitcpio -P > /dev/null 2>&1 &
-fi
-
-echo -e "\033[0;34mChanging Plymouth theme...\033[0m"
-if [ "$silent" == false ]; then
-    sudo plymouth-set-default-theme catppuccin-mocha
-else
-    sudo plymouth-set-default-theme catppuccin-mocha > /dev/null 2>&1 &
 fi
