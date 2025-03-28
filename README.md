@@ -28,8 +28,8 @@ git clone https://github.com/furglitch/.dotfiles.git $HOME/.dotfiles
 
 Run the installer script
 ```bash
-chmod u+x -R ~/.dotfiles/scripts/
-~/.dotfiles/scripts/install.sh [--silent]
+chmod u+x -R $HOME/.dotfiles/scripts/
+$HOME/.dotfiles/scripts/install.sh [--silent]
 ```
 
 ## Attributions
