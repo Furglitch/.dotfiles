@@ -11,9 +11,9 @@ gtk-update-icon-cache /usr/share/icons/*
 echo "-e \033[0;34mRunning Discord to apply theme..."
 echo -e "\033[0;34mThis may or may not work.\n\nIf it doesn't automatically apply, you can apply it manually by going to the settings and selecting the theme."
 vesktop 2>%1 > /dev/null & disown && sleep 2s && pkill -f 'vesktop'
-
 # Kvantum theme for KDE Plasma applications
 echo -e"\033[0;34mApplying theme to KDE Plasma applications..."
+touch $HOME/.config/kdeglobals
 sudo sed -i 's/^widgetStyle=.*$/widgetStyle=kvantum-dark/' $HOME/.config/kdeglobals
 
 # Kvantum theme for Dolphin
