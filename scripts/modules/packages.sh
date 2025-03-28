@@ -173,6 +173,7 @@ utilities=(
     orca-slicer-bin
     p7zip-gui
     pinta
+    plasma-meta
     qdirstat
     rustdesk-bin
     systemsettings
