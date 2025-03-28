@@ -55,7 +55,7 @@ echo -e "[Daemon]\nTheme=catppuccin-mocha\nShowDelay=0" > /etc/plymouth/plymouth
 sudo chown root:root /etc/plymouth/plymouthd.conf
 
 echo -e "\033[0;34mEnabling Plymouth...\033[0m"
-if grep -q '^HOOKS=.*' /etc/mkinitcpio.conf; then
+if cat /etc/mkinitcpio.conf | grep '^HOOKS=.*' ; then
     sudo sed -i '/^HOOKS=/ s/\(systemd\|base\)\([^)]*\)\(encrypt\|sd-encrypt\)\?/& plymouth/' /etc/mkinitcpio.conf
     sudo sed -i 's/\(plymouth plymouth\)/plymouth/' /etc/mkinitcpio.conf
 else
@@ -72,6 +72,8 @@ if grep -q '^GRUB_CMDLINE_LINUX_DEFAULT=' /etc/default/grub; then
 else
     echo 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"' | sudo tee -a /etc/default/grub
 fi
+
+sudo plymouth-set-default-theme -R catppuccin-mocha
 
 if [ "$silent" == false ]; then
     sudo mkinitcpio -P
