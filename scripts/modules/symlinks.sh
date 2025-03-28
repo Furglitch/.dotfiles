@@ -16,8 +16,8 @@ sudo rm -rf $HOME/.config/hypr/hyprpaper.conf
 sudo rm -rf $HOME/.config/hypr/hyprpapers/
 sudo rm -rf $HOME/.config/kitty/kitty.conf
 sudo rm -rf $HOME/.config/kitty/mocha.conf
-sudo rm -rf $HOME/.config/Kvantum/themes/catppuccin-mocha-sky/catppuccin-mocha-sky.kvconfig
-sudo rm -rf $HOME/.config/Kvantum/themes/catppuccin-mocha-sky/catppuccin-mocha-sky.svg
+sudo rm -rf $HOME/.config/Kvantum/catppuccin-mocha-sky/catppuccin-mocha-sky.kvconfig
+sudo rm -rf $HOME/.config/Kvantum/catppuccin-mocha-sky/catppuccin-mocha-sky.svg
 sudo rm -rf $HOME/.config/Kvantum/kvantum.kvconfig
 sudo rm -rf $HOME/.config/starship/starship.toml
 sudo rm -rf $HOME/.config/vesktop/settings.json
@@ -64,7 +64,7 @@ sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprpaper.conf $HOME/.config/hypr/
 sudo cp -r $HOME/.dotfiles/.config/hypr/hyprpapers/ $HOME/.config/hypr/
 sudo ln -sf $HOME/.dotfiles/.config/kitty/kitty.conf $HOME/.config/kitty/
 sudo ln -sf $HOME/.dotfiles/.config/kitty/mocha.conf $HOME/.config/kitty/
-sudo ln -sf $HOME/.dotfiles/.config/Kvantum/themes/catppuccin-mocha-sky/ $HOME/.config/Kvantum/themes/
+sudo ln -sf $HOME/.dotfiles/.config/Kvantum/catppuccin-mocha-sky/ $HOME/.config/Kvantum/
 sudo ln -sf $HOME/.dotfiles/.config/Kvantum/kvantum.kvconfig $HOME/.config/Kvantum/
 sudo ln -sf $HOME/.dotfiles/.config/starship/starship.toml $HOME/.config/starship/
 sudo ln -sf $HOME/.dotfiles/.config/vesktop/settings.json $HOME/.config/vesktop/
