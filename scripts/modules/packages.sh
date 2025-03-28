@@ -170,7 +170,7 @@ utilities=(
     hyprpicker
     librewolf-bin
     libreoffice-still
-    orca-slicer
+    orca-slicer-bin
     p7zip-gui
     pinta
     qdirstat
