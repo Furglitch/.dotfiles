@@ -2,6 +2,11 @@
 silent=$1
 spin=$2
 
+# Run once to prevent single-window issue
+echo -e "\033[0;34mRunning LibreWolf to prevent single-window issue...\033[0m"
+librewolf > /dev/null 2>&1 &
+sleep 2s && pkill librewolf
+
 # Install LibreWolf extensions
 echo -e "\033[0;31mLibreWolf extensions require manual installation..."
 echo -e "\n\033[0;34mOpening LibreWolf extensions pages..."
