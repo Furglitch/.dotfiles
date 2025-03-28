@@ -85,7 +85,7 @@ installYay() {
 installYayPkg() {
     validate yay
 
-    echo -e "\033[0;34mInstalling $1 packages..."
+    echo -e "\033[0;34mInstalling $1 packages...\033[0m"
     set -- "${!1}"
 
     if [ $silent == false ]; then
