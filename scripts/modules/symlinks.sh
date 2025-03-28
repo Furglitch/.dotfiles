@@ -61,7 +61,7 @@ sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprland.keybinds.conf $HOME/.config/hy
 sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprland.programs.conf $HOME/.config/hypr/
 sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprlock.conf $HOME/.config/hypr/
 sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprpaper.conf $HOME/.config/hypr/
-sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprpapers/ $HOME/.config/hypr/
+sudo cp -r $HOME/.dotfiles/.config/hypr/hyprpapers/ $HOME/.config/hypr/
 sudo ln -sf $HOME/.dotfiles/.config/kitty/kitty.conf $HOME/.config/kitty/
 sudo ln -sf $HOME/.dotfiles/.config/kitty/mocha.conf $HOME/.config/kitty/
 sudo ln -sf $HOME/.dotfiles/.config/Kvantum/themes/catppuccin-mocha-sky/ $HOME/.config/Kvantum/themes/
