@@ -159,7 +159,7 @@ interface=(
 )
 social=(
     telegram-desktop
-    vesktop
+    vesktop-bin
 )
 utilities=(
     copyq

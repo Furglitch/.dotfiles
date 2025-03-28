@@ -49,7 +49,6 @@ fi
 sudo chown root:root /etc/sddm.conf
 
 # Change Plymouth theme
-
 echo -e "\033[0;34mChanging Plymouth theme...\033[0m"
 sudo chown $USER:$USER /etc/plymouth/plymouthd.conf
 echo -e "[Daemon]\nTheme=catppuccin-mocha\nShowDelay=0" > /etc/plymouth/plymouthd.conf
