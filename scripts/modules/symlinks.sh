@@ -32,6 +32,7 @@ sudo rm -rf $HOME/.config/wofi/config
 sudo rm -rf $HOME/.config/wofi/style.css
 sudo rm -rf $HOME/.local/share/PrismLauncher/prismlauncher.cfg
 sudo rm -rf $HOME/.local/share/PrismLauncher/themes/catppuccin-mocha/
+sudo rm -rf /usr/share/grub/themes/catppuccin-mocha-grub-theme/
 
 echo -e "\033[0;34mEnsuring directories exist...\033[0m"
 sudo mkdir -p $HOME/.config/dunst/
@@ -45,6 +46,7 @@ sudo mkdir -p $HOME/.config/vesktop/themes/
 sudo mkdir -p $HOME/.config/waybar/scripts/
 sudo mkdir -p $HOME/.config/wofi/
 sudo mkdir -p $HOME/.local/share/PrismLauncher/themes/catppucin-mocha/
+sudo mkdir -p /usr/share/grub/themes/catppuccin-mocha-grub-theme/
 
 echo -e "\033[0;34mCreating symlinks...\033[0m"
 sudo ln -sf $HOME/.dotfiles/.bashrc $HOME/.bashrc
@@ -75,3 +77,4 @@ sudo ln -sf $HOME/.dotfiles/.config/wofi/config $HOME/.config/wofi/config
 sudo ln -sf $HOME/.dotfiles/.config/wofi/style.css $HOME/.config/wofi/style.css
 sudo ln -sf $HOME/.dotfiles/.local/share/PrismLauncher/prismlauncher.cfg $HOME/.local/share/PrismLauncher/prismlauncher.cfg
 sudo ln -sf $HOME/.dotfiles/.local/share/PrismLauncher/themes/catppuccin-mocha/ $HOME/.local/share/PrismLauncher/themes/catppuccin-mocha/
+sudo ln -sf $HOME/.dotfiles/usr/share/grub/themes/catppuccin-mocha-grub-theme/ /usr/share/grub/themes/catppuccin-mocha-grub-theme/

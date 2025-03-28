@@ -20,9 +20,17 @@ sudo sed -i 's/^widgetStyle=.*$/widgetStyle=kvantum-dark/' $HOME/.config/kdeglob
 # Kvantum theme for Dolphin
 echo -e "\033[0;34mApplying theme to Dolphin..."
 if ! sudo sed -i 's/^ColorScheme=.*$/ColorScheme=kvantum-dark/' $HOME/.config/kdeglobals; then
-    sudo sed -i 's/^\[UiSettings\].*$/\[UiSettings\]\nColorScheme=kvantum-dark/' $HOME/.config/kdeglobals
+    if ! sudo sed -i 's/^\[UiSettings\].*$/\[UiSettings\]\nColorScheme=kvantum-dark/' $HOME/.config/kdeglobals; then
+        echo -e "[UiSettings]\nColorScheme=kvantum-dark" >> $HOME/.config/kdeglobals
 fi
 
 # Enable Mozilla sync on LibreWolf
 echo -e "\033[0;34mEnabling Mozilla sync for LibreWolf..."
 sudo sed -i 's/^defaultPref("identity\.fxaccounts\.enabled".*/defaultPref("identity.fxaccounts.enabled", true);/' /usr/lib/librewolf/librewolf.cfg
+
+# Change GRUB theme
+echo -e "\033[0;34mChanging GRUB theme..."
+if ! sudo sed -i 's/^GRUB_THEME=.*$/GRUB_THEME=\/boot\/grub\/themes\/catppuccin-mocha-grub-theme\/theme.txt/' /etc/default/grub; then
+    echo -e "GRUB_THEME=/boot/grub/themes/catppuccin-mocha-grub-theme/theme.txt" >> /etc/default/grub
+fi
+sudo grub-mkconfig -o /boot/grub/grub.cfg
