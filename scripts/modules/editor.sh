@@ -16,19 +16,25 @@ sleep 2s && pkill -f 'vesktop'
 
 # Kvantum theme for KDE Plasma applications
 echo -e "\033[0;34mApplying theme to KDE Plasma applications...\033[0m"
-touch $HOME/.config/kdeglobals
-    
-if ! sudo sed -i 's/^widgetStyle=.*$/widgetStyle=kvantum-dark/' $HOME/.config/kdeglobals; then
-    if ! sudo sed -i 's/^\[KDE\].*$/\[KDE\]\nwidgetStyle=kvantum-dark/' $HOME/.config/kdeglobals; then
-        echo -e "[KDE]\nwidgetStyle=kvantum-dark" >> $HOME/.config/kdeglobals
+if ! cat ~/.config/kdeglobals | grep '\[KDE\]' > /dev/null 2>&1; then
+    echo -e "[KDE]\nwidgetStyle=kvantum-dark" >> $HOME/.config/kdeglobals
+else
+    if ! cat ~/.config/kdeglobals | grep 'widgetStyle=.*' > /dev/null 2>&1; then
+        sudo sed -i 's/^\[KDE\].*$/\[KDE\]\nwidgetStyle=kvantum-dark/' $HOME/.config/kdeglobals
+    else
+        sudo sed -i 's/^widgetStyle=.*$/widgetStyle=kvantum-dark/' $HOME/.config/kdeglobals
     fi
 fi
 
 # Kvantum theme for Dolphin
 echo -e "\033[0;34mApplying theme to Dolphin...\033[0m"
-if ! sudo sed -i 's/^ColorScheme=.*$/ColorScheme=kvantum-dark/' $HOME/.config/kdeglobals; then
-    if ! sudo sed -i 's/^\[UiSettings\].*$/\[UiSettings\]\nColorScheme=kvantum-dark/' $HOME/.config/kdeglobals; then
-        echo -e "[UiSettings]\nColorScheme=kvantum-dark" >> $HOME/.config/kdeglobals
+if ! cat ~/.config/dolphinrc | grep '\[UiSettings\]' > /dev/null 2>&1; then
+    echo -e "[UiSettings]\nColorScheme=kvantum-dark" >> $HOME/.config/dolphinrc
+else
+    if ! cat ~/.config/dolphinrc | grep 'ColorScheme=.*' > /dev/null 2>&1; then
+        sudo sed -i 's/^\[UiSettings\].*$/\[UiSettings\]\nColorScheme=kvantum-dark/' $HOME/.config/dolphinrc
+    else
+        sudo sed -i 's/^ColorScheme=.*$/ColorScheme=kvantum-dark/' $HOME/.config/dolphinrc
     fi
 fi
 
