@@ -64,9 +64,9 @@ sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprland.keybinds.conf $HOME/.config/hy
 sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprland.programs.conf $HOME/.config/hypr/hyprland.programs.conf
 sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprlock.conf $HOME/.config/hypr/hyprlock.conf
 sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprpaper.conf $HOME/.config/hypr/hyprpaper.conf
-sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprpapers/ $HOME/.config/hypr/hyprpapers/
+sudo ln -sf $HOME/.dotfiles/.config/hypr/hyprpapers/ $HOME/.config/hypr/
 sudo ln -sf $HOME/.dotfiles/.config/kitty/kitty.conf $HOME/.config/kitty/kitty.conf
-sudo ln -sf $HOME/.dotfiles/.config/Kvantum/themes/catppuccin-mocha-sky/ $HOME/.config/Kvantum/themes/catppuccin-mocha-sky/
+sudo ln -sf $HOME/.dotfiles/.config/Kvantum/themes/catppuccin-mocha-sky/ $HOME/.config/Kvantum/
 sudo ln -sf $HOME/.dotfiles/.config/Kvantum/kvantum.kvconfig $HOME/.config/Kvantum/kvantum.kvconfig
 sudo ln -sf $HOME/.dotfiles/.config/starship/starship.toml $HOME/.config/starship/starship.toml
 sudo ln -sf $HOME/.dotfiles/.config/vesktop/settings.json $HOME/.config/vesktop/settings.json
@@ -80,7 +80,7 @@ sudo ln -sf $HOME/.dotfiles/.config/waybar/style.css $HOME/.config/waybar/style.
 sudo ln -sf $HOME/.dotfiles/.config/wofi/config $HOME/.config/wofi/config
 sudo ln -sf $HOME/.dotfiles/.config/wofi/style.css $HOME/.config/wofi/style.css
 sudo ln -sf $HOME/.dotfiles/.local/share/PrismLauncher/prismlauncher.cfg $HOME/.local/share/PrismLauncher/prismlauncher.cfg
-sudo ln -sf $HOME/.dotfiles/.local/share/PrismLauncher/themes/catppuccin-mocha/ $HOME/.local/share/PrismLauncher/themes/catppuccin-mocha/
-sudo ln -sf $HOME/.dotfiles/usr/share/grub/themes/catppuccin-mocha-grub-theme/ /usr/share/grub/themes/catppuccin-mocha-grub-theme/
-sudo ln -sf $HOME/.dotfiles/usr/share/sddm/themes/catppuccin-mocha/ /usr/share/sddm/themes/catppuccin-mocha/
-sudo ln -sf $HOME/.dotfiles/usr/share/plymouth/themes/catppuccin-mocha/ /usr/share/plymouth/themes/catppuccin-mocha/
+sudo ln -sf $HOME/.dotfiles/.local/share/PrismLauncher/themes/catppuccin-mocha/ $HOME/.local/share/PrismLauncher/themes/
+sudo ln -sf $HOME/.dotfiles/usr/share/grub/themes/catppuccin-mocha-grub-theme/ /usr/share/grub/themes/
+sudo ln -sf $HOME/.dotfiles/usr/share/sddm/themes/catppuccin-mocha/ /usr/share/sddm/themes/
+sudo ln -sf $HOME/.dotfiles/usr/share/plymouth/themes/catppuccin-mocha/ /usr/share/plymouth/themes/
