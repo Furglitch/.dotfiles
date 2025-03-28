@@ -20,14 +20,14 @@ installPacmanPkg() {
     else
         echo -e "\033[0;34mInstalling $variable packages...\033[0m"
     fi
-    set -- "${!1}"
+    packages=("${!1}")
 
-    if [ $silent == false ]; then
-        for package in $1; do 
+    if [ "$silent" == false ]; then
+        for package in "${packages[@]}"; do 
             sudo pacman -Sy --needed --noconfirm $package
         done
     else
-        for package in $1; do 
+        for package in "${packages[@]}"; do 
             sudo pacman -Sy --needed --noconfirm $package > /dev/null 2>&1 &
             pid=$! && i=0
             while kill -0 $pid 2>/dev/null; do
@@ -47,7 +47,7 @@ installYay() {
     if [ -d "$HOME/.yay" ]; then
         echo -e "\033[0;33m$HOME/.yay already exists. Skipping download.\033[0m"
     else
-        if [ $silent == false ]; then
+        if [ "$silent" == false ]; then
             git clone https://aur.archlinux.org/yay.git $HOME/.yay
         else
             git clone https://aur.archlinux.org/yay.git $HOME/.yay > /dev/null 2>&1 &
@@ -62,7 +62,7 @@ installYay() {
         printf "\r\033[0;32m\033[KDownload complete!\033[0m\n"
     fi
     cd .yay
-    if [ $silent == false ]; then
+    if [ "$silent" == false ]; then
         makepkg -si --noconfirm > $HOME/.yay/makepkg.log
     else
         makepkg -si --noconfirm > $HOME/.yay/makepkg.log 2>&1 &
@@ -86,14 +86,14 @@ installYayPkg() {
     validate yay
 
     echo -e "\033[0;34mInstalling $1 packages...\033[0m"
-    set -- "${!1}"
+    packages=("${!1}")
 
-    if [ $silent == false ]; then
-        for package in $1; do 
+    if [ "$silent" == false ]; then
+        for package in "${packages[@]}"; do 
             yay -Sy --needed --noconfirm $package
         done
     else
-        for package in $1; do 
+        for package in "${packages[@]}"; do 
             yay -Sy --needed --noconfirm $package > /dev/null 2>&1 &
             pid=$! && i=0
             while kill -0 $pid 2>/dev/null; do
