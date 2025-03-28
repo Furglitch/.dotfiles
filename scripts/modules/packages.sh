@@ -23,7 +23,9 @@ installPacmanPkg() {
     set -- "${!1}"
 
     if [ $silent == false ]; then
-        sudo pacman -Sy --needed --noconfirm $1
+        for package in $1; do 
+            sudo pacman -Sy --needed --noconfirm $package
+        done
     else
         for package in $1; do 
             sudo pacman -Sy --needed --noconfirm $package > /dev/null 2>&1 &
@@ -87,7 +89,9 @@ installYayPkg() {
     set -- "${!1}"
 
     if [ $silent == false ]; then
-        yay -Sy --needed --noconfirm $1
+        for package in $1; do 
+            yay -Sy --needed --noconfirm $package
+        done
     else
         for package in $1; do 
             yay -Sy --needed --noconfirm $package > /dev/null 2>&1 &
