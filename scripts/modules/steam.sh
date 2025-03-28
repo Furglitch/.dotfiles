@@ -6,17 +6,17 @@ spin=$2
 if [ "$silent" == false ]; then
     steam --reset
     while true; do
-        if [ -f "$HOME/.steam/steam/logs/steamui_login.txt" ]; then
+        if [ -f "$HOME/.steam/steam/logs/webhelper.txt" ]; then
             break
         else
             echo -e "\033[1;33mWaiting for Steam to finish setup...\033[0m"
-            sleep 2s
+            sleep 5s
         fi
     done
 else
     steam --reset > /dev/null 2>&1 &
     pid=$! && i=0
-    while kill -0 $pid 2>/dev/null || [ ! -f "$HOME/.steam/steam/logs/steamui_login.txt" ]; do
+    while ! kill -0 $pid 2>/dev/null || [ ! -f "$HOME/.steam/steam/logs/webhelper.txt" ]; do
         i=$(( (i+1) % 8 ))
         printf "\r\033[0;36m\033[KWaiting for Steam to finish setup... %s \033[0m" "${spin:$i:1}"
         sleep 0.1
