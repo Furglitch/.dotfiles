@@ -184,7 +184,6 @@ utilities=(
     timeshift
     visual-studio-code-bin
     vlc
-    yadm
     zenity
 )
 game=(
