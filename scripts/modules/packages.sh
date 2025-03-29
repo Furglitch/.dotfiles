@@ -193,6 +193,7 @@ game=(
     prismlauncher
     protontricks
     steam
+    wine
 )
 
 sudo rm -f rm /var/lib/pacman/db.lck
