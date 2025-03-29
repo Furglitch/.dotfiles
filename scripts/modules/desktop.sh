@@ -189,10 +189,28 @@ disable=(
     systemsettings
     vim
     wheelmap-geo-handler
+    wine
 )
 
 enable=(
+    7zFM
+    code
+    com.github.hluk.copyq
+    gparted
+    kitty
+    librewolf
+    OrcaSlicer
     org.kde.plasma.settings.open
+    org.prismlauncher.PrismLauncher
+    org.telegram.desktop
+    pinta
+    qdirstat
+    rustdesk
+    steam
+    steam-rom-manager
+    timeshift-gtk
+    vesktop
+    vlc
 )
 
 for entry in "${disable[@]}"; do

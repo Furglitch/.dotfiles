@@ -194,6 +194,7 @@ game=(
     protontricks
     steam
     wine
+    steam-rom-manager-bin
 )
 
 sudo rm -f rm /var/lib/pacman/db.lck
