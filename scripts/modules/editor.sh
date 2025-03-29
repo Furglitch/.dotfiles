@@ -31,6 +31,18 @@ else
     fi
 fi
 
+# Set default terminal in Dolphin to kitty
+echo -e "\033[0;34mChanging Dolphin default terminal to kitty...\033[0m"
+if ! cat ~/.config/dolphinrc | grep -E '\[General\]' > /dev/null 2>&1; then
+    echo -e "[General]\nTerminalApplication=kitty" >> $HOME/.config/dolphinrc
+else
+    if ! cat ~/.config/dolphinrc | grep -E 'TerminalApplication=.*' > /dev/null 2>&1; then
+        sudo sed -i 's/^\[General\].*$/\[General\]\nTerminalApplication=kitty/' $HOME/.config/dolphinrc
+    else
+        sudo sed -i 's/^nTerminalApplication=.*$/nTerminalApplication=kitty/' $HOME/.config/dolphinrc
+    fi
+fi
+
 # Enable Mozilla sync on LibreWolf
 echo -e "\033[0;34mEnabling Mozilla sync for LibreWolf...\033[0m"
 sudo sed -i 's/^defaultPref("identity\.fxaccounts\.enabled".*/defaultPref("identity.fxaccounts.enabled", true);/' /usr/lib/librewolf/librewolf.cfg
