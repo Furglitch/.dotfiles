@@ -146,7 +146,7 @@ archinstall_extra=(
 
 fonts=(
     nerd-fonts
-    #ttf-google-fonts-git
+    ttf-google-fonts-git
 )
 interface=(
     catppuccin-cursors-mocha
