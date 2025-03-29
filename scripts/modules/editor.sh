@@ -93,3 +93,6 @@ if [ "$silent" == false ]; then
 else
     sudo grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1 &
 fi
+
+# Set default applications
+xdg-mime default org.kde.dolphin.desktop inode/directory # file manager - Dolphin
