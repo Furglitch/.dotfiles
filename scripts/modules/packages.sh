@@ -48,13 +48,14 @@ installPacmanPkg() {
 installYay() {
     echo -e '\033[0;34mInstalling yay AUR helper...\033[0;31m'
     cd $HOME
+    touch $HOME/.yay.git-clone.log
     if [ -d "$HOME/.yay" ]; then
         echo -e "\033[0;33m$HOME/.yay already exists. Skipping download.\033[0m"
     else
         if [ "$silent" == false ]; then
             git clone https://aur.archlinux.org/yay.git $HOME/.yay
         else
-            git clone https://aur.archlinux.org/yay.git $HOME/.yay > /dev/null 2>&1 &
+            git clone https://aur.archlinux.org/yay.git $HOME/.yay > $HOME/.yay.git-clone.log 2>&1 &
             pid=$! && i=0
             while kill -0 $pid 2>/dev/null; do
                 i=$(( (i+1) % 8 ))
@@ -65,11 +66,13 @@ installYay() {
         fi
         printf "\r\033[0;32m\033[KDownload complete!\033[0m\n"
     fi
-    cd .yay
+    touch $HOME/.yay.makepkg.log
     if [ "$silent" == false ]; then
-        makepkg -si --noconfirm > $HOME/.yay/makepkg.log
+        cd .yay
+        makepkg -si --noconfirm
     else
-        makepkg -si --noconfirm > $HOME/.yay/makepkg.log 2>&1 &
+        cd .yay
+        makepkg -si --noconfirm > $HOME/.yay.makepkg.log 2>&1 &
         pid=$! && i=0
         password_prompt_shown=false
         while kill -0 $pid 2>/dev/null; do
