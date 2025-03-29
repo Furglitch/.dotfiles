@@ -73,10 +73,9 @@ installYay() {
     else
         cd .yay
         makepkg -si --noconfirm > $HOME/.yay.makepkg.log 2>&1 &
-        pid=$! && i=0
-        password_prompt_shown=false
+        pid=$! && i=0 && password_prompt_shown=false
         while kill -0 $pid 2>/dev/null; do
-            if ! $password_prompt_shown && grep -qE "Installing package|Installing existing package" $HOME/.yay/makepkg.log; then
+            if ! $password_prompt_shown && grep -qE "Installing package|Installing existing package" $HOME/.yay.makepkg.log; then
                 printf "\r\033[0;31m\033[Ksudo prompt detected. Please enter your password.\033[0m\n"
                 password_prompt_shown=true
             fi
