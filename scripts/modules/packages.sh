@@ -192,9 +192,11 @@ game=(
     steam
 )
 
+sudo rm -f rm /var/lib/pacman/db.lck
 installPacmanPkg archinstall_desktop
 installPacmanPkg archinstall_hyprland
 installPacmanPkg archinstall_extra
+sudo rm -f /var/lib/pacman/db.lck
 installYay
 
 installYayPkg fonts
