@@ -108,7 +108,7 @@ fi
 
 # Fix open-with dialog
 echo -e "\033[0;34mFixing open-with dialog...\033[0m"
-sudo cp /etc/xdg/menus/plasma-applications.menu /etc/xdg/menus/applications.menu
+sudo ln -sf /etc/xdg/menus/plasma-applications.menu /etc/xdg/menus/applications.menu
 
 # Set default applications
 xdg-mime default org.kde.dolphin.desktop inode/directory # file manager - Dolphin
