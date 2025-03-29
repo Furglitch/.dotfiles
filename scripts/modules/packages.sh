@@ -175,6 +175,7 @@ utilities=(
     hyprshot
     librewolf-bin
     libreoffice-still
+    man-db
     orca-slicer-bin
     p7zip-gui
     pinta
