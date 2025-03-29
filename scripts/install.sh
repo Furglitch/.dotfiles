@@ -28,4 +28,5 @@ $HOME/.dotfiles/scripts/modules/librewolf.sh $silent $spin
 $HOME/.dotfiles/scripts/modules/vscode.sh $silent $spin
 $HOME/.dotfiles/scripts/modules/symlinks.sh $silent
 $HOME/.dotfiles/scripts/modules/editor.sh $silent
+$HOME/.dotfiles/scripts/modules/desktop.sh $silent
 $HOME/.dotfiles/scripts/modules/reboot.sh

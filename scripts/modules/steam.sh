@@ -56,18 +56,3 @@ else
     done
 fi
 printf "\r\033[0;32m\033[KTheme installation complete!\033[0m\n"
-
-# Adjust Steam desktop entry
-sudo chown $USER:$USER /usr/share/applications/steam.desktop
-if [ -f "/usr/share/applications/steam.desktop" ]; then
-    echo "[Desktop Entry]
-Name=Steam
-Type=Application
-Exec=/usr/bin/steam
-Icon=steam
-Terminal=False
-Categories=Network;FileTransfer;Game;
-MimeType=x-scheme-handler/steam;x-scheme-handler/steamlink;" > "/usr/share/applications/steam.desktop"
-else
-    echo -e "\033[0;31mSteam .desktop file not found!"
-fi
