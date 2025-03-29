@@ -172,6 +172,7 @@ utilities=(
     hypridle
     hyprlock
     hyprpicker
+    hyprshot
     librewolf-bin
     libreoffice-still
     orca-slicer-bin
