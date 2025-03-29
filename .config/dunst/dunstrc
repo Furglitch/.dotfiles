@@ -1,18 +1,44 @@
 [global]
-follow = mouse
-frame_color = "#89b4fa"
-separator_color= frame
-highlight = "#89b4fa"
+    # Activity
+    follow = mouse
+    idle_threshold = 120
+    notification_limit = 5
+    progress_bar = true
 
-[urgency_low]
-background = "#1e1e2e"
-foreground = "#cdd6f4"
+    # Position
+    width = (200,300)
+    height = (50,125)
+    origin = top-right
+    offset = (50, 30)
+    sort = yes
+    padding = 5
+    gap_size = 5
 
-[urgency_normal]
-background = "#1e1e2e"
-foreground = "#cdd6f4"
+    # Appearance
+    background = "#1e1e2e"
+    foreground = "#cdd6f4"
+    frame_color = "#89dceb"
+    corner_radius = 10
+
+    # Text
+    font = "UbuntuMono Nerd Font 10"
+    markup = full
+    alignment = center
+    vertical_alignment = center
+    stack_duplicates = true
+    show_indicators = yes
+
+    # Icons
+    icon_size = 32
+    min_icon_size = 16
+    max_icon_size = 128
+    icon_corner_radius = 5
+    icon_position = left
+    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    
+    # Misc
+    browser = /usr/bin/xdg-open
 
 [urgency_critical]
-background = "#1e1e2e"
-foreground = "#cdd6f4"
-frame_color = "#fab387"
+    frame_color = "#f38ba8"
+    default_icon = dialog-warning
