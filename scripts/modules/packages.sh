@@ -191,6 +191,7 @@ utilities=(
 )
 game=(
     prismlauncher
+    protontricks
     steam
 )
 
