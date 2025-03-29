@@ -73,9 +73,9 @@ installYay() {
     else
         cd .yay
         makepkg -si --noconfirm > $HOME/.yay.makepkg.log 2>&1 &
-        pid=$! && i=0 && password_prompt_count-0
+        pid=$! && i=0 && password_prompt_count=0
         while kill -0 $pid 2>/dev/null; do
-            if [ "$password_prompt_count" -lt "2" ]; then
+            if [ $password_prompt_count -lt 2 ]; then
                 if cat $HOME/.yay.makepkg.log | grep -E "Installing package|Installing existing package|Installing dependencies|Installing missing dependencies"; then
                     printf "\r\033[0;31m\033[Ksudo prompt detected. Please enter your password.\033[0m\n"
                     password_prompt_count=$((password_prompt_count + 1))
