@@ -70,7 +70,7 @@ sudo ln -sf $HOME/.dotfiles/.config/starship/starship.toml $HOME/.config/starshi
 sudo ln -sf $HOME/.dotfiles/.config/vesktop/settings.json $HOME/.config/vesktop/
 sudo ln -sf $HOME/.dotfiles/.config/vesktop/settings/settings.json $HOME/.config/vesktop/settings/
 sudo ln -sf $HOME/.dotfiles/.config/vesktop/state.json $HOME/.config/vesktop/
-sudo ln -sf $HOME/.dotfiles/.config/vesktop/themes/catppuccin-mocha.css $HOME/.config/vesktop/themes/
+sudo ln -sf $HOME/.dotfiles/.config/vesktop/themes/catppuccin-mocha.theme.css $HOME/.config/vesktop/themes/
 sudo ln -sf $HOME/.dotfiles/.config/waybar/config.jsonc $HOME/.config/waybar/
 sudo ln -sf $HOME/.dotfiles/.config/waybar/catppuccin-mocha.css $HOME/.config/waybar/
 sudo ln -sf $HOME/.dotfiles/.config/waybar/scripts/wofi-power.sh $HOME/.config/waybar/scripts/
