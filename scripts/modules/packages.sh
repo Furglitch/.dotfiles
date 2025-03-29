@@ -186,6 +186,7 @@ utilities=(
     timeshift
     visual-studio-code-bin
     vlc
+    xorg-xhost
     zenity
 )
 game=(
