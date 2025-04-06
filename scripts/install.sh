@@ -24,7 +24,7 @@ done
 $HOME/.dotfiles/scripts/modules/title.sh
 $HOME/.dotfiles/scripts/modules/packages.sh $silent $spin
 $HOME/.dotfiles/scripts/modules/steam.sh $silent $spin
-$HOME/.dotfiles/scripts/modules/librewolf.sh $silent $spin
+$HOME/.dotfiles/scripts/modules/browser.sh $silent $spin
 $HOME/.dotfiles/scripts/modules/vscode.sh $silent $spin
 $HOME/.dotfiles/scripts/modules/symlinks.sh $silent
 $HOME/.dotfiles/scripts/modules/editor.sh $silent

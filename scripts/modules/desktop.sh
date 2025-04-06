@@ -198,7 +198,6 @@ enable=(
     com.github.hluk.copyq
     gparted
     kitty
-    librewolf
     OrcaSlicer
     org.kde.plasma.settings.open
     org.prismlauncher.PrismLauncher
@@ -211,6 +210,7 @@ enable=(
     timeshift-gtk
     vesktop
     vlc
+    waterfox
 )
 
 for entry in "${disable[@]}"; do

@@ -173,7 +173,7 @@ utilities=(
     hyprlock
     hyprpicker
     hyprshot
-    librewolf-bin
+    waterfox
     libreoffice-still
     man-db
     orca-slicer-bin
