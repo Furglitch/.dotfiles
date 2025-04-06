@@ -69,6 +69,7 @@ disable=(
     kcm_gamecontroller
     kcm_icons
     kcm_kaccounts
+    kcm_kdeconnect
     kcm_kded
     kcm_keyboard
     kcm_keys
@@ -155,6 +156,11 @@ disable=(
     org.kde.drkonqi
     org.kde.kcolorschemeeditor
     org.kde.kde-add-printer
+    org.kde.kdeconnect-settings
+    org.kde.kdeconnect.daemon
+    org.kde.kdeconnect.handler
+    org.kde.kdeconnect.nonplasma
+    org.kde.kdeconnect.sms
     org.kde.kded6
     org.kde.keditfiletype
     org.kde.kfontinst
@@ -199,6 +205,7 @@ enable=(
     gparted
     kitty
     OrcaSlicer
+    org.kde.kdeconnect.app
     org.kde.plasma.settings.open
     org.prismlauncher.PrismLauncher
     org.telegram.desktop

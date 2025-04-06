@@ -173,7 +173,7 @@ utilities=(
     hyprlock
     hyprpicker
     hyprshot
-    waterfox
+    kdeconnect
     libreoffice-still
     man-db
     orca-slicer-bin
@@ -186,6 +186,7 @@ utilities=(
     timeshift
     visual-studio-code-bin
     vlc
+    waterfox
     xorg-xhost
     zenity
 )
