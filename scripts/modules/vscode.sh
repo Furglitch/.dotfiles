@@ -3,7 +3,7 @@ silent=$1
 spin=$2
 
 # Install Visual Studio Code extensions
-echo -e "\033[0;34mInstalling VSCode extensions...\033[0m"
+echo -e "\033[0;34mInstalling VSCodium extensions...\033[0m"
 extensions=(
     "GitHub.copilot"
     "Catppuccin.catppuccin-vsc-pack"
@@ -21,25 +21,25 @@ extensions=(
 
 if [ "$silent" == false ]; then
     for extension in "${extensions[@]}"; do
-        code --install-extension "$extension"
+        vscodium --install-extension "$extension"
     done
 else
     for extension in "${extensions[@]}"; do
-        code --install-extension "$extension" > /dev/null 2>&1 &
+        vscodium --install-extension "$extension" > /dev/null 2>&1 &
         pid=$! && i=0
         while kill -0 $pid 2>/dev/null; do
             i=$(( (i+1) % 8 ))
-            printf "\r\033[0;36m\033[KInstalling VSCode extensions... %s \033[0m" "${spin:$i:1}"
+            printf "\r\033[0;36m\033[KInstalling $extension... %s \033[0m" "${spin:$i:1}"
             sleep 0.1
         done
     done
     wait $pid
 fi
-printf "\r\033[0;32m\033[KVSCode extensions installation complete!\033[0m\n"
+printf "\r\033[0;32m\033[KVSCodium extensions installation complete!\033[0m\n"
 
 # Configure Visual Studio Code
-echo -e "\033[0;34mConfiguring VSCode...\033[0m"
-mkdir -p $HOME/.config/Code/User
+echo -e "\033[0;34mConfiguring VSCodium...\033[0m"
+mkdir -p $HOME/.config/VSCodium/User
 echo "{
     \"workbench.colorTheme\": \"Catppuccin Mocha\",
     \"workbench.iconTheme\": \"catppuccin-mocha\",
@@ -76,4 +76,4 @@ echo "{
             \"color\": \"#a6e3a1\",
         }
     ]
-}" > $HOME/.config/Code/User/settings.json
+}" > $HOME/.config/VSCodium/User/settings.json

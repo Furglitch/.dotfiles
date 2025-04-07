@@ -184,7 +184,7 @@ utilities=(
     rustdesk-bin
     systemsettings
     timeshift
-    visual-studio-code-bin
+    vscodium-bin
     vlc
     waterfox
     xorg-xhost

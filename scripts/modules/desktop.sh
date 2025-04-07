@@ -35,7 +35,8 @@ disable=(
     breezestyleconfig
     bssh
     bvnc
-    code-url-handler
+    codium
+    codium-url-handler
     designer
     electron34
     gkbd-keyboard-display
@@ -200,7 +201,7 @@ disable=(
 
 enable=(
     7zFM
-    code
+    codium-wayland
     com.github.hluk.copyq
     gparted
     kitty
