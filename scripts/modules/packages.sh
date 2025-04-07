@@ -185,6 +185,7 @@ utilities=(
     systemsettings
     timeshift
     vscodium-bin
+    vscodium-bin-marketplace
     vlc
     waterfox
     xorg-xhost
