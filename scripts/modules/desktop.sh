@@ -21,10 +21,16 @@ fi
 
 # Vesktop (Discord)
 echo -e "\033[0;34mUpdating Vesktop (Discord) desktop entry...\033[0m"
-echo -e "\033[0;34mUpdating Vesktop desktop entry (name change to Discord)...\033[0m"
 sudo sed -i 's/^Name=Vesktop$/Name=Discord/' /usr/share/applications/vesktop.desktop
 sudo wget -O '/usr/share/applications/discord.png' "https://static.wikia.nocookie.net/logopedia/images/d/dd/Discord_2021_Alt1.svg/revision/latest?cb=20220528092716"
 sudo sed -i 's|^Icon=vesktop$|Icon=/usr/share/applications/discord.png|' /usr/share/applications/vesktop.desktop
+gtk-update-icon-cache /usr/share/icons/*
+
+# VSCodium
+echo -e "\033[0;34mUpdating VSCodium desktop entry...\033[0m"
+sudo sed -i 's/^Name=VSCodium.*$/Name=VSCodium/' /usr/share/applications/codium-wayland.desktop
+sudo wget -O '/usr/share/applications/vscodium.png' "https://raw.githubusercontent.com/VSCodium/icons/refs/heads/main/icons/linux/nobg/blue1/daiyam22.png"
+sudo sed -i 's|^Icon=vscodium$|Icon=/usr/share/applications/vscodium.png|' /usr/share/applications/codium-wayland.desktop
 gtk-update-icon-cache /usr/share/icons/*
 
 
