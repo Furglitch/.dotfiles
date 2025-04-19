@@ -75,5 +75,10 @@ echo "{
             \"tag\": \"*\",
             \"color\": \"#a6e3a1\",
         }
+    ],
+    "projectManager.supportSymlinksOnBaseFolders": true,
+    "workbench.activityBar.location": "top",
+    "projectManager.git.baseFolders": [
+        "/home/furglitch/Projects"
     ]
 }" > $HOME/.config/VSCodium/User/settings.json
