@@ -35,11 +35,11 @@ $HOME/.dotfiles/scripts/install.sh [--silent]
 ## Attributions
 [catppuccin/kitty](https://github.com/catppuccin/kitty)            - kitty theme<br>
 [catppuccin/dunst](https://github.com/catppuccin/dunst)            - dunst theme<br>
-[starship/starship](https://github.com/starship/starship)           - starship theme*<br>
-[PROxZIMA/.dotfiles](https://github.com/PROxZIMA/.dotfiles)          - wofi config*<br>
+[starship/starship](https://github.com/starship/starship)           - starship theme\*<br>
+[PROxZIMA/.dotfiles](https://github.com/PROxZIMA/.dotfiles)          - wofi config\*<br>
 [linuxmobile/hyprland-dots](https://github.com/linuxmobile/hyprland-dots)   - hyprland animations<br>
-[sejjy/mechabar](https://github.com/sejjy/mechabar/tree/animated) - waybar (base - animated branch)*<br>
-<sup>* modifications made</sup>
+[sejjy/mechabar](https://github.com/sejjy/mechabar/tree/animated) - waybar (base - animated branch)\*<br>
+<sup>\* - modifications made</sup>
 
 ## License
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
