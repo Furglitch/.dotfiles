@@ -166,6 +166,7 @@ social=(
     vesktop-bin
 )
 utilities=(
+    pacman-contrib
     copyq
     fastfetch
     gparted
@@ -180,10 +181,11 @@ utilities=(
     p7zip-gui
     pinta
     plasma-meta
+    plasma-systemmonitor
+    proton-vpn-gtk-app
     qdirstat
     rustdesk-bin
     systemsettings
-    timeshift
     vscodium-bin
     vscodium-bin-marketplace
     vlc

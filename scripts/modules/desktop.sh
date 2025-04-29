@@ -19,6 +19,22 @@ else
     echo -e "\033[0;31mSteam .desktop file not found!"
 fi
 
+# Steam
+sudo chown $USER:$USER /usr/share/applications/steam.desktop
+if [ -f "/usr/share/applications/steam-rom-manager.desktop" ]; then
+    echo -e "\033[0;34mUpdating Steam Rom Manager desktop entry...\033[0m"
+    echo "[Desktop Entry]
+Name=Steam ROM Manager
+Type=Application
+Exec="/opt/Steam ROM Manager/steam-rom-manager" %U
+Icon=steam
+Terminal=False
+Categories=Utility
+StartupWMClass=Steam ROM Manager
+else
+    echo -e "\033[0;31mSteam .desktop file not found!"
+fi
+
 # Vesktop (Discord)
 echo -e "\033[0;34mUpdating Vesktop (Discord) desktop entry...\033[0m"
 sudo sed -i 's/^Name=Vesktop$/Name=Discord/' /usr/share/applications/vesktop.desktop
@@ -184,7 +200,6 @@ disable=(
     org.kde.kwalletd6
     org.kde.kwin.killer
     org.kde.plasma-fallback-session-save
-    org.kde.plasma-systemmonitor
     org.kde.plasma-welcome
     org.kde.plasma.browser_integration.host
     org.kde.plasma.emojier
@@ -194,6 +209,8 @@ disable=(
     org.kde.PrintQueue
     org.kde.spectacle
     org.kde.vpnimport
+    protontricks
+    protontricks-launch
     qdbusviewer
     qv4l2
     qvidcap
@@ -203,6 +220,7 @@ disable=(
     vim
     wheelmap-geo-handler
     wine
+    winetricks
 )
 
 enable=(
@@ -214,6 +232,7 @@ enable=(
     OrcaSlicer
     org.kde.kdeconnect.app
     org.kde.plasma.settings.open
+    org.kde.plasma-systemmonitor
     org.prismlauncher.PrismLauncher
     org.telegram.desktop
     pinta
@@ -221,7 +240,6 @@ enable=(
     rustdesk
     steam
     steam-rom-manager
-    timeshift-gtk
     vesktop
     vlc
     waterfox
