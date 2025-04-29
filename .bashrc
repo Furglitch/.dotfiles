@@ -8,6 +8,7 @@ PS1='[\u@\h \W]\$ '
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias pkgclean='sudo pacman -Rns $(pacman -Qdtq) && hash -r'
+alias comfyui='~/.comfyui/launch.sh'
 
 # starship
 eval "$(starship init bash)"
