@@ -7,6 +7,7 @@ PS1='[\u@\h \W]\$ '
 # aliases
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+alias pkgclean='sudo pacman -Rns $(pacman -Qdtq) && hash -r'
 
 # starship
 eval "$(starship init bash)"
