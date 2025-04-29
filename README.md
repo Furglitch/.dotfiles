@@ -1,6 +1,8 @@
 # .dotfiles
 > **⚠️ Note:** Currently under development. Files are subject to change and may not work as intended.
 
+![image](preview.jpg)
+
 **Theme:** [Catppuccin Mocha](https://github.com/catppuccin/catppuccin)<br>
 **OS:** ArchLinux<br>
 **WM:** [hyprland](https://github.com/hyprwm/Hyprland)<br>
