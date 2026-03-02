@@ -9,6 +9,10 @@
       ansible.builtin.import_tasks: pre_tasks/user.aur_builder.yml
       tags:
         - always
+    - name: Add ~/.local/bin to PATH
+      ansible.builtin.import_tasks: pre_tasks/path.local_bin.yml
+      tags:
+        - always
 
   tasks:
     - name: Set roles

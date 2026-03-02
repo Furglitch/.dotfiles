@@ -8,11 +8,11 @@ windowrulev2 = suppressevent maximize, class:.*  # Suppress maximize events for 
 windowrulev2 = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0 # Do not focus empty windows
 
 ### Persistent Workspaces ###
-{% set workspace_count = 1 %}
+{% set ns = namespace(count=0) %}
 {% for monitor in monitors.workspaces %}
     {% for i in range(1, monitors.workspaces[monitor] + 1) %}
-        workspace = {{ workspace_count }}, monitor:{{ monitor }}
-        {% set workspace_count = workspace_count + 1 %}
+        {% set ns.count = ns.count + 1 %}
+        workspace = {{ ns.count }}, monitor:{{ monitor }}
     {% endfor %}
 {% endfor %}
 

@@ -8,13 +8,13 @@
 
 - name: hyprland | ensure .config/hypr directory exists
   ansible.builtin.file:
-    path: "~/.config/hypr"
+    path: "{{ ansible_facts['user_dir'] }}/.config/hypr"
     state: directory
     mode: '0755'
 
 - name: hyprland | ensure .config/hypr subdirectories exist
   ansible.builtin.file:
-    path: "~/.config/hypr/{{ item.path | dirname }}"
+    path: "{{ ansible_facts['user_dir'] }}/.config/hypr/{{ item.path | dirname }}"
     state: directory
     mode: '0755'
   with_filetree: hyprland/config
@@ -23,25 +23,23 @@
 - name: hyprland | symlink config files
   ansible.builtin.file:
     src: "{{ role_path }}/files/hyprland/config/{{ item.path }}"
-    dest: "~/.config/hypr/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/hypr/{{ item.path }}"
     state: link
     force: true
   with_filetree: hyprland/config
   when: item.state == 'file'
-  notify: reload hyprland
+  notify: hypr | reload hyprland
 
 - name: hyprland | generate templates
   ansible.builtin.template:
-    src: "{{ item.path }}"
-    dest: "~/.config/hypr/{{ item.path }}"
+    src: monitors.conf.j2
+    dest: "{{ ansible_facts['user_dir'] }}/.config/hypr/modules/monitors.conf"
     mode: '0644'
-  with_filetree: hyprland/templates
-  when: item.state == 'file'
-  notify: reload hyprland
+  notify: hypr | reload hyprland
 
 - name: hyprland | ensure .local/bin subdirectories exist
   ansible.builtin.file:
-    path: "~/.local/bin/{{ item.path | dirname }}"
+    path: "{{ ansible_facts['user_dir'] }}/.local/bin/{{ item.path | dirname }}"
     state: directory
     mode: '0755'
   with_filetree: hyprland/bin
@@ -50,9 +48,9 @@
 - name: hyprland | symlink bin files
   ansible.builtin.file:
     src: "{{ role_path }}/files/hyprland/bin/{{ item.path }}"
-    dest: "~/.local/bin/{{ item.path }}"
+    dest: "{{ ansible_facts['user_id'] }}/.local/bin/{{ item.path }}"
     state: link
     force: true
   with_filetree: hyprland/bin
   when: item.state == 'file'
-  notify: reload hyprland
+  notify: hypr | reload hyprland

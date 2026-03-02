@@ -6,13 +6,13 @@
 
 - name: Paru | Get local paru version
   when: paru_installed.stat.exists
-  ansible.builtin.command: paru -Q paru --print-format '%v'
+  ansible.builtin.command: paru -Q paru
   register: paru_local_version
   changed_when: false
 
 - name: Paru | Get AUR paru version
   when: paru_installed.stat.exists
-  ansible.builtin.command: paru -Si paru --print-format '%v'
+  ansible.builtin.command: paru -Si paru
   register: paru_aur_version
   changed_when: false
 
