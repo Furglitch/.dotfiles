@@ -20,6 +20,7 @@
     path: /etc/pacman.conf
     regexp: '^#Color'
     line: 'Color'
+    insertafter: '^\[options\]'
     state: present
 
 - name: pacman | Enable 'ILoveCandy'
@@ -27,6 +28,7 @@
     path: /etc/pacman.conf
     regexp: '^#ILoveCandy'
     line: 'ILoveCandy'
+    insertafter: '^\[options\]'
     state: present
 
 - name: pacman | Update package cache
