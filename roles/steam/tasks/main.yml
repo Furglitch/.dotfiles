@@ -5,6 +5,7 @@
     state: present
     use: paru
   become_user: aur_builder
+  ignore_errors: true
 
 - name: steam | run steam-rom-manager tasks
   ansible.builtin.include_tasks: steam-rom-manager.yml

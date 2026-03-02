@@ -5,6 +5,7 @@
     state: present
     use: paru
   become_user: aur_builder
+  ignore_errors: true
 
 - name: discord | run betterdiscord tasks
   ansible.builtin.include_tasks: betterdiscord.yml

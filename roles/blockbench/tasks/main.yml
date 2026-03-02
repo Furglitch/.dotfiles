@@ -5,3 +5,4 @@
     state: present
     use: paru
   become_user: aur_builder
+  ignore_errors: true
