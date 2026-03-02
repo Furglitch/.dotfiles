@@ -1,27 +1,27 @@
 ---
-- name: Paru | Check if paru is installed
+- name: paru | Check if paru is installed
   ansible.builtin.stat:
     path: /usr/bin/paru
   register: paru_installed
 
-- name: Paru | Get local paru version
+- name: paru | Get local paru version
   when: paru_installed.stat.exists
   ansible.builtin.command: paru -Q paru
   register: paru_local_version
   changed_when: false
 
-- name: Paru | Get AUR paru version
+- name: paru | Get AUR paru version
   when: paru_installed.stat.exists
   ansible.builtin.command: paru -Si paru
   register: paru_aur_version
   changed_when: false
 
-- name: Paru | Set update needed flag
+- name: paru | Set update needed flag
   when: paru_installed.stat.exists
   ansible.builtin.set_fact:
     paru_needs_update: "{{ paru_local_version.stdout != paru_aur_version.stdout }}"
 
-- name: Paru | Update via paru
+- name: paru | Update via paru
   when: paru_installed.stat.exists and paru_needs_update
   become: true
   become_user: aur_builder
@@ -30,7 +30,7 @@
   changed_when: true
   ignore_errors: true
 
-- name: Paru | Clone repository
+- name: paru | Clone repository
   when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
   become: true
   become_user: aur_builder
@@ -41,7 +41,7 @@
     depth: 1
     version: main
 
-- name: Paru | Build and install package
+- name: paru | Build and install package
   when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
   become: true
   become_user: aur_builder
@@ -50,13 +50,13 @@
     chdir: /tmp/paru
   changed_when: true
 
-- name: Paru | Clean up build directory
+- name: paru | Clean up build directory
   when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
   ansible.builtin.file:
     path: /tmp/paru
     state: absent
 
-- name: Paru | Report up to date
+- name: paru | Report up to date
   when: paru_installed.stat.exists and not paru_needs_update
   ansible.builtin.debug:
     msg: "paru is already up to date (version {{ paru_local_version.stdout }})"
