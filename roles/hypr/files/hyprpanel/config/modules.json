@@ -1,0 +1,23 @@
+{
+    "custom/cpu": {
+        "label": "{text}",
+        "icon": "",
+        "execute": "~/.archdot/roles/hypr/files/hyprpanel/bin/cpu-stats",
+        "interval": 1000,
+        "tooltip": "{tooltip}"
+    },
+    "custom/memory": {
+        "label": "{text}",
+        "icon": "",
+        "execute": "~/.archdot/roles/hypr/files/hyprpanel/bin/ram-stats",
+        "interval": 1000,
+        "tooltip": "{tooltip}"
+    },
+    "custom/storage": {
+        "label": "{text}",
+        "icon": "",
+        "execute": "~/.archdot/roles/hypr/files/hyprpanel/bin/storage-stats",
+        "interval": 10000,
+        "tooltip": "{tooltip}"
+    }
+}

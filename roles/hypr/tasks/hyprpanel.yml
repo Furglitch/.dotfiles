@@ -6,9 +6,36 @@
     use: paru
   become_user: aur_builder
 
+- name: hyprpanel | ensure optional dependencies installed
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    state: present
+    use: paru
+  become_user: aur_builder
+  ignore_errors: true
+  loop:
+    - hyprpicker
+    - wf-recorder
+
 - name: hyprpanel | uninstall dunst # hyprpanel has its own notification daemon
   kewlfft.aur.aur:
     name: dunst
     state: absent
     use: paru
   become_user: aur_builder
+
+- name: hyprpanel | ensure .config/hyprpanel directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/hyprpanel"
+    state: directory
+    mode: '0755'
+
+- name: hyprpanel | symlink config files
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/hyprpanel/config/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/hyprpanel/{{ item.path }}"
+    state: link
+    force: true
+  with_filetree: hyprpanel/config
+  when: item.state == 'file'
+  notify: hypr | reload hyprpanel
