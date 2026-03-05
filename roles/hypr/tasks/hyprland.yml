@@ -48,7 +48,7 @@
 - name: hyprland | symlink bin files
   ansible.builtin.file:
     src: "{{ role_path }}/files/hyprland/bin/{{ item.path }}"
-    dest: "{{ ansible_facts['user_id'] }}/.local/bin/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/bin/{{ item.path }}"
     state: link
     force: true
   with_filetree: hyprland/bin
