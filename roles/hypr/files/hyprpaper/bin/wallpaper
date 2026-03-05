@@ -1,0 +1,93 @@
+#!/bin/bash
+
+
+if [[ "$1" == "--install-wpe" ]]; then
+
+    if [[ ! -d "$HOME/.local/opt/linux-wallpaperengine" ]]; then
+        git clone https://github.com/Almamu/linux-wallpaperengine.git "$HOME/.local/opt/linux-wallpaperengine"
+    else
+        cd "$HOME/.local/opt/linux-wallpaperengine" && git pull
+    fi
+
+    cd "$HOME/.local/opt/linux-wallpaperengine" && cmake . && make
+    if [[ ! -f "$HOME/.local/bin/linux-wallpaperengine" ]]; then
+        ln -s "$HOME/.local/opt/linux-wallpaperengine/linux-wallpaperengine" "$HOME/.local/bin/linux-wallpaperengine"
+    fi
+    exit 0
+
+fi
+
+
+
+if [[ "$1" == "--random" ]]; then
+
+    wpe_installed=true
+    if [[ ! -d "$HOME/.local/share/Steam/steamapps/common/wallpaper_engine" ]]; then
+        echo "Wallpaper Engine is not installed via Steam. Skipping WPE wallpapers."
+        wpe_installed=false
+    else 
+        if [[ ! -f "$HOME/.local/bin/linux-wallpaperengine" ]]; then
+            echo "WPE detected, but linux-wallpaperengine is not installed. Please run this script with --install-wpe to set it up."
+        wpe_installed=false
+        fi
+    fi
+    echo
+    killall linux-wallpaperengine 2>/dev/null || true
+
+    for i in 1 2; do
+        type=null
+        directory=null
+        wallpapers=()
+        if [[ "$wpe_installed" == true ]]; then
+            type='engine'
+            directory="$HOME/.local/share/Steam/steamapps/workshop/content/431960/"
+        else
+            type='static'
+            directory="$HOME/.local/share/wallpapers/"
+        fi
+
+        echo "Scanning directory: $directory"
+        shopt -s nullglob && matches=("$directory"*) && shopt -u nullglob
+        if [[ ${#matches[@]} -eq 0 ]]; then
+            echo "  (no matches)"
+        else
+            for m in "${matches[@]}"; do
+                echo "  - $(basename "$m")"
+            done
+        fi
+        for entry in "$directory"*; do
+            if [[ -d "$entry" || -f "$entry" ]]; then
+                wallpapers+=("$(basename "$entry")")
+            fi
+        done
+        if [[ ${#wallpapers[@]} -eq 0 ]]; then
+            echo "  (no wallpaper entries found in $directory)"
+            continue
+        fi
+
+        while :; do
+            wallpaper="${wallpapers[RANDOM % ${#wallpapers[@]}]}"
+            if [[ " ${chosen_wallpapers[*]} " != *" $wallpaper "* ]]; then
+                chosen_wallpapers+=("$wallpaper")
+                break
+            fi
+            if [[ ${#chosen_wallpapers[@]} -ge ${#wallpapers[@]} ]]; then
+                echo "All wallpapers already chosen for type $type; picking last one."
+                break
+            fi
+        done
+        echo "Chosen wallpaper for type $type: $wallpaper"
+
+        if [[ "$type" == "engine" ]]; then
+            linux-wallpaperengine --volume 0 --screen-root DP-$i --path "$directory$wallpaper"
+            echo "Set screen DP-$i to WPE wallpaper: $wallpaper"
+            notify-send -u normal "Wallpaper Changed" "Set screen DP-$i to WPE wallpaper: $wallpaper" --icon=$directory$wallpaper
+        else
+            hyprctl hyprpaper wallpaper DP-$i,"$directory$wallpaper"
+            echo "Set screen DP-$i to static wallpaper: $wallpaper"
+            notify-send -u normal "Wallpaper Changed" "Set screen DP-$i to static wallpaper: $wallpaper" --icon=$directory$wallpaper
+        fi
+        echo
+
+    done
+fi
