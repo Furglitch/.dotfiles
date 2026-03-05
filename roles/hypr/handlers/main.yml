@@ -5,6 +5,10 @@
   ignore_errors: true
   when: ansible_env.XDG_SESSION_TYPE == "wayland"
 
+- name: hypr | kill hyprpanel
+  ansible.builtin.command:
+    cmd: hyprpanel -q
+
 - name: hypr | reload hyprpanel
   ansible.builtin.command:
-    cmd: hyprpanel -q && hyprpanel
+    cmd: hyprpanel &
