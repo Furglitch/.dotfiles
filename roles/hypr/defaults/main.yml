@@ -3,12 +3,12 @@ monitors:
     - name: DP-1                  # center
       resolution: 2560x1440
       refresh_rate: 240
-      position: 0x0
+      position: auto-right
       scale: 1
     - name: DP-2                  # left
       resolution: 2560x1440
       refresh_rate: 165
-      position: -2560x0
+      position: auto-left
       scale: 1
   workspaces:
       DP-1: 5
