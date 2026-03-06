@@ -21,6 +21,8 @@ if [ ! -f ~/.ansible/vault_pass ]; then
     chmod 600 ~/.ansible/vault_pass
     read -p "Enter Ansible vault password: " VAULT_PASS
     echo "$VAULT_PASS" > ~/.ansible/vault_pass
+else
+    VAULT_PASS=$(cat ~/.ansible/vault_pass)
 fi
 if [ -z "$VAULT_PASS" ]; then
     echo "Vault password cannot be empty. Exiting."
