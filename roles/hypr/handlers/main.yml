@@ -5,9 +5,17 @@
   ignore_errors: true
   when: ansible_env.get('XDG_SESSION_TYPE', '') == "wayland"
 
+- name: hypr | check if hyprpanel is running
+  ansible.builtin.shell:
+    cmd: pgrep -x hyprpanel
+  register: hyprpanel_running
+  failed_when: false
+  changed_when: false
+
 - name: hypr | kill hyprpanel
   ansible.builtin.command:
     cmd: hyprpanel -q
+  when: hyprpanel_running.rc == 0
 
 - name: hypr | reload hyprpanel
   ansible.builtin.command:
