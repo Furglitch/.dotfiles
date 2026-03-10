@@ -18,5 +18,5 @@
   when: hyprpanel_running.rc == 0
 
 - name: hypr | reload hyprpanel
-  ansible.builtin.command:
+  ansible.builtin.shell:
     cmd: hyprpanel &

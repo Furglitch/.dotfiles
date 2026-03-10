@@ -70,8 +70,6 @@
   "theme.bar.menus.enableShadow": false,
   "theme.font.size": ".75rem",
   "theme.osd.active_monitor": false,
-
-
   "theme.bar.menus.background": "#11111b",
   "theme.bar.background": "#11111b",
   "theme.bar.buttons.media.icon": "#1e1e2e",
