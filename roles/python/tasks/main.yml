@@ -4,18 +4,19 @@
     name: python
     state: present
     use: paru
-  become_user: aur_builder
-
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 - name: python | ensure python313 installed
   kewlfft.aur.aur:
     name: python313
     state: present
     use: paru
-  become_user: aur_builder
-
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 - name: python | ensure uv installed
   kewlfft.aur.aur:
     name: uv
     state: present
     use: paru
-  become_user: aur_builder
+  become_user: "{{ target_user }}"
+  become_flags: '-H'

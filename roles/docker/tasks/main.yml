@@ -4,11 +4,12 @@
     name: docker
     state: present
     use: paru
-  become_user: aur_builder
-
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 - name: docker | ensure docker-compose installed
   kewlfft.aur.aur:
     name: docker-compose
     state: present
     use: paru
-  become_user: aur_builder
+  become_user: "{{ target_user }}"
+  become_flags: '-H'

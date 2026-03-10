@@ -4,13 +4,18 @@
     name: hyprland
     state: present
     use: paru
-  become_user: aur_builder
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: hyprland | ensure .config/hypr directory exists
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.config/hypr"
     state: directory
     mode: '0755'
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: hyprland | ensure .config/hypr subdirectories exist
   ansible.builtin.file:
@@ -19,6 +24,9 @@
     mode: '0755'
   with_filetree: hyprland/config
   when: item.state == 'file'
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: hyprland | symlink config files
   ansible.builtin.file:
@@ -29,6 +37,9 @@
   with_filetree: hyprland/config
   when: item.state == 'file'
   notify: hypr | reload hyprland
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: hyprland | generate templates
   ansible.builtin.template:
@@ -36,6 +47,9 @@
     dest: "{{ ansible_facts['user_dir'] }}/.config/hypr/modules/monitors.conf"
     mode: '0644'
   notify: hypr | reload hyprland
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: hyprland | ensure .local/bin subdirectories exist
   ansible.builtin.file:
@@ -44,6 +58,9 @@
     mode: '0755'
   with_filetree: hyprland/bin
   when: item.state == 'file'
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: hyprland | symlink bin files
   ansible.builtin.file:
@@ -54,3 +71,6 @@
   with_filetree: hyprland/bin
   when: item.state == 'file'
   notify: hypr | reload hyprland
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'

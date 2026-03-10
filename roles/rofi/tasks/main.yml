@@ -4,11 +4,12 @@
     name: wofi
     state: absent
     use: paru
-  become_user: aur_builder
-
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 - name: rofi | ensure rofi installed
   kewlfft.aur.aur:
     name: rofi
     state: present
     use: paru
-  become_user: aur_builder
+  become_user: "{{ target_user }}"
+  become_flags: '-H'

@@ -4,11 +4,12 @@
     name: vim
     state: absent
     use: paru
-  become_user: aur_builder
-
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 - name: neovim | ensure neovim installed
   kewlfft.aur.aur:
     name: neovim
     state: present
     use: paru
-  become_user: aur_builder
+  become_user: "{{ target_user }}"
+  become_flags: '-H'

@@ -24,7 +24,8 @@
 - name: paru | Update via paru
   when: paru_installed.stat.exists and paru_needs_update
   become: true
-  become_user: aur_builder
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
   ansible.builtin.command: paru -S paru --noconfirm
   register: paru_self_update
   changed_when: true
@@ -33,21 +34,40 @@
 - name: paru | Clone repository
   when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
   become: true
-  become_user: aur_builder
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
   ansible.builtin.git:
     repo: 'https://aur.archlinux.org/paru.git'
     dest: '/tmp/paru'
     clone: true
     depth: 1
-    version: main
+    version: master
 
-- name: paru | Build and install package
+- name: paru | Install build dependencies
   when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
   become: true
-  become_user: aur_builder
+  ansible.builtin.pacman:
+    name:
+      - base-devel
+      - rust
+      - cargo
+    state: present
+
+- name: paru | Build package
+  when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
   ansible.builtin.command:
-    cmd: makepkg -si --noconfirm
+    cmd: makepkg -f --noconfirm
     chdir: /tmp/paru
+  changed_when: true
+
+- name: paru | Install package
+  when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
+  become: true
+  ansible.builtin.shell:
+    cmd: pacman -U --noconfirm /tmp/paru/paru-*.pkg.tar.zst
   changed_when: true
 
 - name: paru | Clean up build directory

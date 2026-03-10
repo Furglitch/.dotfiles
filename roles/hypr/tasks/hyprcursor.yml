@@ -4,11 +4,15 @@
     name: hyprcursor
     state: present
     use: paru
-  become_user: aur_builder
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: hyprcursor | ensure catppuccin-cursors-mocha installed
   kewlfft.aur.aur:
     name: catppuccin-cursors-mocha
     state: present
     use: paru
-  become_user: aur_builder
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'

@@ -4,11 +4,12 @@
     name: nerd-fonts
     state: present
     use: paru
-  become_user: aur_builder
-
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 - name: fonts | ensure Google Fonts installed
   kewlfft.aur.aur:
     name: ttf-google-fonts-git
     state: present
     use: paru
-  become_user: aur_builder
+  become_user: "{{ target_user }}"
+  become_flags: '-H'

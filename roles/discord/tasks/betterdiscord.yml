@@ -4,5 +4,7 @@
     name: betterdiscordctl
     state: present
     use: paru
-  become_user: aur_builder
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
   ignore_errors: true

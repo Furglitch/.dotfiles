@@ -4,11 +4,13 @@
     name: htop
     state: absent
     use: paru
-  become_user: aur_builder
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: btop | ensure btop installed
   kewlfft.aur.aur:
     name: btop
     state: present
     use: paru
-  become_user: aur_builder
+  become_user: "{{ target_user }}"
+  become_flags: '-H'

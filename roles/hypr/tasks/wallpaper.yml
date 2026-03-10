@@ -42,9 +42,12 @@
   ansible.builtin.get_url:
     url: "{{ item.file.url }}"
     dest: >-
-      {{ ansible_env.HOME }}/.local/share/wallpapers/
+      {{ ansible_facts['user_dir'] }}/.local/share/wallpapers/
       e9.{{ item.id }}.{{((item.tags.artist | default([]) | reject('in', e926_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( (item.tags.artist | default([]) | reject('in', e926_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ item.file.ext }}
     mode: '0644'
     force: no
   loop: "{{ e926_posts_list }}"
   when: e926_posts_list | length > 0
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'

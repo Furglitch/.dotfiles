@@ -4,14 +4,18 @@
     name: ags-hyprpanel-git
     state: present
     use: paru
-  become_user: aur_builder
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: hyprpanel | ensure optional dependencies installed
   kewlfft.aur.aur:
     name: "{{ item }}"
     state: present
     use: paru
-  become_user: aur_builder
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
   ignore_errors: true
   loop:
     - hyprpicker
@@ -22,13 +26,18 @@
     name: dunst
     state: absent
     use: paru
-  become_user: aur_builder
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: hyprpanel | ensure .config/hyprpanel directory exists
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.config/hyprpanel"
     state: directory
     mode: '0755'
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: hyprpanel | symlink config files
   ansible.builtin.file:
@@ -39,3 +48,6 @@
   with_filetree: hyprpanel/config
   when: item.state == 'file'
   notify: hypr | reload hyprpanel
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'

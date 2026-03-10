@@ -4,11 +4,12 @@
     name: git
     state: present
     use: paru
-  become_user: aur_builder
-
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 - name: git | ensure github-cli installed
   kewlfft.aur.aur:
     name: github-cli
     state: present
     use: paru
-  become_user: aur_builder
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
