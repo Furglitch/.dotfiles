@@ -4,8 +4,22 @@ monitor = {{ monitor.name }}, {{ monitor.resolution }}@{{ monitor.refresh_rate }
 {% endfor %}
 
 ### Windows ###
-windowrulev2 = suppressevent maximize, class:.*  # Suppress maximize events for all windows
-windowrulev2 = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0 # Do not focus empty windows
+
+windowrule {
+    name = Suppress maximize events for all windows
+    match:class = .*
+    suppress_event = maximize
+}
+
+windowrule {
+    name = Do not focus empty windows
+    match:class = ^$
+    match:title = ^$
+    match:xwayland = true
+    match:float = true
+    match:fullscreen = false
+    match:pin = false
+}
 
 ### Persistent Workspaces ###
 {% set ns = namespace(count=0) %}
