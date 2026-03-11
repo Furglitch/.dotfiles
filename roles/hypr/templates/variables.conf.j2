@@ -11,7 +11,7 @@ $terminal = ghostty
 $fileManager = dolphin
 $editor = code
 $browser = waterfox
-$launcher = killall rofi || ~/.config/rofi/launcher.sh
+$launcher = killall rofi || {{ ansible_facts['user_dir'] }}/.config/rofi/launcher.sh
 $clipboard = cliphist list | rofi -dmenu | cliphist decode | wl-copy
 
 ### Color Palette - Catppuccin Mocha ###
@@ -59,7 +59,7 @@ misc {
 }
 
 ### Paths
-$screenshotPath = ~/Pictures/Screenshots
-$scriptPicker = ~/.dotfiles/bin/picker
-$scriptWallpaper = ~/.local/bin/wallpaper
-$scriptWorkspaceLaunch = ~/.local/bin/workspace-launch
+$screenshotPath = {{ ansible_facts['user_dir'] }}/Pictures/Screenshots
+$scriptPicker = {{ ansible_facts['user_dir'] }}/.dotfiles/bin/picker
+$scriptWallpaper = {{ ansible_facts['user_dir'] }}/.local/bin/wallpaper
+$scriptWorkspaceLaunch = {{ ansible_facts['user_dir'] }}/.local/bin/workspace-launch

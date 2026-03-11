@@ -35,16 +35,36 @@
     state: link
     force: true
   with_filetree: hyprland/config
-  when: item.state == 'file'
+  when: item.state == 'file' and item.path not in ['hyprland.conf', 'modules/variables.conf']
   notify: hypr | reload hyprland
   become: true
   become_user: "{{ target_user }}"
   become_flags: '-H'
 
-- name: hyprland | generate templates
+- name: hyprland | template monitors.conf
   ansible.builtin.template:
     src: monitors.conf.j2
     dest: "{{ ansible_facts['user_dir'] }}/.config/hypr/modules/monitors.conf"
+    mode: '0644'
+  notify: hypr | reload hyprland
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: hyprland | template variables.conf
+  ansible.builtin.template:
+    src: variables.conf.j2
+    dest: "{{ ansible_facts['user_dir'] }}/.config/hypr/modules/variables.conf"
+    mode: '0644'
+  notify: hypr | reload hyprland
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: hyprland | template hyprland.conf
+  ansible.builtin.template:
+    src: hyprland.conf.j2
+    dest: "{{ ansible_facts['user_dir'] }}/.config/hypr/hyprland.conf"
     mode: '0644'
   notify: hypr | reload hyprland
   become: true
