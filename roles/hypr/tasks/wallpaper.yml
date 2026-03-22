@@ -1,53 +1,53 @@
-- name: e926 | load set id
+- name: e621 | load set id
   ansible.builtin.include_vars:
     file: "{{ role_path }}/vars/wallpapers.yml"
-    name: e926_vaulted
+    name: e621_vaulted
   no_log: true
 
-- name: e926 | ensure set id defined
+- name: e621 | ensure set id defined
   ansible.builtin.assert:
     that: 
-      - e926_vaulted.e926_set is defined
-      - e926_vaulted.e926_set | length > 0
-    fail_msg: "e926_set variable is not defined in wallpapers.yml"
+      - e621_vaulted.e621_set is defined
+      - e621_vaulted.e621_set | length > 0
+    fail_msg: "e621_set variable is not defined in wallpapers.yml"
 
-- name: e926 | query posts for set
+- name: e621 | query posts for set
   ansible.builtin.uri:
-    url: "https://e926.net/posts.json?tags=set:{{ e926_vaulted.e926_set }}&limit=100"
+    url: "https://e621.net/posts.json?tags=set:{{ e621_vaulted.e621_set }}&limit=100"
     method: GET
     return_content: yes
     headers:
       User-Agent: "archdot/ansible"
-  register: e926_posts
+  register: e621_posts
   no_log: false
 
-- name: e926 | collect image URLs
+- name: e621 | collect image URLs
   ansible.builtin.set_fact:
-    e926_urls: "{{ e926_posts.json.posts | map(attribute='file.url') | list }}"
+    e621_urls: "{{ e621_posts.json.posts | map(attribute='file.url') | list }}"
 
-- name: e926 | keep full posts list
+- name: e621 | keep full posts list
   ansible.builtin.set_fact:
-    e926_posts_list: "{{ e926_posts.json.posts }}"
+    e621_posts_list: "{{ e621_posts.json.posts }}"
 
-- name: e926 | artist blacklist
+- name: e621 | artist blacklist
   ansible.builtin.set_fact:
-    e926_artist_blacklist:
+    e621_artist_blacklist:
       - conditional_dnp
       - unknown_artist
       - third-party_edit
       - sound_warning
       - anonymous_artist
 
-- name: e926 | download images
+- name: e621 | download images
   ansible.builtin.get_url:
     url: "{{ item.file.url }}"
     dest: >-
       {{ ansible_facts['user_dir'] }}/.local/share/wallpapers/
-      e9.{{ item.id }}.{{((item.tags.artist | default([]) | reject('in', e926_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( (item.tags.artist | default([]) | reject('in', e926_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ item.file.ext }}
+      e9.{{ item.id }}.{{((item.tags.artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( (item.tags.artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ item.file.ext }}
     mode: '0644'
     force: no
-  loop: "{{ e926_posts_list }}"
-  when: e926_posts_list | length > 0
+  loop: "{{ e621_posts_list }}"
+  when: e621_posts_list | length > 0
   become: true
   become_user: "{{ target_user }}"
   become_flags: '-H'
