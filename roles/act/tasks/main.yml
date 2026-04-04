@@ -1,8 +1,0 @@
----
-- name: act | ensure act installed
-  kewlfft.aur.aur:
-    name: act
-    state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: '-H'

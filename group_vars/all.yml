@@ -2,9 +2,12 @@ default_roles:
   # core packages
   - pacman
   - paru
+  # first installs
+  - fonts
+  - zsh
+  - hypr
   # install packages
   - 7zip
-  - act
   - ark
   - bat
   - blockbench
@@ -19,7 +22,6 @@ default_roles:
   - git
   - grub
   - heroic-games-launcher
-  - hypr
   - iwd
   - jdk-temurin
   - jekyll
@@ -48,5 +50,4 @@ default_roles:
   - wine
   - wireless_tools
   - xdg-utils
-  - zsh
   - ghostty
