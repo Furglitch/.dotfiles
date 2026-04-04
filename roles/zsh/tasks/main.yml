@@ -6,3 +6,40 @@
     use: paru
   become_user: "{{ target_user }}"
   become_flags: '-H'
+- name: zsh | ensure fzf installed
+  kewlfft.aur.aur:
+    name: fzf
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+- name: zsh | ensure eza installed
+  kewlfft.aur.aur:
+    name: eza
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: zsh | symlink .zshrc
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/zsh/.zshrc"
+    dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
+    state: link
+    force: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: zsh | symlink starship config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/starship/starship.toml"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/starship/starship.toml"
+    state: link
+    force: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: zsh | ensure zsh is default shell
+  ansible.builtin.user:
+    name: "{{ target_user }}"
+    shell: /usr/bin/zsh
