@@ -1,8 +1,0 @@
-- name: desktop-portal | ensure xdg-desktop-portal-hyprland installed
-  kewlfft.aur.aur:
-    name: xdg-desktop-portal-hyprland
-    state: present
-    use: paru
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: '-H'

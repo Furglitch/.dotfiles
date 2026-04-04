@@ -6,5 +6,12 @@
     use: paru
   become_user: "{{ target_user }}"
   become_flags: '-H'
-- name: xdg-utils | run desktop-portal tasks
-  ansible.builtin.include_tasks: desktop-portal.yml
+
+- name: xdg-utils | ensure xdg-desktop-portal-hyprland installed
+  kewlfft.aur.aur:
+    name: xdg-desktop-portal-hyprland
+    state: present
+    use: paru
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
