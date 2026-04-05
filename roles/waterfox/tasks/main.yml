@@ -6,3 +6,6 @@
     use: paru
   become_user: "{{ target_user }}"
   become_flags: '-H'
+
+- name: waterfox | install ff-ultima theme
+  ansible.builtin.include_tasks: ff-ultima.yml
