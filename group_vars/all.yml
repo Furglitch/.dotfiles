@@ -3,7 +3,7 @@ default_roles:
   - pacman
   - paru
   # first installs
-  - fonts
+  # - fonts
   - zsh
   - hypr
   # install packages
