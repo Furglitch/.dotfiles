@@ -8,5 +8,24 @@
   become_flags: '-H'
   ignore_errors: true
 
-- name: discord | run betterdiscord tasks
-  ansible.builtin.include_tasks: betterdiscord.yml
+- name: discord | ensure betterdiscordctl installed
+  kewlfft.aur.aur:
+    name: betterdiscordctl
+    state: present
+    use: paru
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+  ignore_errors: true
+
+- name: discord | symlink config files
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/betterdiscord/config/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/BetterDiscord/{{ item.path }}"
+    state: link
+    force: true
+  with_filetree: betterdiscord/config
+  when: item.state == 'file'
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'

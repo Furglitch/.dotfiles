@@ -1,0 +1,20 @@
+@import url("https://catppuccin.github.io/discord/dist/catppuccin-mocha-sky.theme.css");
+@import url(https://mwittrien.github.io/BetterDiscordAddons/Themes/SettingsModal/SettingsModal.css);
+
+:root {
+	--settingswidth: 	960;			/* default:	960px			(width of the settings modal, px)												*/
+	--settingsheight: 	80;			/* default:	80vh			(height of the settings modal, vh)												*/
+	--settingsbackground: 	transparent;		/* default:	transparent		(lowest BG Color of changed Windows, change it in case another Theme turns them transparent)					*/
+}
+
+/* Fonts */
+:root {
+    --Chat-Font-Used: 'Ubuntu Nerd Font', "UbuntuMono Nerd Font", monospaced ;
+    --Chat-Font-Size: 8px;
+    }
+:not([class="hljs"]):not(code){
+font-family: var(--Chat-Font-Used)!important;
+}
+.markup:not(code) {
+font-size: var(--Chat-Font-Size)!important;
+}
