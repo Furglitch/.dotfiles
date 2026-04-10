@@ -4,6 +4,7 @@
     name: waterfox-bin
     state: present
     use: paru
+    extra_args: --mflags --skipinteg
   become_user: "{{ target_user }}"
   become_flags: '-H'
 
