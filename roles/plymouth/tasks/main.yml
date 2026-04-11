@@ -7,6 +7,13 @@
   become_user: "{{ target_user }}"
   become_flags: '-H'
 
+- name: plymouth | ensure /usr/share/plymouth/themes directory exists
+  ansible.builtin.file:
+    path: '/usr/share/plymouth/themes'
+    state: directory
+    mode: '0755'
+  become: true
+
 - name: plymouth | symlink plymouth themes
   ansible.builtin.file:
     src: "{{ role_path }}/files/plymouth/themes/{{ item.path }}"
