@@ -1,7 +1,6 @@
 # init
 autoload -Uz compinit && compinit
 autoload -U colors && colors
-zinit cdreplay -q
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR='nano'
 
@@ -12,6 +11,7 @@ if [ ! -d "$ZINIT_HOME" ]; then
   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 source "$ZINIT_HOME/zinit.zsh"
+zinit cdreplay -q
 
 # themes
 zinit ice depth=1; zinit light starship/starship
