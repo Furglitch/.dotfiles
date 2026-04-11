@@ -1,0 +1,38 @@
+[CompactMode]
+PreviewSize=256
+UseSystemFont=false
+ViewFont=Ubuntu Nerd Font,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
+
+[DetailsMode]
+PreviewSize=128
+UseSystemFont=false
+ViewFont=Ubuntu Nerd Font,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
+
+[General]
+BrowseThroughArchives=true
+GlobalViewProps=false
+TerminalApplication=kitty
+UseTabForSwitchingSplitView=true
+Version=202
+ViewPropsTimestamp=2025,7,27,11,35,2.8529999999999998
+
+[IconsMode]
+PreviewSize=112
+UseSystemFont=false
+ViewFont=Ubuntu Nerd Font,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+
+[MainWindow]
+MenuBar=Disabled
+
+[PreviewSettings]
+Plugins=appimagethumbnail,audiothumbnail,glycin-heif,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,imagethumbnail,glycin-image-rs,jpegthumbnail,glycin-jxl,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,glycin-svg,svgthumbnail
+
+[Search]
+SearchTool=Baloo
+
+[UiSettings]
+ColorScheme=Kvantum
