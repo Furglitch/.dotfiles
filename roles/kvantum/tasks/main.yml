@@ -6,3 +6,25 @@
     use: paru
   become_user: "{{ target_user }}"
   become_flags: '-H'
+
+- name: kvantum | clone catppuccin theme
+  ansible.builtin.git:
+    repo: "https://github.com/catppuccin/Kvantum.git"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/Kvantum/catppuccin-mocha-sky"
+    version: "master"
+    force: true
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: kvantum | symlink config files
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/kvantum/config/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/Kvantum/{{ item.path }}"
+    state: link
+    force: true
+  with_filetree: kvantum/config
+  when: item.state == 'file'
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
