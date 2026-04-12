@@ -30,20 +30,18 @@
 
 - name: plymouth | add plymouth to HOOKS in /etc/mkinitcpio.conf
   ansible.builtin.lineinfile:
-    file: /etc/mkinitcpio.conf
-    regexp: '^HOOKS='
-    line: "{{ item }}"
-  with_items:
-    - "{{ ansible_facts['mkinitcpio_hooks'] | regex_replace('^HOOKS=(.*)\\)', 'HOOKS=\\1 plymouth)') }}"
+    path: /etc/mkinitcpio.conf
+    regexp: '^HOOKS=\((.*)\)$'
+    line: 'HOOKS=(\1 plymouth)'
+    backrefs: yes
   become: true
 
 - name: plymouth | add quiet and splash to GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub
   ansible.builtin.lineinfile:
-    file: /etc/default/grub
-    regexp: '^GRUB_CMDLINE_LINUX_DEFAULT='
-    line: "{{ item }}"
-  with_items:
-    - "{{ ansible_facts['grub_cmdline_linux_default'] | regex_replace('^GRUB_CMDLINE_LINUX_DEFAULT=(.*)\\)', 'GRUB_CMDLINE_LINUX_DEFAULT=\\1 quiet splash)') }}"
+    path: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX_DEFAULT="(.*)"$'
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="\1 quiet splash"'
+    backrefs: yes
   become: true
 
 - name: plymouth | update initramfs
