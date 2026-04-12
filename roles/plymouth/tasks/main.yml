@@ -21,7 +21,7 @@
     state: link
     force: true
   with_filetree: plymouth/themes
-  when: item.state == 'file'
+  when: item.state == 'directory'
   become: true
 
 - name: plymouth | set default plymouth theme
