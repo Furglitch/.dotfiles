@@ -7,3 +7,57 @@
   become_user: "{{ target_user }}"
   become_flags: '-H'
   ignore_errors: true
+
+- name: prismlauncher | ensure PrismLauncher/catpacks directory exists
+  ansible.builtin.file:
+    path: '{{ ansible_facts["user_dir"] }}/.local/share/PrismLauncher/catpacks'
+    state: directory
+    mode: '0755'
+    owner: '{{ target_user }}'
+    group: '{{ target_user }}'
+
+- name: prismlauncher | symlink catpacks
+  ansible.builtin.file:
+    src: '{{ playbook_dir }}/files/prismlauncher/catpacks'
+    dest: '{{ ansible_facts["user_dir"] }}/.local/share/PrismLauncher/catpacks'
+    state: link
+    owner: '{{ target_user }}'
+    group: '{{ target_user }}'
+
+- name: prismlauncher | ensure PrismLauncher/iconthemes directory exists
+  ansible.builtin.file:
+    path: '{{ ansible_facts["user_dir"] }}/.local/share/PrismLauncher/iconthemes'
+    state: directory
+    mode: '0755'
+    owner: '{{ target_user }}'
+    group: '{{ target_user }}'
+
+- name: prismlauncher | symlink iconthemes
+  ansible.builtin.file:
+    src: '{{ playbook_dir }}/files/prismlauncher/iconthemes'
+    dest: '{{ ansible_facts["user_dir"] }}/.local/share/PrismLauncher/iconthemes'
+    state: link
+    owner: '{{ target_user }}'
+    group: '{{ target_user }}'
+
+- name: prismlauncher | ensure PrismLauncher/themes directory exists
+  ansible.builtin.file:
+    path: '{{ ansible_facts["user_dir"] }}/.local/share/PrismLauncher/themes'
+    state: directory
+    mode: '0755'
+    owner: '{{ target_user }}'
+    group: '{{ target_user }}'
+
+- name: prismlauncher | clone Catppuccin theme
+  ansible.builtin.git:
+    repo: 'https://github.com/catppuccin/prismlauncher.git'
+    dest: '{{ ansible_facts["user_dir"] }}/.archdot/roles/prismlauncher/files/prismlauncher/themes/catppuccin'
+    version: main
+
+- name: prismlauncher | symlink Catppuccin themes
+  ansible.builtin.file:
+    src: '{{ playbook_dir }}/files/prismlauncher/themes/catppuccin/themes'
+    dest: '{{ ansible_facts["user_dir"] }}/.local/share/PrismLauncher/themes/'
+    state: link
+    owner: '{{ target_user }}'
+    group: '{{ target_user }}'
