@@ -21,8 +21,12 @@
     src: '{{ playbook_dir }}/files/prismlauncher/catpacks'
     dest: '{{ ansible_facts["user_dir"] }}/.local/share/PrismLauncher/catpacks'
     state: link
-    owner: '{{ target_user }}'
-    group: '{{ target_user }}'
+    force: true
+  with_filetree: prismlauncher/catpacks
+  when: item.state == 'file'
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: prismlauncher | ensure PrismLauncher/iconthemes directory exists
   ansible.builtin.file:
@@ -37,8 +41,12 @@
     src: '{{ playbook_dir }}/files/prismlauncher/iconthemes'
     dest: '{{ ansible_facts["user_dir"] }}/.local/share/PrismLauncher/iconthemes'
     state: link
-    owner: '{{ target_user }}'
-    group: '{{ target_user }}'
+    force: true
+  with_filetree: prismlauncher/iconthemes
+  when: item.state == 'file'
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: prismlauncher | ensure PrismLauncher/themes directory exists
   ansible.builtin.file:
@@ -56,8 +64,11 @@
 
 - name: prismlauncher | symlink Catppuccin themes
   ansible.builtin.file:
-    src: '{{ playbook_dir }}/files/prismlauncher/themes/catppuccin/themes'
+    src: '{{ playbook_dir }}/roles/prismlauncher/files/prismlauncher/themes/catppuccin/themes'
     dest: '{{ ansible_facts["user_dir"] }}/.local/share/PrismLauncher/themes/'
     state: link
-    owner: '{{ target_user }}'
-    group: '{{ target_user }}'
+    force: true
+  with_filetree: prismlauncher/themes/catppuccin/themes
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
