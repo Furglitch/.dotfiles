@@ -20,6 +20,20 @@
     use: paru
   become_user: "{{ target_user }}"
   become_flags: '-H'
+- name: zsh | ensure starship installed
+  kewlfft.aur.aur:
+    name: starship
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+- name: zsh | ensure thefuck installed
+  kewlfft.aur.aur:
+    name: thefuck
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: zsh | symlink .zshrc
   ansible.builtin.file:
