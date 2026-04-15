@@ -58,7 +58,7 @@
   "menus.dashboard.shortcuts.left.shortcut4.command": "ghostty",
   "menus.dashboard.shortcuts.left.shortcut4.icon": "",
   "menus.dashboard.shortcuts.left.shortcut4.tooltip": "ghostty",
-  "menus.dashboard.shortcuts.right.shortcut1.command": "killall rofi || ~/.config/rofi/launcher.sh",
+  "menus.dashboard.shortcuts.right.shortcut1.command": "vicinae open",
   "menus.dashboard.shortcuts.right.shortcut1.icon": "",
   "menus.dashboard.shortcuts.right.shortcut1.tooltip": "App Launcher",
   "menus.dashboard.shortcuts.right.shortcut3.command": "sleep 0.5 && ~/.dotfiles/bin/picker",

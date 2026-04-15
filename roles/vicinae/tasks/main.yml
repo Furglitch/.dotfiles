@@ -1,14 +1,14 @@
 ---
-- name: rofi | uninstall wofi
+- name: vicinae | uninstall wofi
   kewlfft.aur.aur:
     name: wofi
     state: absent
     use: paru
   become_user: "{{ target_user }}"
   become_flags: '-H'
-- name: rofi | ensure rofi installed
+- name: vicinae | ensure vicinae installed
   kewlfft.aur.aur:
-    name: rofi
+    name: vicinae
     state: present
     use: paru
   become_user: "{{ target_user }}"

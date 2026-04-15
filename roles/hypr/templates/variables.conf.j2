@@ -11,8 +11,9 @@ $terminal = ghostty
 $fileManager = dolphin
 $editor = code
 $browser = waterfox
-$launcher = killall rofi || {{ ansible_facts['user_dir'] }}/.config/rofi/launcher.sh
-$clipboard = cliphist list | rofi -dmenu | cliphist decode | wl-copy
+$launcher = vicinae open
+$clipboard = vicinae vicinae://launch/clipboard/history
+$emoji = vicinae vicinae://launch/core/search-emojis
 
 ### Color Palette - Catppuccin Mocha ###
 $rosewater = rgba(#f5e0dcff)

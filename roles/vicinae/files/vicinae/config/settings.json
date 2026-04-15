@@ -1,0 +1,138 @@
+// This configuration is merged with the default vicinae configuration file, which you can obtain by running the `vicinae config default` command.
+// Every item defined in this file takes precedence over the values defined in the default config or any other imported file.
+//
+// You can make manual edits to this file, however you should keep in mind that this file may be written to by vicinae when a configuration change is made through the GUI.
+// When that happens, any custom comments or formatting will be lost.
+//
+// If you want to maintain a configuration file with your own comments and formatting, you should create a separate file and add it to the 'imports' array.
+//
+// Learn more about configuration at https://docs.vicinae.com/config
+
+{
+   "$schema": "https://vicinae.com/schemas/config.json",
+   "theme": {
+      "dark": {
+         "name": "catppuccin-mocha",
+         "icon_theme": "Catppuccin Mocha Sky"
+      }
+   },
+   "providers": {
+      "@knoopx/store.vicinae.github": {
+         "preferences": {
+            "defaultIssueFilter": "my",
+            "defaultRepositoryFilter": "my",
+            "numberOfResults": "50"
+         }
+      },
+      "clipboard": {
+         "entrypoints": {
+            "clear": {
+               "enabled": false
+            },
+            "clear-history": {
+               "enabled": false
+            }
+         }
+      },
+      "core": {
+         "entrypoints": {
+            "about": {
+               "enabled": false
+            },
+            "documentation": {
+               "enabled": false
+            },
+            "keybind-settings": {
+               "enabled": false
+            },
+            "list-extensions": {
+               "enabled": false
+            },
+            "manage-fallback": {
+               "enabled": false
+            },
+            "open-default-config": {
+               "enabled": false
+            },
+            "prune-memory": {
+               "enabled": false
+            },
+            "reload-scripts": {
+               "enabled": false
+            },
+            "report-bug": {
+               "enabled": false
+            },
+            "search-builtin-icons": {
+               "enabled": false
+            },
+            "sponsor": {
+               "enabled": false
+            }
+         }
+      },
+      "developer": {
+         "entrypoints": {
+            "create": {
+               "enabled": false
+            }
+         }
+      },
+      "manage-shortcuts": {
+         "entrypoints": {
+            "manage": {
+               "enabled": true
+            }
+         }
+      },
+      "power": {
+         "entrypoints": {
+            "hibernate": {
+               "enabled": false
+            },
+            "lock": {
+               "alias": "Lock"
+            },
+            "logout": {
+               "alias": "Log Out"
+            },
+            "power-off": {
+               "alias": "Power Off"
+            },
+            "reboot": {
+               "alias": "Reboot"
+            },
+            "sleep": {
+               "alias": "Sleep"
+            },
+            "soft-reboot": {
+               "enabled": false
+            },
+            "suspend": {
+               "enabled": false
+            }
+         }
+      },
+      "system": {
+         "entrypoints": {
+            "browse-apps": {
+               "enabled": true
+            }
+         }
+      },
+      "theme": {
+         "entrypoints": {
+            "set": {
+               "enabled": false
+            }
+         }
+      },
+      "wm": {
+         "entrypoints": {
+            "switch-windows": {
+               "enabled": false
+            }
+         }
+      }
+   }
+}

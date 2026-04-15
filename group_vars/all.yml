@@ -36,13 +36,13 @@ default_roles:
   - python
   - qdirstat
   - qt-wayland
-  - rofi
   - rubygems
   - smartmontools
   - ssh
   - steam
   - telegram
   - uwsm
+  - vicinae
   - vlc
   - vscode
   - waterfox
