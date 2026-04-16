@@ -7,3 +7,21 @@
   become_user: "{{ target_user }}"
   become_flags: '-H'
   ignore_errors: true
+
+- name: gimp | symlink theme files
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/gimp/themes/"
+    dest: "/usr/share/GIMP/3.2/themes"
+    state: link
+    force: true
+  become: true
+  become_flags: '-H'
+
+- name: gimp | symlink config files
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/gimp/config/"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/GIMP/3.2"
+    state: link
+    force: true
+  become: true
+  become_flags: '-H'
