@@ -15,7 +15,6 @@ default_roles:
   - docker
   - dolphin
   - fastfetch
-  - gamemode
   - gimp
   - git
   - grub
