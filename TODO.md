@@ -10,9 +10,7 @@ roles
 ├── fonts
 ├── ghostty
 ├── gimp
-        - Theme?
 ├── git
-        - Automate login
 ├── grub
         - Theme
 ├── heroic-games-launcher
