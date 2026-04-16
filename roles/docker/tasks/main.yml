@@ -13,3 +13,9 @@
     use: paru
   become_user: "{{ target_user }}"
   become_flags: '-H'
+- name: docker | add user to docker group
+  ansible.builtin.user:
+    name: "{{ target_user }}"
+    groups: docker
+    append: yes
+  become: true
