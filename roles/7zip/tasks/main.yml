@@ -1,8 +1,0 @@
----
-- name: 7zip | ensure 7zip installed
-  kewlfft.aur.aur:
-    name: 7zip
-    state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: '-H'
