@@ -1,13 +1,9 @@
 roles
-├── 7zip
 ├── ark
 ├── bat
 ├── blockbench
 ├── btop
-├── cliphist
-        - Remove
 ├── discord
-        - Verify Betterdiscord
 ├── docker
         - Add user to non-sudo group
 ├── dolphin

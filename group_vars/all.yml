@@ -7,12 +7,10 @@ default_roles:
   - zsh
   - hypr
   # install packages
-  - 7zip
   - ark
   - bat
   - blockbench
   - btop
-  - cliphist
   - discord
   - docker
   - dolphin
