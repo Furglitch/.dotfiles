@@ -1,0 +1,8 @@
+betterdiscordctl self-upgrade
+yay -Sy discord --noconfirm
+discord & disown
+sleep 10s
+if ! betterdiscordctl reinstall; then
+    betterdiscordctl install
+fi
+discord & disown

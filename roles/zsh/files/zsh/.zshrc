@@ -66,6 +66,7 @@ alias chown='chown -v --preserve-root'
 alias chmod='chmod -v --preserve-root'
 alias chgrp='chgrp --preserve-root'
 alias chmox="chmod +x --preserve-root"
+alias bdup='command -v betterdiscord-update >/dev/null 2>&1 && betterdiscord-update || betterdiscordctl reinstall'
 
 # system info
 alias fetch='fastfetch'; alias ff='fastfetch'
