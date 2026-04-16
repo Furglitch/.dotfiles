@@ -6,6 +6,13 @@
     use: paru
   become_user: "{{ target_user }}"
   become_flags: '-H'
+- name: kvantum | ensure qt6ct installed
+  kewlfft.aur.aur:
+    name: qt6ct-kde
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: kvantum | ensure .config/Kvantum directory exists
   ansible.builtin.file:
