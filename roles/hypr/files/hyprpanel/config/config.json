@@ -1,6 +1,6 @@
 {
   "bar.layouts": {
-    "0": {
+    "1": {
       "left": [
         "dashboard",
         "workspaces",
@@ -18,7 +18,7 @@
         "notifications"
       ]
     },
-    "1": {
+    "0": {
       "left": [
         "workspaces"
       ],
