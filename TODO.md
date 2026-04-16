@@ -1,8 +1,6 @@
 roles
 ├── 7zip
-        - Merge into `ark`
 ├── ark
-        - Figure out configg
 ├── bat
 ├── blockbench
 ├── btop
