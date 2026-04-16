@@ -12,7 +12,6 @@ roles
 ├── gimp
 ├── git
 ├── grub
-        - Theme
 ├── heroic-games-launcher
         - Set up libraries
 ├── hypr

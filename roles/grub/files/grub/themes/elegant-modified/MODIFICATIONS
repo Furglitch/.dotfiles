@@ -1,0 +1,18 @@
+- Add multi-resolution wallpaper (from orangci/walls-catppuccin-mocha)
+- Replace pf2 files with Ubuntu Nerd Font and UbuntuMono Nerd Font
+
+[info.png]
+- Change vinceliuice's logo
+- Remove 'select' prompt
+- Change font to Ubuntu Nerd Font
+- Change icons to Nerd Font icons
+
+[theme.txt]
+- Apply fonts
+- Apply 2K resolution wallpaper
+- Change desktop-color to Catppuccin Mocha 'base'
++ boot_menu
+    - Change item_color to Catppuccin Mocha 'overlay'
+    - Change selected_item_color to Catppuccin Mocha 'text'
++ label
+    - Change color to Catppuccin Mocha 'crust'
