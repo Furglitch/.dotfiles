@@ -5,12 +5,9 @@ roles
 ├── btop
 ├── discord
 ├── docker
-        - Add user to non-sudo group
 ├── dolphin
 ├── fastfetch
 ├── fonts
-├── gamemode
-        - Remove
 ├── ghostty
 ├── gimp
         - Theme?

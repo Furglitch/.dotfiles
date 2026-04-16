@@ -6,6 +6,7 @@ default_roles:
   # - fonts
   - zsh
   - hypr
+  - ghostty
   # install packages
   - ark
   - bat
@@ -47,4 +48,3 @@ default_roles:
   - wine
   - wireless_tools
   - xdg-utils
-  - ghostty
