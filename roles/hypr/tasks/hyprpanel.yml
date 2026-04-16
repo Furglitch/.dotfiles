@@ -51,3 +51,15 @@
   become: true
   become_user: "{{ target_user }}"
   become_flags: '-H'
+
+- name: hyprpanel | symlink bin files
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/hyprpanel/bin/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/bin/hyprpanel.{{ item.path }}"
+    state: link
+    force: true
+  with_filetree: hyprpanel/bin
+  when: item.state == 'file'
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
