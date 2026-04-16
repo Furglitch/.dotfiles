@@ -11,5 +11,5 @@ monitors:
       position: auto-left
       scale: 1
   workspaces:
-      DP-1: 5
       DP-2: 5
+      DP-1: 5
