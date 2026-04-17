@@ -43,7 +43,7 @@
     url: "{{ item.file.url }}"
     dest: >-
       {{ ansible_facts['user_dir'] }}/.local/share/wallpapers/
-      e9.{{ item.id }}.{{((item.tags.artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( (item.tags.artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ item.file.ext }}
+      e6.{{ item.id }}.{{((item.tags.artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( (item.tags.artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ item.file.ext }}
     mode: '0644'
     force: no
   loop: "{{ e621_posts_list }}"
