@@ -1,0 +1,12 @@
+---
+vscode_extensions:
+  - Catppuccin.catppuccin-vsc-pack
+  - aaron-bond.better-comments
+  - oderwat.indent-rainbow
+
+  - tyriar.sort-lines
+  - solomonkinard.reverse
+  - adpyke.codesnap
+
+  - donjayamanne.git-extension-pack
+  - vscodevim.vim

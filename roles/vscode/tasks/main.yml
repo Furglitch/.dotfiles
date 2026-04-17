@@ -6,6 +6,7 @@
     use: paru
   become_user: "{{ target_user }}"
   become_flags: '-H'
+
 - name: vscode | ensure pre-commit installed
   kewlfft.aur.aur:
     name: pre-commit
@@ -13,3 +14,12 @@
     use: paru
   become_user: "{{ target_user }}"
   become_flags: '-H'
+
+- name: vscode | install extensions
+  ansible.builtin.command:
+    cmd: "code --install-extension {{ item }}"
+  loop: "{{ vscode_extensions }}"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+  when: vscode_extensions is defined and vscode_extensions | length > 0
