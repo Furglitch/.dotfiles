@@ -1,3 +1,16 @@
+- name: wallpaper | ensure upscaler installed
+  kewlfft.aur.aur:
+    name: upscayl-ncnn
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: wallpaper | ensure imagemagick installed
+  community.general.pacman:
+    name: imagemagick
+    state: present
+
 - name: e621 | load set id
   ansible.builtin.include_vars:
     file: "{{ role_path }}/vars/wallpapers.yml"
@@ -51,6 +64,40 @@
     - e621_posts_list | length > 0
     - item.file.url | length > 0
   ignore_errors: true
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: wallpaper | find downloaded images
+  ansible.builtin.find:
+    paths: "{{ ansible_facts['user_dir'] }}/.local/share/wallpapers/"
+    patterns: "e6.*"
+  register: wallpaper_files
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: wallpaper | check image dimensions
+  ansible.builtin.command:
+    cmd: "identify -format '%w %h' {{ item.path }}"
+  loop: "{{ wallpaper_files.files }}"
+  register: wallpaper_dimensions
+  changed_when: false
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: wallpaper | upscale low resolution images
+  ansible.builtin.command:
+    cmd: >-
+      upscayl 
+      -i "{{ item.item.path }}"
+      -o "{{ item.item.path }}"
+      -s {{ (item.stdout.split()[1] | int < 720) | ternary('4', '2') }}
+  loop: "{{ wallpaper_dimensions.results }}"
+  when: item.stdout.split()[1] | int < 1440
+  async: 300
+  poll: 0
   become: true
   become_user: "{{ target_user }}"
   become_flags: '-H'
