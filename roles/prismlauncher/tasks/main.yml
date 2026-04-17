@@ -61,11 +61,6 @@
   become: true
   become_user: "{{ target_user }}"
   become_flags: '-H'
-  ansible.builtin.file:
-    src: "{{ role_path }}/files/prismlauncher/themes/catppuccin/themes/{{ item }}"
-    dest: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher/themes/{{ item }}"
-    state: link
-    force: true
   loop:
     - Catppuccin-Frappe
     - Catppuccin-Latte

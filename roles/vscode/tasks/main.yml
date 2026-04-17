@@ -23,3 +23,15 @@
   become_user: "{{ target_user }}"
   become_flags: '-H'
   when: vscode_extensions is defined and vscode_extensions | length > 0
+
+- name: vscode | symlink config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/code/config"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/Code/User"
+    state: link
+    force: true
+  with_filetree: code/config
+  when: item.state == 'file'
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
