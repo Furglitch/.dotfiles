@@ -31,7 +31,6 @@ roles
 ├── pavucontrol
 ├── plymouth
 ├── prismlauncher
-        - Themes
 ├── python
 ├── qdirstat
 ├── qt-wayland
