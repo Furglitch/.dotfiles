@@ -26,6 +26,12 @@
   become: true
   become_flags: '-H'
 
+- name: gimp | ensure config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/GIMP/3.2"
+    state: directory
+    mode: '0755'
+
 - name: gimp | symlink config files
   ansible.builtin.file:
     src: "{{ role_path }}/files/gimp/config/{{ item.path }}"
