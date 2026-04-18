@@ -1,0 +1,16 @@
+---
+- name: sddm | ensure sddm installed
+  kewlfft.aur.aur:
+    name: sddm
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: sddm | ensure sddm-kcm installed
+  kewlfft.aur.aur:
+    name: sddm-kcm
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
