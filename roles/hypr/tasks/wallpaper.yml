@@ -24,23 +24,19 @@
       - e621_vaulted.e621_set | length > 0
     fail_msg: "e621_set variable is not defined in wallpapers.yml"
 
-- name: e621 | query posts for set
-  ansible.builtin.uri:
-    url: "https://e621.net/posts.json?tags=set:{{ e621_vaulted.e621_set }}&limit=100"
-    method: GET
-    return_content: yes
-    headers:
-      User-Agent: "archdot/ansible"
-  register: e621_posts
-  no_log: false
-
-- name: e621 | collect image URLs
+- name: e621 | initialize posts list
   ansible.builtin.set_fact:
-    e621_urls: "{{ e621_posts.json.posts | map(attribute='file.url') | list }}"
+    e621_posts_list: []
 
-- name: e621 | keep full posts list
-  ansible.builtin.set_fact:
-    e621_posts_list: "{{ e621_posts.json.posts }}"
+- name: e621 | fetch pages with rate limiting
+  include_tasks: handlers/fetch_wallpaper_page.yml
+  loop: [1, 2]
+  loop_control:
+    loop_var: page_number
+
+- name: e621 | show total posts fetched
+  ansible.builtin.debug:
+    msg: "Fetched {{ e621_posts_list | length }} posts from set {{ e621_vaulted.e621_set }}"
 
 - name: e621 | artist blacklist
   ansible.builtin.set_fact:
@@ -51,12 +47,11 @@
       - sound_warning
       - anonymous_artist
 
-- name: e621 | download images
+- name: e621 | download images (async with rate limiting)
   ansible.builtin.get_url:
     url: "{{ item.file.url }}"
     dest: >-
-      {{ ansible_facts['user_dir'] }}/.local/share/wallpapers/
-      e6.{{ item.id }}.{{((item.tags.artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( (item.tags.artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ item.file.ext }}
+      {{ ansible_facts['user_dir'] }}/.local/share/wallpapers/e6.{{ item.id }}.{{((item.tags.artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( (item.tags.artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ item.file.ext }}
     mode: '0644'
     force: no
   loop: "{{ e621_posts_list }}"
@@ -64,40 +59,18 @@
     - e621_posts_list | length > 0
     - item.file.url | length > 0
   ignore_errors: true
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: '-H'
-
-- name: wallpaper | find downloaded images
-  ansible.builtin.find:
-    paths: "{{ ansible_facts['user_dir'] }}/.local/share/wallpapers/"
-    patterns: "e6.*"
-  register: wallpaper_files
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: '-H'
-
-- name: wallpaper | check image dimensions
-  ansible.builtin.command:
-    cmd: "identify -format '%w %h' {{ item.path }}"
-  loop: "{{ wallpaper_files.files }}"
-  register: wallpaper_dimensions
-  changed_when: false
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: '-H'
-
-- name: wallpaper | upscale low resolution images
-  ansible.builtin.command:
-    cmd: >-
-      upscayl 
-      -i "{{ item.item.path }}"
-      -o "{{ item.item.path }}"
-      -s {{ (item.stdout.split()[1] | int < 720) | ternary('4', '2') }}
-  loop: "{{ wallpaper_dimensions.results }}"
-  when: item.stdout.split()[1] | int < 1440
-  async: 300
+  async: 600
   poll: 0
+  register: e621_download_jobs
+  throttle: 1
+  loop_control:
+    pause: 2
   become: true
   become_user: "{{ target_user }}"
   become_flags: '-H'
+
+- name: wallpaper | trigger processing handler
+  ansible.builtin.set_fact:
+    wallpaper_download_jobs: "{{ e621_download_jobs }}"
+  changed_when: true
+  notify: hypr | process wallpapers

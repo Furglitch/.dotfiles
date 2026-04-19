@@ -20,3 +20,6 @@
 - name: hypr | reload hyprpanel
   ansible.builtin.shell:
     cmd: hyprpanel &
+
+- name: hypr | process wallpapers
+  ansible.builtin.include_tasks: handlers/process_wallpapers.yml
