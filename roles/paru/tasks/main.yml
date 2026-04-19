@@ -4,41 +4,43 @@
     path: /usr/bin/paru
   register: paru_installed
 
-- name: paru | Get local paru version
+- name: paru | Check for updates
   when: paru_installed.stat.exists
-  ansible.builtin.command: paru -Q paru
-  register: paru_local_version
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+  ansible.builtin.command: paru -Qu paru
+  register: paru_update_check
   changed_when: false
+  failed_when: false
 
-- name: paru | Get AUR paru version
-  when: paru_installed.stat.exists
-  ansible.builtin.command: paru -Si paru
-  register: paru_aur_version
-  changed_when: false
+- name: paru | Report up to date
+  when: paru_installed.stat.exists and paru_update_check.rc != 0
+  ansible.builtin.debug:
+    msg: "paru is already up to date"
 
-- name: paru | Set update needed flag
-  when: paru_installed.stat.exists
-  ansible.builtin.set_fact:
-    paru_needs_update: "{{ paru_local_version.stdout != paru_aur_version.stdout }}"
-
-- name: paru | Update via paru
-  when: paru_installed.stat.exists and paru_needs_update
+- name: paru | Try self-update
+  when: paru_installed.stat.exists and paru_update_check.rc == 0
   become: true
   become_user: "{{ target_user }}"
   become_flags: '-H'
   ansible.builtin.command: paru -S paru --noconfirm
   register: paru_self_update
-  changed_when: true
-  ignore_errors: true
+  changed_when: paru_self_update.rc == 0
+  failed_when: false
 
-- name: paru | Clean build directory before clone
-  when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
+- name: paru | Set build flag
+  ansible.builtin.set_fact:
+    paru_needs_build: "{{ not paru_installed.stat.exists or (paru_update_check.rc == 0 and paru_self_update.rc != 0) }}"
+
+- name: paru | Clean build directory
+  when: paru_needs_build
   ansible.builtin.file:
     path: /tmp/paru
     state: absent
 
 - name: paru | Clone repository
-  when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
+  when: paru_needs_build
   become: true
   become_user: "{{ target_user }}"
   become_flags: '-H'
@@ -50,14 +52,14 @@
     version: master
 
 - name: paru | Update system before installing dependencies
-  when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
+  when: paru_needs_build
   become: true
   ansible.builtin.pacman:
     update_cache: yes
     upgrade: yes
 
 - name: paru | Install build dependencies
-  when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
+  when: paru_needs_build
   become: true
   ansible.builtin.pacman:
     name:
@@ -70,7 +72,7 @@
     state: present
 
 - name: paru | Build and install package
-  when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
+  when: paru_needs_build
   become: true
   become_user: "{{ target_user }}"
   become_flags: '-H'
@@ -80,12 +82,7 @@
   changed_when: true
 
 - name: paru | Clean up build directory
-  when: not paru_installed.stat.exists or (paru_needs_update | default(false) and paru_self_update.failed | default(false))
+  when: paru_needs_build
   ansible.builtin.file:
     path: /tmp/paru
     state: absent
-
-- name: paru | Report up to date
-  when: paru_installed.stat.exists and not paru_needs_update
-  ansible.builtin.debug:
-    msg: "paru is already up to date (version {{ paru_local_version.stdout }})"
