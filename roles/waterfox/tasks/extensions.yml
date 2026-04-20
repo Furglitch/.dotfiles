@@ -13,7 +13,7 @@
 - name: "Profile {{ profile }}: addon {{ addon_slug }}: Create extension directory"
   vars:
     ext_dir: "{{ profile_subdir }}/extensions"
-  file:
+  ansible.builtin.file:
     path: "{{ ext_dir }}"
     state: directory
     owner: "{{ target_user }}"

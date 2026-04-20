@@ -13,7 +13,7 @@
 
 - name: e621 | load set id
   ansible.builtin.include_vars:
-    file: "{{ role_path }}/vars/wallpapers.yml"
+    ansible.builtin.file: "{{ role_path }}/vars/wallpapers.yml"
     name: e621_vaulted
   no_log: true
 
@@ -29,7 +29,7 @@
     e621_posts_list: []
 
 - name: e621 | fetch pages with rate limiting
-  include_tasks: handlers/fetch_wallpaper_page.yml
+  ansible.builtin.include_tasks: handlers/fetch_wallpaper_page.yml
   loop: [1, 2]
   loop_control:
     loop_var: page_number
