@@ -51,3 +51,17 @@
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch/user.js"
     state: absent
+
+- name: ff-ultima | ensure waterfox killed
+  ansible.builtin.shell: "pkill -9 -f waterfox"
+  ignore_errors: true
+
+- name: ff-ultima | symlink prefs.js
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/waterfox/config/prefs.js"
+    dest: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch/prefs.js"
+    state: link
+    force: yes
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'  
