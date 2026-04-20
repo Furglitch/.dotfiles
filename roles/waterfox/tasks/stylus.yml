@@ -1,0 +1,32 @@
+---
+- name: waterfox | setup stylus themes for import
+  ansible.builtin.copy:
+    src: waterfox/config/stylus.json
+    dest: "{{ ansible_facts['user_dir'] }}/Downloads/stylus-themes.json"
+    mode: '0644'
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: waterfox | extract stylus extension UUID
+  ansible.builtin.shell: |
+    if [[ -f "{{ profile_subdir }}/prefs.js" ]]; then
+      STYLUS_UUID=$(grep 'extensions\.webextensions\.uuids' "{{ profile_subdir }}/prefs.js" | \
+        sed 's/.*"extensions\.webextensions\.uuids", "\(.*\)");.*/\1/' | \
+        sed 's/\\"/"/g')
+      if [[ "$STYLUS_UUID" == *"\"{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}\":"* ]]; then
+        STYLUS_LOCAL_UUID=$(echo "$STYLUS_UUID" | grep -o '"{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}":"[^"]*"' | cut -d'"' -f4)
+        echo "Stylus UUID found: $STYLUS_LOCAL_UUID"
+      fi
+    fi
+  register: stylus_uuid_result
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+  changed_when: false
+  failed_when: false
+
+- name: waterfox | display stylus UUID
+  ansible.builtin.debug:
+    msg: "{{ stylus_uuid_result.stdout }}"
+  when: stylus_uuid_result.stdout != ""

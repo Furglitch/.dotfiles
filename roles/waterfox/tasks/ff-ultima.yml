@@ -2,7 +2,7 @@
 - name: ff-ultima | Clone ff-ultima repository
   ansible.builtin.git:
     repo: 'https://github.com/soulhotel/FF-ULTIMA.git'
-    dest: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch/chrome"
+    dest: "{{ profile_subdir }}/chrome"
     clone: true
     depth: 1
     version: main
@@ -12,8 +12,8 @@
 
 - name: ff-ultima | Copy user.js to profile
   ansible.builtin.copy:
-    src: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch/chrome/user.js"
-    dest: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch/user.js"
+    src: "{{ profile_subdir }}/chrome/user.js"
+    dest: "{{ profile_subdir }}/user.js"
     mode: '0644'
     force: yes
   become: true
@@ -34,7 +34,7 @@
 
 - name: ff-ultima | remove user.js
   ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch/user.js"
+    path: "{{ profile_subdir }}/user.js"
     state: absent
   become: true
   become_user: "{{ target_user }}"
@@ -47,7 +47,7 @@
 - name: ff-ultima | symlink prefs.js
   ansible.builtin.file:
     src: "{{ role_path }}/files/waterfox/profile/prefs.js"
-    dest: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch/prefs.js"
+    dest: "{{ profile_subdir }}/prefs.js"
     state: link
     force: yes
   become: true

@@ -1,0 +1,36 @@
+---
+- name: waterfox | install extensions
+  ansible.builtin.include_tasks: install-addon.yml
+  vars:
+    addon_slug: "{{ item }}"
+  loop: "{{ waterfox_extensions }}"
+  when: waterfox_extensions is defined and waterfox_extensions | length > 0
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+
+- name: waterfox | apply firefox color theme
+  ansible.builtin.shell: |
+    DISPLAY=:0 nohup waterfox "{{ firefox_color }}" > /dev/null 2>&1 &
+    sleep 2
+  when: firefox_color is defined
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+  environment:
+    DISPLAY: ":0"
+
+- name: waterfox | install userscripts
+  ansible.builtin.shell: |
+    DISPLAY=:0 nohup waterfox "{{ item }}" > /dev/null 2>&1 &
+    sleep 2
+  loop: "{{ userscripts }}"
+  when: userscripts is defined and userscripts | length > 0
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
+  environment:
+    DISPLAY: ":0"
+
+- name: waterfox | setup stylus
+  ansible.builtin.include_tasks: stylus.yml

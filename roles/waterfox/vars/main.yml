@@ -1,0 +1,24 @@
+---
+# profile configuration
+profile: "furglitch"
+profile_dir: "{{ ansible_facts['user_dir'] }}/.waterfox"
+profile_subdir: "{{ profile_dir }}/123a1234.{{ profile}}"
+
+# List of Firefox extensions to install
+waterfox_extensions:
+  - ublock-origin
+  - bitwarden-password-manager
+  - styl-us
+  - firefox-color
+  - sponsorblock
+  - dearrow
+  - violentmonkey
+
+firefox_color: "https://color.firefox.com/?theme=XQAAAAJCBAAAAAAAAABBqYhm849SCicxcUcPX38oKRicm6da8pFtMcajvXaAE3RJ0F_F447xQs-L1kFlGgDKq4IIvWciiy4upusW7OvXIRinrLrwLvjXB37kvhN5ElayHo02fx3o8RrDShIhRpNiQMOdww5V2sCMLAfehho7r-tNa1SUtGS7I1CTZPy-PytvuYpnFiOqD91PyT5-oYf07MFNkQL1-mpkSfsafhS81iVCbahFQLTHZeroonPBnAGkaLJ2dRDLmW_ekCLmoty20NcEekV8xFQYv721-QIo9PeuYe33F-mNR9-0e-QMdtuksaYkOl_aH_NyI8RDM1HUiQCcd3StPLq3UyDaJhC_rhvlZWMMwDAuoHMI1RAnUbn3_KGbvErQEyBxxtEkWzHTed2xIpT8jcV1yQY9odOLm0ydbWlYpb-kUOoX_nF9hQq7Gf0ORYtSpGO_uA458GGCpImunZ68j-GfRy90T73zU1VU-sqA_YzfFoSZcZqLLa4UF-FMpwPQeeJR5w4GSti1briOisS9yTOAmYWfRpSbogOZzhEW2o-i8Fje__nq5cE"
+
+userscripts:
+  - "https://github.com/re621/re621.Legacy/releases/latest/download/script.user.js"
+  - "https://gist.github.com/Furglitch/a63a1dd249f7126b473bd6f1fd76285d/raw/noVNCCopyPasteProxmox.user.js"
+  - "https://update.greasyfork.org/scripts/560618/YouTube%20Improvements%20%E2%80%93%20Layout%20%20Video%20Enhancer.user.js"
+  - "https://update.greasyfork.org/scripts/508784/YouTube%20HD%20Plus.user.js"
+  - "https://update.greasyfork.org/scripts/537017/YouTube%20%2B.user.js"

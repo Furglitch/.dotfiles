@@ -1,0 +1,39 @@
+# Source: arensb/ansible-firefox/profiles/tasks/firefox-addon.yml
+---
+- name: "profile {{ profile }}: addon {{ addon_slug }}: Look up information"
+  vars:
+    info_base: "https://services.addons.mozilla.org/api/v4/addons/addon"
+  uri:
+    url: "{{ info_base }}/{{ addon_slug }}/"
+    return_content: yes
+    # body_format: json
+  register: addon_info
+  check_mode: no
+
+- name: "Profile {{ profile }}: addon {{ addon_slug }}: Create extension directory"
+  vars:
+    ext_dir: "{{ profile_subdir }}/extensions"
+  file:
+    path: "{{ ext_dir }}"
+    state: directory
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: '0755'
+
+- name: "Profile {{ profile }}: addon {{ addon_slug }}: download extension file"
+  vars:
+    slug: "{{ addon_info.json | json_query('slug') }}"
+    guid: "{{ addon_info.json | json_query('guid') }}"
+    basename: "{{ guid }}.xpi"
+    ext_dir: "{{ profile_subdir }}/extensions"
+  uri:
+    url: "{{ item.url }}"
+    dest: "{{ ext_dir }}/{{ basename }}"
+    creates: "{{ profile_subdir }}/extensions/{{ basename }}"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: '0644'
+    force: yes
+  with_items: "{{ addon_info.json | json_query('current_version.files') | list }}"
+  loop_control:
+    label: "{{ slug }}"

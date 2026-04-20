@@ -10,7 +10,7 @@
 
 - name: waterfox | create profile directory
   ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch"
+    path: "{{ profile_subdir }}"
     state: directory
     mode: '0755'
   become: true
@@ -19,3 +19,7 @@
 
 - name: waterfox | install ff-ultima theme
   ansible.builtin.include_tasks: ff-ultima.yml
+
+- name: waterfox | install addons
+  ansible.builtin.include_tasks: addons.yml
+
