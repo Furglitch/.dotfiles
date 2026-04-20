@@ -3,7 +3,7 @@ default_roles:
   - pacman
   - paru
   # first installs
-  # - fonts
+  - fonts
   - zsh
   - hypr
   - ghostty
@@ -35,6 +35,7 @@ default_roles:
   - qdirstat
   - qt-wayland
   - rubygems
+  - sddm
   - smartmontools
   - ssh
   - steam
