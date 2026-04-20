@@ -23,6 +23,9 @@
 - name: waterfox | install addons
   ansible.builtin.include_tasks: addons.yml
 
+- name: waterfox | set default search engine
+  ansible.builtin.include_tasks: search-engine.yml
+
 - name: waterfox | manage bookmarks
   ansible.builtin.include_tasks: bookmarks.yml
 

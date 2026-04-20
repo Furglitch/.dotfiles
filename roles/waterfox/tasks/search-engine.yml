@@ -1,0 +1,81 @@
+---
+- name: waterfox | ensure python-lz4 is installed
+  community.general.pacman:
+    name: python-lz4
+    state: present
+  become: true
+
+- name: waterfox | set default search engine
+  ansible.builtin.shell: |
+    python3 << 'ENDPY'
+    import lz4.block
+    import json
+    import uuid
+    
+    search_file = '{{ profile_subdir }}/search.json.mozlz4'
+    
+    # Read and decompress
+    with open(search_file, 'rb') as f:
+        header = f.read(8)
+        config = json.loads(lz4.block.decompress(f.read()))
+    
+    # Find desired engine
+    target_engine = '{{ default_search_engine }}'
+    engine_id = None
+    for engine in config['engines']:
+        if engine.get('_name') == target_engine:
+            engine_id = engine.get('id')
+            break
+    
+    # If Kagi not found, add it
+    if not engine_id and target_engine == 'Kagi Search':
+        new_id = str(uuid.uuid4())
+        search_url = '{{ kagi_search_url }}'
+        
+        kagi_engine = {
+            "id": new_id,
+            "_name": "Kagi Search",
+            "_loadPath": "[user]",
+            "_iconMapObj": {},
+            "_metaData": {
+                "alias": "@k",
+                "order": 1
+            },
+            "_urls": [{
+                "params": [],
+                "rels": [],
+                "template": search_url
+            }],
+            "_orderHint": None,
+            "_telemetryId": None,
+            "_filePath": None,
+            "_definedAliases": []
+        }
+        
+        config['engines'].append(kagi_engine)
+        engine_id = new_id
+        print(f'ADDED: {target_engine}')
+    
+    if engine_id:
+        # Set as default
+        config['metaData']['defaultEngineId'] = engine_id
+        
+        # Write back compressed
+        json_data = json.dumps(config, separators=(',', ':')).encode('utf-8')
+        compressed = lz4.block.compress(json_data, store_size=False)
+        
+        with open(search_file, 'wb') as f:
+            f.write(header)
+            f.write(compressed)
+        
+        print(f'SUCCESS: {target_engine} set as default')
+    else:
+        print(f'ERROR: {target_engine} not found')
+        exit(1)
+    ENDPY
+  register: search_result
+  changed_when: "'SUCCESS' in search_result.stdout"
+  failed_when: "'ERROR' in search_result.stdout"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
