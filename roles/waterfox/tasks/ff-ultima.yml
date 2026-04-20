@@ -1,36 +1,24 @@
 ---
-- name: ff-ultima | Check if waterfox profile exists
-  ansible.builtin.stat:
-    path: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch"
-  register: fox_installed
-
-- name: ff-ultima | Clean build directory before clone
-  when: not fox_installed.stat.exists
-  ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch"
-    state: absent
-
 - name: ff-ultima | Clone ff-ultima repository
-  when: not fox_installed.stat.exists
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: '-H'
   ansible.builtin.git:
     repo: 'https://github.com/soulhotel/FF-ULTIMA.git'
     dest: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch/chrome"
     clone: true
     depth: 1
     version: main
-
-- name: ff-ultima | Copy user.js to profile
   become: true
   become_user: "{{ target_user }}"
   become_flags: '-H'
+
+- name: ff-ultima | Copy user.js to profile
   ansible.builtin.copy:
     src: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch/chrome/user.js"
     dest: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch/user.js"
     mode: '0644'
     force: yes
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: ff-ultima | ensure waterfox killed
   ansible.builtin.shell: "pkill -9 -f waterfox"
@@ -45,12 +33,12 @@
     seconds: 2
 
 - name: ff-ultima | remove user.js
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: '-H'
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch/user.js"
     state: absent
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: '-H'
 
 - name: ff-ultima | ensure waterfox killed
   ansible.builtin.shell: "pkill -9 -f waterfox"
@@ -58,7 +46,7 @@
 
 - name: ff-ultima | symlink prefs.js
   ansible.builtin.file:
-    src: "{{ role_path }}/files/waterfox/config/prefs.js"
+    src: "{{ role_path }}/files/waterfox/profile/prefs.js"
     dest: "{{ ansible_facts['user_dir'] }}/.waterfox/123a1234.furglitch/prefs.js"
     state: link
     force: yes
