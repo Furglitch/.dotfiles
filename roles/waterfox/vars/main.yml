@@ -1,8 +1,8 @@
 ---
 # profile configuration
-profile: "furglitch"
+profile: "default-release"
 profile_dir: "{{ ansible_facts['user_dir'] }}/.waterfox"
-profile_subdir: "{{ profile_dir }}/123a1234.{{ profile}}"
+profile_subdir: "{{ profile_dir }}/qc2khrbb.{{ profile}}"
 
 # List of Firefox extensions to install
 waterfox_extensions:
@@ -22,3 +22,38 @@ userscripts:
   - "https://update.greasyfork.org/scripts/560618/YouTube%20Improvements%20%E2%80%93%20Layout%20%20Video%20Enhancer.user.js"
   - "https://update.greasyfork.org/scripts/508784/YouTube%20HD%20Plus.user.js"
   - "https://update.greasyfork.org/scripts/537017/YouTube%20%2B.user.js"
+
+# Bookmarks to add to the toolbar
+waterfox_bookmarks:
+  - name: "YouTube"
+    url: "https://www.youtube.com/subscriptions/"
+    tags: ""
+    keyword: "yt"
+  - name: "GitHub"
+    url: "https://www.github.com/Furglitch/"
+    tags: ""
+    keyword: "gh"
+  - name: "Furglitch Wiki"
+    url: "https://wiki.furglitch.com/"
+    tags: ""
+    keyword: "wiki"
+  - name: "Proton Mail"
+    url: "https://mail.proton.me/u/0/inbox"
+    tags: ""
+    keyword: "pm"
+  - name: "Listful"
+    url: "https://www.listful.com/furglitch"
+    tags: ""
+    keyword: "lf"
+  - name: "ToyHouse"
+    url: "https://toyhou.se/furglitch"
+    tags: ""
+    keyword: "th"
+  - name: "Kitsunet"
+    url: "https://www.kitsunet.net/"
+    tags: ""
+    keyword: "kit"
+  - name: "e621"
+    url: "https://www.e621.net/posts/"
+    tags: ""
+    keyword: "e6"
