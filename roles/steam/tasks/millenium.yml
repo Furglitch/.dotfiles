@@ -1,0 +1,61 @@
+---
+- name: millennium | ensure plugins parent exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.local/share/millennium"
+    state: directory
+    mode: '0755'
+
+- name: millennium | ensure themes parent exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.steam/steam/millennium"
+    state: directory
+    mode: '0755'
+
+- name: millennium | install themes
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ role_path }}/files/millennium/themes/{{ item.name }}"
+    version: "{{ item.version }}"
+    update: yes
+    force: yes
+    accept_hostkey: yes
+  loop: "{{ millennium_themes }}"
+
+- name: millennium | symlink themes into Steam
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/millennium/themes"
+    dest: "{{ ansible_facts['user_dir'] }}/.steam/steam/millennium/themes"
+    state: link
+    force: yes
+  ignore_errors: true
+
+- name: millennium | enable themes
+  ansible.builtin.command:
+    cmd: "steam steam://millennium/settings/themes/enable/{{ item.id }}"
+  loop: "{{ millennium_themes }}"
+  ignore_errors: true
+
+- name: millennium | install plugins
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ role_path }}/files/millennium/plugins/{{ item.name }}"
+    version: "{{ item.version }}"
+    update: yes
+    force: yes
+    accept_hostkey: yes
+  loop: "{{ millennium_plugins }}"
+
+- name: millennium | symlink plugins into Steam
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/millennium/plugins"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/share/millennium/plugins"
+    state: link
+    force: yes
+  ignore_errors: true
+
+- name: millennium | enable plugins
+  ansible.builtin.command:
+    cmd: "steam steam://millennium/settings/plugins/enable/{{ item.id }}"
+  loop: "{{ millennium_plugins }}"
+  ignore_errors: true
+
