@@ -166,7 +166,8 @@
         "base-devel",
         "git",
         "ansible",
-        "python-pexpect"
+        "python-pexpect",
+        "python-jmespath"
     ],
     "parallel_downloads": 0,
     "profile_config": {
