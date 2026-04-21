@@ -47,5 +47,6 @@
     "easy-codesnap.backgroundColor": "#000000",
     "git.autofetch": true,
     "java.saveActions.organizeImports": true,
-    "java.project.importOnFirstTimeStartup": "interactive"
+    "java.project.importOnFirstTimeStartup": "interactive",
+    "chat.viewSessions.orientation": "stacked"
 }
