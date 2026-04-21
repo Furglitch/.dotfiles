@@ -48,12 +48,15 @@
       - anonymous_artist
 
 - name: e621 | download images (async with rate limiting)
+  vars:
+    output_filename: >-
+      {{ ansible_facts['user_dir'] }}/.local/share/wallpapers/e6.{{ item.id }}.{{(((item.tags | default({})).artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( ((item.tags | default({})).artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ item.file.ext | default('jpg') }}
   ansible.builtin.get_url:
     url: "{{ item.file.url }}"
-    dest: >-
-      {{ ansible_facts['user_dir'] }}/.local/share/wallpapers/e6.{{ item.id }}.{{(((item.tags | default({})).artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( ((item.tags | default({})).artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ item.file.ext | default('jpg') }}
+    dest: "{{ output_filename }}"
     mode: "0644"
     force: false
+  creates: "{{ output_filename }}"
   loop: "{{ e621_posts_list }}"
   when: 
     - e621_posts_list | length > 0
