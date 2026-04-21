@@ -1,8 +1,8 @@
 ---
 # profile configuration
-profile: "default-release"
+profile: "furglitch"
 profile_dir: "{{ ansible_facts['user_dir'] }}/.waterfox"
-profile_subdir: "{{ profile_dir }}/qc2khrbb.{{ profile}}"
+profile_subdir: "{{ profile_dir }}/123a1234.{{ profile}}"
 
 # List of Firefox extensions to install
 waterfox_extensions:
