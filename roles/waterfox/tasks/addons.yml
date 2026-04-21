@@ -24,3 +24,8 @@
 
 - name: waterfox | setup stylus
   ansible.builtin.include_tasks: stylus.yml
+
+- name: waterfox | wait for user to finish addon setup
+  ansible.builtin.pause:
+    prompt: "Complete any remaining addon setup in Waterfox, then press Enter to continue"
+
