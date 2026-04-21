@@ -11,6 +11,10 @@
 {
    "$schema": "https://vicinae.com/schemas/config.json",
    "theme": {
+      "light": {
+         "name": "catppuccin-mocha",
+         "icon_theme": "Catppuccin Mocha Sky"
+      },
       "dark": {
          "name": "catppuccin-mocha",
          "icon_theme": "Catppuccin Mocha Sky"
