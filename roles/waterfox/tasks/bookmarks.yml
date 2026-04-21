@@ -1,4 +1,29 @@
 ---
+- name: waterfox | check if places.sqlite exists
+  ansible.builtin.stat:
+    path: "{{ profile_subdir }}/places.sqlite"
+  register: places_db
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+
+- name: waterfox | initialize profile if database doesn't exist
+  ansible.builtin.shell: |
+    timeout 10 waterfox --headless --new-instance --profile {{ profile_subdir }} || true
+  when: not places_db.stat.exists
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+
+- name: waterfox | wait for places.sqlite to be created
+  ansible.builtin.wait_for:
+    path: "{{ profile_subdir }}/places.sqlite"
+    timeout: 30
+  when: not places_db.stat.exists
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+
 - name: waterfox | clean up bookmarks with NULL GUIDs
   ansible.builtin.shell: |
     sqlite3 {{ profile_subdir }}/places.sqlite "DELETE FROM moz_bookmarks WHERE guid IS NULL"
