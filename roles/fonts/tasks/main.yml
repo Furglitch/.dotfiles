@@ -5,25 +5,25 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 - name: fonts | ensure Google Fonts installed
   kewlfft.aur.aur:
     name: ttf-google-fonts-git
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 - name: fonts | ensure Noto Emoji installed
   kewlfft.aur.aur:
     name: noto-fonts-emoji
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 - name: fonts | ensure Noto Emoji Fontconfig installed
   kewlfft.aur.aur:
     name: noto-color-emoji-fontconfig
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"

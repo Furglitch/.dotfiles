@@ -5,14 +5,14 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
   ignore_errors: true
 
 - name: gimp | ensure /usr/share/GIMP/3.2/themes directory exists
   ansible.builtin.file:
-    path: '/usr/share/GIMP/3.2/themes'
+    path: "/usr/share/GIMP/3.2/themes"
     state: directory
-    mode: '0755'
+    mode: "0755"
     owner: root
     group: root
   become: true
@@ -24,13 +24,13 @@
     state: link
     force: true
   become: true
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: gimp | ensure config directory exists
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.config/GIMP/3.2"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: gimp | symlink config files
   ansible.builtin.file:
@@ -39,6 +39,6 @@
     state: link
     force: true
   with_filetree: gimp/config
-  when: item.state == 'file'
+  when: item.state == "file"
   become: true
-  become_flags: '-H'
+  become_flags: "-H"

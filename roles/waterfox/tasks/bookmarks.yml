@@ -6,7 +6,7 @@
   changed_when: cleanup_result.rc == 0
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: waterfox | get toolbar bookmarks
   ansible.builtin.shell: |
@@ -23,7 +23,7 @@
   changed_when: false
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: waterfox | add bookmarks to toolbar
   ansible.builtin.shell: |
@@ -66,4 +66,4 @@
     - "item.url not in existing_bookmarks.stdout"
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"

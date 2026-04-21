@@ -5,7 +5,7 @@
     state: absent
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: btop | ensure btop installed
   kewlfft.aur.aur:
@@ -13,51 +13,51 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: btop | ensure local src parent exists
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.local/src/catppuccin"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: btop | clone or update catppuccin/btop
   git:
-    repo: 'https://github.com/catppuccin/btop.git'
-    dest: '{{ ansible_facts["user_dir"] }}/.local/src/catppuccin/btop'
+    repo: "https://github.com/catppuccin/btop.git"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/src/catppuccin/btop"
     version: main
     update: yes
-    force: yes
+    force: true
     accept_hostkey: yes
 
 - name: btop | ensure config dir exists
   ansible.builtin.file:
-    path: '{{ ansible_facts["user_dir"] }}/.config/btop'
+    path: "{{ ansible_facts['user_dir'] }}/.config/btop"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: btop | symlink catppuccin themes into ~/.config/btop
   ansible.builtin.file:
-    src: '{{ ansible_facts["user_dir"] }}/.local/src/catppuccin/btop/themes'
-    dest: '{{ ansible_facts["user_dir"] }}/.config/btop/themes'
+    src: "{{ ansible_facts['user_dir'] }}/.local/src/catppuccin/btop/themes"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/btop/themes"
     state: link
-    force: yes
+    force: true
 
 - name: btop | ensure local share dir for managed files exists
   ansible.builtin.file:
-    path: '{{ ansible_facts["user_dir"] }}/.local/share/archdot/btop'
+    path: "{{ ansible_facts['user_dir'] }}/.local/share/archdot/btop"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: btop | install btop.conf from role files
   copy:
     src: btop/config/btop.conf
-    dest: '{{ ansible_facts["user_dir"] }}/.local/share/archdot/btop/btop.conf'
-    mode: '0644'
+    dest: "{{ ansible_facts['user_dir'] }}/.local/share/archdot/btop/btop.conf"
+    mode: "0644"
 
 - name: btop | symlink btop.conf into ~/.config/btop
   ansible.builtin.file:
-    src: '{{ ansible_facts["user_dir"] }}/.local/share/archdot/btop/btop.conf'
-    dest: '{{ ansible_facts["user_dir"] }}/.config/btop/btop.conf'
+    src: "{{ ansible_facts['user_dir'] }}/.local/share/archdot/btop/btop.conf"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/btop/btop.conf"
     state: link
-    force: yes
+    force: true

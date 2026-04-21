@@ -5,7 +5,7 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: git | ensure github-cli installed
   kewlfft.aur.aur:
@@ -13,7 +13,7 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: git | configure user name
   community.general.git_config:
@@ -22,7 +22,7 @@
     scope: global
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: git | configure user email
   community.general.git_config:
@@ -31,4 +31,4 @@
     scope: global
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"

@@ -3,10 +3,10 @@
   ansible.builtin.copy:
     src: waterfox/config/stylus.json
     dest: "{{ ansible_facts['user_dir'] }}/Downloads/stylus-themes.json"
-    mode: '0644'
+    mode: "0644"
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: waterfox | extract stylus extension UUID
   ansible.builtin.shell: |
@@ -22,7 +22,7 @@
   register: stylus_uuid_result
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
   changed_when: false
   failed_when: false
 

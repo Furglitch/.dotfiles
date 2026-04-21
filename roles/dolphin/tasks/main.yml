@@ -5,7 +5,7 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: dolphin | symlink config files
   ansible.builtin.file:
@@ -14,10 +14,10 @@
     state: link
     force: true
   with_filetree: dolphin/config
-  when: item.state == 'file'
+  when: item.state == "file"
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: dolphin | symlink kde files
   ansible.builtin.file:
@@ -26,7 +26,7 @@
     state: link
     force: true
   with_filetree: kde/config
-  when: item.state == 'file'
+  when: item.state == "file"
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"

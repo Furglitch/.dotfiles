@@ -78,4 +78,4 @@
   failed_when: "'ERROR' in search_result.stdout"
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"

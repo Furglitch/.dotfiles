@@ -5,7 +5,7 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
   ignore_errors: true
 
 - name: steam | ensure steam-rom-manager installed
@@ -15,7 +15,7 @@
     use: paru
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
   ignore_errors: true
 
 - name: steam | install millennium
@@ -24,7 +24,7 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
   ignore_errors: true
 
 - name: steam | launch steam to initialize addons

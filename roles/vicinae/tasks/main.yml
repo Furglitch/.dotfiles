@@ -5,11 +5,11 @@
     state: absent
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 - name: vicinae | ensure vicinae installed
   kewlfft.aur.aur:
     name: vicinae
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"

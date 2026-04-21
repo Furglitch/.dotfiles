@@ -5,7 +5,7 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: xdg-utils | ensure xdg-desktop-portal-hyprland installed
   kewlfft.aur.aur:
@@ -14,4 +14,4 @@
     use: paru
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"

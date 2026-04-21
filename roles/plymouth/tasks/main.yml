@@ -5,13 +5,13 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: plymouth | ensure /usr/share/plymouth/themes directory exists
   ansible.builtin.file:
-    path: '/usr/share/plymouth/themes'
+    path: "/usr/share/plymouth/themes"
     state: directory
-    mode: '0755'
+    mode: "0755"
   become: true
 
 - name: plymouth | symlink plymouth themes
@@ -21,7 +21,7 @@
     state: link
     force: true
   with_filetree: plymouth/themes
-  when: item.state == 'directory'
+  when: item.state == "directory"
   become: true
 
 - name: plymouth | set default plymouth theme
@@ -31,16 +31,16 @@
 - name: plymouth | add plymouth to HOOKS in /etc/mkinitcpio.conf
   ansible.builtin.lineinfile:
     path: /etc/mkinitcpio.conf
-    regexp: '^HOOKS=\((.*)\)$'
-    line: 'HOOKS=(\1 plymouth)'
+    regexp: "^HOOKS=\\((.*)\\)$"
+    line: "HOOKS=(\\1 plymouth)"
     backrefs: yes
   become: true
 
 - name: plymouth | add quiet and splash to GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub
   ansible.builtin.lineinfile:
     path: /etc/default/grub
-    regexp: '^GRUB_CMDLINE_LINUX_DEFAULT="(.*)"$'
-    line: 'GRUB_CMDLINE_LINUX_DEFAULT="\1 quiet splash"'
+    regexp: "^GRUB_CMDLINE_LINUX_DEFAULT=\"(.*)\"$"
+    line: "GRUB_CMDLINE_LINUX_DEFAULT=\"\\1 quiet splash\""
     backrefs: yes
   become: true
 

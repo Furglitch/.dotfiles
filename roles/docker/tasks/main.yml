@@ -5,14 +5,14 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 - name: docker | ensure docker-compose installed
   kewlfft.aur.aur:
     name: docker-compose
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 - name: docker | add user to docker group
   ansible.builtin.user:
     name: "{{ target_user }}"

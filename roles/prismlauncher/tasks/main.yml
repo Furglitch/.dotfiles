@@ -5,16 +5,16 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
   ignore_errors: true
 
 - name: prismlauncher | ensure PrismLauncher directory exists
   ansible.builtin.file:
-    path: '{{ ansible_facts["user_dir"] }}/.local/share/PrismLauncher'
+    path: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher"
     state: directory
-    mode: '0755'
-    owner: '{{ target_user }}'
-    group: '{{ target_user }}'
+    mode: "0755"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
 
 - name: prismlauncher | symlink catpacks directory
   ansible.builtin.file:
@@ -24,7 +24,7 @@
     force: true
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: prismlauncher | symlink iconthemes directory
   ansible.builtin.file:
@@ -34,20 +34,20 @@
     force: true
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: prismlauncher | ensure PrismLauncher/themes directory exists
   ansible.builtin.file:
-    path: '{{ ansible_facts["user_dir"] }}/.local/share/PrismLauncher/themes'
+    path: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher/themes"
     state: directory
-    mode: '0755'
-    owner: '{{ target_user }}'
-    group: '{{ target_user }}'
+    mode: "0755"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
 
 - name: prismlauncher | clone Catppuccin theme
   ansible.builtin.git:
-    repo: 'https://github.com/catppuccin/prismlauncher.git'
-    dest: '{{ role_path }}/files/prismlauncher/themes/catppuccin'
+    repo: "https://github.com/catppuccin/prismlauncher.git"
+    dest: "{{ role_path }}/files/prismlauncher/themes/catppuccin"
     version: main
 
 - name: prismlauncher | symlink Catppuccin themes
@@ -57,10 +57,10 @@
     state: link
     force: true
   with_filetree: prismlauncher/themes/catppuccin/themes
-  when: item.state == 'directory'
+  when: item.state == "directory"
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
   loop:
     - Catppuccin-Frappe
     - Catppuccin-Latte

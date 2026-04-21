@@ -1,6 +1,6 @@
 # Source: arensb/ansible-firefox/profiles/tasks/firefox-addon.yml
 ---
-- name: "profile {{ profile }}: addon {{ addon_slug }}: Look up information"
+- name: "waterfox | profile {{ profile }}: addon {{ addon_slug }}: look up information"
   vars:
     info_base: "https://services.addons.mozilla.org/api/v4/addons/addon"
   uri:
@@ -10,7 +10,7 @@
   register: addon_info
   check_mode: no
 
-- name: "Profile {{ profile }}: addon {{ addon_slug }}: Create extension directory"
+- name: "waterfox | profile {{ profile }}: addon {{ addon_slug }}: create extension directory"
   vars:
     ext_dir: "{{ profile_subdir }}/extensions"
   ansible.builtin.file:
@@ -18,9 +18,9 @@
     state: directory
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
-    mode: '0755'
+    mode: "0755"
 
-- name: "Profile {{ profile }}: addon {{ addon_slug }}: download extension file"
+- name: "waterfox | profile {{ profile }}: addon {{ addon_slug }}: download extension file"
   vars:
     slug: "{{ addon_info.json | json_query('slug') }}"
     guid: "{{ addon_info.json | json_query('guid') }}"
@@ -32,8 +32,8 @@
     creates: "{{ profile_subdir }}/extensions/{{ basename }}"
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
-    mode: '0644'
-    force: yes
+    mode: "0644"
+    force: true
   with_items: "{{ addon_info.json | json_query('current_version.files') | list }}"
   loop_control:
     label: "{{ slug }}"

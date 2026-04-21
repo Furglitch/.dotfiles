@@ -5,11 +5,11 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 - name: jdk-temurin | ensure jdk21-temurin installed
   kewlfft.aur.aur:
     name: jdk21-temurin
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"

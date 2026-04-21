@@ -1,55 +1,55 @@
 ---
-- name: ff-ultima | Clone ff-ultima repository
+- name: waterfox | clone ff-ultima repository
   ansible.builtin.git:
-    repo: 'https://github.com/soulhotel/FF-ULTIMA.git'
+    repo: "https://github.com/soulhotel/FF-ULTIMA.git"
     dest: "{{ profile_subdir }}/chrome"
     clone: true
     depth: 1
     version: main
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
-- name: ff-ultima | Copy user.js to profile
+- name: waterfox | copy ff-ultima user.js to profile
   ansible.builtin.copy:
     src: "{{ profile_subdir }}/chrome/user.js"
     dest: "{{ profile_subdir }}/user.js"
-    mode: '0644'
-    force: yes
+    mode: "0644"
+    force: true
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
-- name: ff-ultima | ensure waterfox killed
+- name: waterfox | ensure waterfox killed
   ansible.builtin.shell: "pkill -9 -f waterfox"
   ignore_errors: true
 
-- name: ff-ultima | ensure waterfox restarted
+- name: waterfox | ensure waterfox restarted
   ansible.builtin.shell: "nohup waterfox > /dev/null 2>&1 &"
   ignore_errors: true
 
-- name: ff-ultima | wait for 2 seconds
+- name: waterfox | wait for 2 seconds
   ansible.builtin.pause:
     seconds: 2
 
-- name: ff-ultima | remove user.js
+- name: waterfox | remove ff-ultima user.js
   ansible.builtin.file:
     path: "{{ profile_subdir }}/user.js"
     state: absent
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
-- name: ff-ultima | ensure waterfox killed
+- name: waterfox | ensure waterfox killed
   ansible.builtin.shell: "pkill -9 -f waterfox"
   ignore_errors: true
 
-- name: ff-ultima | symlink prefs.js
+- name: waterfox | symlink prefs.js
   ansible.builtin.file:
     src: "{{ role_path }}/files/waterfox/profile/prefs.js"
     dest: "{{ profile_subdir }}/prefs.js"
     state: link
-    force: yes
+    force: true
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'  
+  become_flags: "-H"  

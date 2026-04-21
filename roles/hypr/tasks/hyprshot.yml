@@ -6,7 +6,7 @@
     use: paru
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: hyprshot | ensure slurp installed
   kewlfft.aur.aur:
@@ -15,7 +15,7 @@
     use: paru
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: hyprshot | ensure hyprshot installed
   kewlfft.aur.aur:
@@ -24,4 +24,4 @@
     use: paru
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"

@@ -5,7 +5,7 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: grub | ensure os-prober installed
   kewlfft.aur.aur:
@@ -13,31 +13,31 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: grub | set GRUB_THEME in /etc/default/grub
   ansible.builtin.lineinfile:
     path: /etc/default/grub
-    regexp: '^#?GRUB_THEME='
-    line: 'GRUB_THEME=/usr/share/grub/themes/elegant-modified/theme.txt'
+    regexp: "^#?GRUB_THEME="
+    line: "GRUB_THEME=/usr/share/grub/themes/elegant-modified/theme.txt"
     state: present
 
 - name: grub | enable os-prober in /etc/default/grub
   ansible.builtin.lineinfile:
     path: /etc/default/grub
-    regexp: '^#?GRUB_DISABLE_OS_PROBER='
-    line: 'GRUB_DISABLE_OS_PROBER=false'
+    regexp: "^#?GRUB_DISABLE_OS_PROBER="
+    line: "GRUB_DISABLE_OS_PROBER=false"
     state: present
 
 - name: grub | ensure themes directory exists
   ansible.builtin.file:
     path: /usr/share/grub/themes
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: grub | copy elegant-modified theme
   ansible.builtin.copy:
     src: grub/themes/elegant-modified
     dest: /usr/share/grub/themes/
-    mode: '0755'
+    mode: "0755"
   notify: regenerate grub config

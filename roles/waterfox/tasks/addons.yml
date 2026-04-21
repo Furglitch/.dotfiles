@@ -13,7 +13,7 @@
   when: firefox_color is defined
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
   environment:
     DISPLAY: ":0"
 
@@ -25,7 +25,7 @@
   when: userscripts is defined and userscripts | length > 0
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
   environment:
     DISPLAY: ":0"
 

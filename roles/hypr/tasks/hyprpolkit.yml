@@ -6,7 +6,7 @@
     use: paru
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: hyprpolkitagent | ensure hyprpolkitagent installed
   kewlfft.aur.aur:
@@ -15,4 +15,4 @@
     use: paru
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"

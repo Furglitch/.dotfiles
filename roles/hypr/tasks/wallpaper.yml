@@ -4,7 +4,7 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: wallpaper | ensure imagemagick installed
   community.general.pacman:
@@ -13,7 +13,7 @@
 
 - name: e621 | load set id
   ansible.builtin.include_vars:
-    ansible.builtin.file: "{{ role_path }}/vars/wallpapers.yml"
+    file: "{{ role_path }}/vars/wallpapers.yml"
     name: e621_vaulted
   no_log: true
 
@@ -52,8 +52,8 @@
     url: "{{ item.file.url }}"
     dest: >-
       {{ ansible_facts['user_dir'] }}/.local/share/wallpapers/e6.{{ item.id }}.{{((item.tags.artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( (item.tags.artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ item.file.ext }}
-    mode: '0644'
-    force: no
+    mode: "0644"
+    force: false
   loop: "{{ e621_posts_list }}"
   when: 
     - e621_posts_list | length > 0
@@ -67,7 +67,7 @@
     pause: 2
   become: true
   become_user: "{{ target_user }}"
-  become_flags: '-H'
+  become_flags: "-H"
 
 - name: wallpaper | trigger processing handler
   ansible.builtin.set_fact:
