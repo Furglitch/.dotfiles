@@ -47,25 +47,33 @@
       - sound_warning
       - anonymous_artist
 
+- name: e621 | check which wallpapers already exist
+  ansible.builtin.stat:
+    path: >-
+      {{ ansible_facts['user_dir'] }}/.local/share/wallpapers/e6.{{ item.id }}.{{(((item.tags | default({})).artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( ((item.tags | default({})).artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ (item.file | default({})).ext | default('jpg') }}
+  loop: "{{ e621_posts_list }}"
+  register: e621_wallpaper_stats
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+
 - name: e621 | download images (async with rate limiting)
   vars:
     output_filename: >-
-      {{ ansible_facts['user_dir'] }}/.local/share/wallpapers/e6.{{ item.id }}.{{(((item.tags | default({})).artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( ((item.tags | default({})).artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ (item.file | default({})).ext | default('jpg') }}
+      {{ ansible_facts['user_dir'] }}/.local/share/wallpapers/e6.{{ item.item.id }}.{{(((item.item.tags | default({})).artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | length > 0) | ternary( ((item.item.tags | default({})).artist | default([]) | reject('in', e621_artist_blacklist) | map('regex_replace','[^A-Za-z0-9_-]+','') | list) | join('_'), 'unknown' ) }}.{{ (item.item.file | default({})).ext | default('jpg') }}
   ansible.builtin.get_url:
-    url: "{{ item.file.url }}"
+    url: "{{ item.item.file.url }}"
     dest: "{{ output_filename }}"
     mode: "0644"
-    force: false
-  creates: "{{ output_filename }}"
-  loop: "{{ e621_posts_list }}"
+  loop: "{{ e621_wallpaper_stats.results }}"
   when: 
-    - e621_posts_list | length > 0
-    - item.file is defined
-    - item.file.url is defined
-    - item.file.url is not none
-    - item.file.url | default('') | length > 0
-    - item.file.ext is defined
-    - item.file.ext is not none
+    - not item.stat.exists
+    - item.item.file is defined
+    - item.item.file.url is defined
+    - item.item.file.url is not none
+    - item.item.file.url | default('') | length > 0
+    - item.item.file.ext is defined
+    - item.item.file.ext is not none
   ignore_errors: true
   async: 600
   poll: 0
