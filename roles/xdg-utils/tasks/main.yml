@@ -16,6 +16,9 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
+- name: xdg-utils | ensure .config/xdg-desktop-portal exists
+  ansible.builtin.file:
+
 - name: xdg-utils | symlink config files
   ansible.builtin.file:
     src: "{{ role_path }}/files/xdg/config/{{ item.path }}"
