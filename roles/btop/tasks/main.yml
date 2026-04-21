@@ -39,9 +39,6 @@
     dest: "{{ ansible_facts['user_dir'] }}/.config/btop/themes"
     state: link
     force: true
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
 
 - name: btop | ensure local share dir for managed files exists
   ansible.builtin.file:
