@@ -21,6 +21,12 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
+- name: hyprpaper | ensure linux-wallpaperengine installed
+  kewlfft.aur.aur:
+    name: linux-wallpaperengine-git
+    state: present
+    use: paru
+
 - name: hyprpaper | ensure .local/share/wallpapers directory exists
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.local/share/wallpapers"
