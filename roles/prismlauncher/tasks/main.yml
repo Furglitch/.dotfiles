@@ -47,22 +47,21 @@
 - name: prismlauncher | clone Catppuccin theme
   ansible.builtin.git:
     repo: "https://github.com/catppuccin/prismlauncher.git"
-    dest: "{{ role_path }}/files/prismlauncher/themes/catppuccin"
+    dest: "{{ role_path }}/files/prismlauncher/repo/catppuccin"
     version: main
+    force: true
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: prismlauncher | symlink Catppuccin themes
   ansible.builtin.file:
-    src: "{{ role_path }}/files/prismlauncher/themes/catppuccin/themes/{{ item.path }}"
+    src: "{{ role_path }}/files/prismlauncher/repo/catppuccin/themes/{{ item.path }}"
     dest: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher/themes/{{ item.path }}"
     state: link
     force: true
-  with_filetree: prismlauncher/themes/catppuccin/themes
+  with_filetree: prismlauncher/repo/catppuccin/themes
   when: item.state == "directory"
   become: true
   become_user: "{{ target_user }}"
   become_flags: "-H"
-  loop:
-    - Catppuccin-Frappe
-    - Catppuccin-Latte
-    - Catppuccin-Macchiato
-    - Catppuccin-Mocha

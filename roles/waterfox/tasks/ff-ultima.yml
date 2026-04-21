@@ -2,10 +2,21 @@
 - name: waterfox | clone ff-ultima repository
   ansible.builtin.git:
     repo: "https://github.com/soulhotel/FF-ULTIMA.git"
-    dest: "{{ profile_subdir }}/chrome"
+    dest: "{{ role_path }}/files/waterfox/repo/ff-ultima"
     clone: true
     depth: 1
     version: main
+    force: true
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+
+- name: waterfox | symlink ff-ultima to profile chrome directory
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/waterfox/repo/ff-ultima"
+    dest: "{{ profile_subdir }}/chrome"
+    state: link
+    force: true
   become: true
   become_user: "{{ target_user }}"
   become_flags: "-H"

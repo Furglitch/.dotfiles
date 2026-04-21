@@ -37,7 +37,7 @@
 - name: kvantum | clone catppuccin theme
   ansible.builtin.git:
     repo: "https://github.com/catppuccin/Kvantum.git"
-    dest: "{{ ansible_facts['user_dir'] }}/.archdot/roles/kvantum/files/kvantum/repo/catppuccin-kvantum"
+    dest: "{{ role_path }}/files/kvantum/repo/catppuccin-kvantum"
     version: "main"
     force: true
   become: true
