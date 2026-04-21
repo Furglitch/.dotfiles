@@ -6,10 +6,32 @@
     use: paru
   become_user: "{{ target_user }}"
   become_flags: "-H"
+
 - name: vicinae | ensure vicinae installed
   kewlfft.aur.aur:
     name: vicinae
     state: present
     use: paru
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+
+- name: vicinae | ensure vicinae config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/vicinae"
+    state: directory
+    mode: "0755"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+
+- name: vicinae | symlink config files
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/vicinae/config/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/vicinae/{{ item.path }}"
+    state: link
+    force: true
+  with_filetree: vicinae/config
+  when: item.state == "file"
+  become: true
   become_user: "{{ target_user }}"
   become_flags: "-H"
