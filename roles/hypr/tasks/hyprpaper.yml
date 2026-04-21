@@ -26,6 +26,9 @@
     name: linux-wallpaperengine-git
     state: present
     use: paru
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: hyprpaper | ensure .local/share/wallpapers directory exists
   ansible.builtin.file:
