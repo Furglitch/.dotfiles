@@ -44,7 +44,7 @@
 - name: hyprland | template monitors.conf
   ansible.builtin.template:
     src: monitors.conf.j2
-    dest: "{{ ansible_facts['user_dir'] }}/.config/hypr/modules/monitors.conf"
+    dest: "{{ role_path }}/files/hyprland/config/modules/monitors.conf"
     mode: "0644"
   notify: hypr | reload hyprland
   become: true
@@ -54,7 +54,7 @@
 - name: hyprland | template variables.conf
   ansible.builtin.template:
     src: variables.conf.j2
-    dest: "{{ ansible_facts['user_dir'] }}/.config/hypr/modules/variables.conf"
+    dest: "{{ role_path }}/files/hyprland/config/modules/variables.conf"
     mode: "0644"
   notify: hypr | reload hyprland
   become: true
@@ -64,7 +64,7 @@
 - name: hyprland | template hyprland.conf
   ansible.builtin.template:
     src: hyprland.conf.j2
-    dest: "{{ ansible_facts['user_dir'] }}/.config/hypr/hyprland.conf"
+    dest: "{{ role_path }}/files/hyprland/config/hyprland.conf"
     mode: "0644"
   notify: hypr | reload hyprland
   become: true
