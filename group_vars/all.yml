@@ -27,6 +27,7 @@ default_roles:
   - nano
   - neovim
   - nfs-utils
+  - packwiz
   - partitionmanager
   - pavucontrol
   - plymouth
