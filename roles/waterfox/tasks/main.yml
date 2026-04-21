@@ -17,6 +17,18 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
+- name: waterfox | symlink bin files
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/waterfox/config/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.waterfox/{{ item.path }}"
+    state: link
+    force: true
+  with_filetree: waterfox/config
+  when: item.state == "file"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+
 - name: waterfox | install extensions
   ansible.builtin.include_tasks: install-addon.yml
   vars:

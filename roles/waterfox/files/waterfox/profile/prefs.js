@@ -1,3 +1,6 @@
+
+user_pref("sidebar.verticalTabs", true);
+user_pref("sidebar.visibility", "expand-on-hover");
 user_pref("ultima.contextmenu.hide.separators", false);
 user_pref("ultima.contextmenu.no.icons", false);
 user_pref("ultima.contextmenu.no.navigation.icons", false);
@@ -66,8 +69,8 @@ user_pref("ultima.tabs.tabContainer.1", false);
 user_pref("ultima.tabs.tabContainer.2", false);
 user_pref("ultima.tabs.tabContainer.3", true);
 user_pref("ultima.tabs.tabCounter", false);
-user_pref("ultima.tabs.tabbar.autohide", false);
-user_pref("ultima.tabs.tabbar.autohide+compact", false);
+user_pref("ultima.tabs.tabbar.autohide", true);
+user_pref("ultima.tabs.tabbar.autohide+compact", true);
 user_pref("ultima.tabs.tabbar.disabled", false);
 user_pref("ultima.tabs.tabbar.hide.buttonstrip", false);
 user_pref("ultima.tabs.tabgroups.background.1", false);
