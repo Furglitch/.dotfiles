@@ -1,11 +1,4 @@
 ---
-- name: waterfox | install extensions
-  ansible.builtin.include_tasks: install-addon.yml
-  vars:
-    addon_slug: "{{ item }}"
-  loop: "{{ waterfox_extensions }}"
-  when: waterfox_extensions is defined and waterfox_extensions | length > 0
-
 - name: waterfox | apply firefox color theme
   ansible.builtin.shell: |
     DISPLAY=:0 nohup waterfox "{{ firefox_color }}" > /dev/null 2>&1 &

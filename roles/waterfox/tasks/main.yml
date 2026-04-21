@@ -17,6 +17,13 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
+- name: waterfox | install extensions
+  ansible.builtin.include_tasks: install-addon.yml
+  vars:
+    addon_slug: "{{ item }}"
+  loop: "{{ waterfox_extensions }}"
+  when: waterfox_extensions is defined and waterfox_extensions | length > 0
+
 - name: waterfox | install ff-ultima theme
   ansible.builtin.include_tasks: ff-ultima.yml
 
