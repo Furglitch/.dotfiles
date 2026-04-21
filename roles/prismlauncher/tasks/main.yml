@@ -47,31 +47,51 @@
 - name: prismlauncher | clone Catppuccin theme
   ansible.builtin.git:
     repo: "https://github.com/catppuccin/prismlauncher.git"
-    dest: "{{ role_path }}/files/prismlauncher/files/catppuccin/repo"
+    dest: "{{ role_path }}/files/prismlauncher/repo/catppuccin"
     version: main
     force: true
   become: true
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: prismlauncher | remove existing theme directories
-  ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher/themes/{{ item.path }}"
-    state: absent
-  with_filetree: prismlauncher/files/catppuccin/repo/themes
-  when: item.state == "directory" and "/" not in item.path
+- name: prismlauncher | set Catppuccin accent theme names
+  ansible.builtin.replace:
+    path: "{{ role_path }}/files/prismlauncher/repo/catppuccin/themes/{{ item.path }}/theme.json"
+    regexp: '^(\s*"name"\s*:\s*").*("\s*,\s*)$'
+    replace: '\1Catppuccin {{ item.path.split("/")[0] | title }} ({{ item.path.split("/")[1] | title }})\2'
+  with_filetree: prismlauncher/repo/catppuccin/themes
+  when: item.state == "directory" and item.path is match("^[^/]+/[^/]+$")
   become: true
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: prismlauncher | symlink Catppuccin themes
+- name: prismlauncher | clear PrismLauncher themes directory
   ansible.builtin.file:
-    src: "{{ role_path }}/files/prismlauncher/files/catppuccin/repo/themes/{{ item.path }}"
-    dest: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher/themes/{{ item.path }}"
+    path: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher/themes"
+    state: absent
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+
+- name: prismlauncher | recreate PrismLauncher themes directory
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher/themes"
+    state: directory
+    mode: "0755"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+
+- name: prismlauncher | symlink Catppuccin accent themes
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/prismlauncher/repo/catppuccin/themes/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher/themes/Catppuccin {{ item.path.split('/')[0] | title }} {{ item.path.split('/')[1] | title }}"
     state: link
     force: true
-  with_filetree: prismlauncher/files/catppuccin/repo/themes
-  when: item.state == "directory" and "/" not in item.path
+  with_filetree: prismlauncher/repo/catppuccin/themes
+  when: item.state == "directory" and item.path is match("^[^/]+/[^/]+$")
   become: true
   become_user: "{{ target_user }}"
   become_flags: "-H"
