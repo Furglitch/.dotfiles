@@ -1,8 +1,8 @@
 ---
-- name: waterfox | clone ff-ultima repository
+- name: firefox | clone ff-ultima repository
   ansible.builtin.git:
     repo: "https://github.com/soulhotel/FF-ULTIMA.git"
-    dest: "{{ role_path }}/files/waterfox/repo/ff-ultima"
+    dest: "{{ role_path }}/files/firefox/repo/ff-ultima"
     clone: true
     depth: 1
     version: main
@@ -11,9 +11,9 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | symlink ff-ultima to profile chrome directory
+- name: firefox | symlink ff-ultima to profile chrome directory
   ansible.builtin.file:
-    src: "{{ role_path }}/files/waterfox/repo/ff-ultima"
+    src: "{{ role_path }}/files/firefox/repo/ff-ultima"
     dest: "{{ profile_subdir }}/chrome"
     state: link
     force: true
@@ -21,7 +21,7 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | copy ff-ultima user.js to profile
+- name: firefox | copy ff-ultima user.js to profile
   ansible.builtin.copy:
     src: "{{ profile_subdir }}/chrome/user.js"
     dest: "{{ profile_subdir }}/user.js"
@@ -31,19 +31,19 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | ensure waterfox killed
-  ansible.builtin.shell: "pkill -9 -f waterfox"
+- name: firefox | ensure firefox killed
+  ansible.builtin.shell: "pkill -9 -f firefox"
   ignore_errors: true
 
-- name: waterfox | ensure waterfox restarted
-  ansible.builtin.shell: "nohup waterfox > /dev/null 2>&1 &"
+- name: firefox | ensure firefox restarted
+  ansible.builtin.shell: "nohup firefox > /dev/null 2>&1 &"
   ignore_errors: true
 
-- name: waterfox | wait for 2 seconds
+- name: firefox | wait for 2 seconds
   ansible.builtin.pause:
     seconds: 2
 
-- name: waterfox | remove ff-ultima user.js
+- name: firefox | remove ff-ultima user.js
   ansible.builtin.file:
     path: "{{ profile_subdir }}/user.js"
     state: absent
@@ -51,13 +51,13 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | ensure waterfox killed
-  ansible.builtin.shell: "pkill -9 -f waterfox"
+- name: firefox | ensure firefox killed
+  ansible.builtin.shell: "pkill -9 -f firefox"
   ignore_errors: true
 
-- name: waterfox | symlink prefs.js
+- name: firefox | symlink prefs.js
   ansible.builtin.file:
-    src: "{{ role_path }}/files/waterfox/profile/prefs.js"
+    src: "{{ role_path }}/files/firefox/profile/prefs.js"
     dest: "{{ profile_subdir }}/prefs.js"
     state: link
     force: true

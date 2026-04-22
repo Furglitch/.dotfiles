@@ -1,6 +1,6 @@
 # Source: arensb/ansible-firefox/profiles/tasks/firefox-addon.yml
 ---
-- name: "waterfox | profile {{ profile }}: addon {{ addon_slug }}: look up information"
+- name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: look up information"
   vars:
     info_base: "https://services.addons.mozilla.org/api/v4/addons/addon"
   uri:
@@ -10,7 +10,7 @@
   register: addon_info
   check_mode: no
 
-- name: "waterfox | profile {{ profile }}: addon {{ addon_slug }}: create extension directory"
+- name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: create extension directory"
   vars:
     ext_dir: "{{ profile_subdir }}/extensions"
   ansible.builtin.file:
@@ -20,7 +20,7 @@
     group: "{{ target_user }}"
     mode: "0755"
 
-- name: "waterfox | profile {{ profile }}: addon {{ addon_slug }}: allow auto-enable for sideloaded extensions"
+- name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: allow auto-enable for sideloaded extensions"
   ansible.builtin.lineinfile:
     path: "{{ profile_subdir }}/user.js"
     create: true
@@ -29,7 +29,7 @@
     group: "{{ target_user }}"
     line: 'user_pref("extensions.autoDisableScopes", 0);'
 
-- name: "waterfox | profile {{ profile }}: addon {{ addon_slug }}: download extension file"
+- name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: download extension file"
   vars:
     slug: "{{ addon_info.json | json_query('slug') }}"
     guid: "{{ addon_info.json | json_query('guid') }}"
@@ -47,12 +47,12 @@
   loop_control:
     label: "{{ slug }}"
 
-- name: "waterfox | profile {{ profile }}: addon {{ addon_slug }}: check extension database"
+- name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: check extension database"
   ansible.builtin.stat:
     path: "{{ profile_subdir }}/extensions.sqlite"
   register: extensions_db
 
-- name: "waterfox | profile {{ profile }}: addon {{ addon_slug }}: enable extension in database"
+- name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: enable extension in database"
   vars:
     guid: "{{ addon_info.json | json_query('guid') }}"
   ansible.builtin.shell: |

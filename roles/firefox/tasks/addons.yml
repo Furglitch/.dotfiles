@@ -1,14 +1,37 @@
 ---
-- name: waterfox | setup stylus themes for import
+- name: firefox | apply firefox color theme
+  ansible.builtin.shell: |
+    DISPLAY=:0 nohup firefox "{{ firefox_color }}" > /dev/null 2>&1 &
+    sleep 2
+  when: firefox_color is defined
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+  environment:
+    DISPLAY: ":0"
+
+- name: firefox | install userscripts
+  ansible.builtin.shell: |
+    DISPLAY=:0 nohup firefox "{{ item }}" > /dev/null 2>&1 &
+    sleep 2
+  loop: "{{ userscripts }}"
+  when: userscripts is defined and userscripts | length > 0
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+  environment:
+    DISPLAY: ":0"
+
+- name: firefox | setup stylus themes for import
   ansible.builtin.copy:
-    src: waterfox/config/stylus.json
+    src: firefox/config/stylus.json
     dest: "{{ ansible_facts['user_dir'] }}/Downloads/stylus-themes.json"
     mode: "0644"
   become: true
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | extract stylus extension UUID
+- name: firefox | extract stylus extension UUID
   ansible.builtin.shell: |
     if [[ -f "{{ profile_subdir }}/prefs.js" ]]; then
       STYLUS_UUID=$(grep 'extensions\.webextensions\.uuids' "{{ profile_subdir }}/prefs.js" | \
@@ -26,7 +49,7 @@
   changed_when: false
   failed_when: false
 
-- name: waterfox | display stylus UUID
+- name: firefox | display stylus UUID
   ansible.builtin.debug:
     msg: "{{ stylus_uuid_result.stdout }}"
   when: stylus_uuid_result.stdout != ""

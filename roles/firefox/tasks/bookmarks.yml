@@ -1,5 +1,5 @@
 ---
-- name: waterfox | check if places.sqlite exists
+- name: firefox | check if places.sqlite exists
   ansible.builtin.stat:
     path: "{{ profile_subdir }}/places.sqlite"
   register: places_db
@@ -7,15 +7,15 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | initialize profile if database doesn't exist
+- name: firefox | initialize profile if database doesn't exist
   ansible.builtin.shell: |
-    timeout 10 waterfox --headless --new-instance --profile {{ profile_subdir }} || true
+    timeout 10 firefox --headless --new-instance --profile {{ profile_subdir }} || true
   when: not places_db.stat.exists
   become: true
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | wait for places.sqlite to be created
+- name: firefox | wait for places.sqlite to be created
   ansible.builtin.wait_for:
     path: "{{ profile_subdir }}/places.sqlite"
     timeout: 30
@@ -24,7 +24,7 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | clean up bookmarks with NULL GUIDs
+- name: firefox | clean up bookmarks with NULL GUIDs
   ansible.builtin.shell: |
     sqlite3 {{ profile_subdir }}/places.sqlite "DELETE FROM moz_bookmarks WHERE guid IS NULL"
   register: cleanup_result
@@ -33,7 +33,7 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | get toolbar bookmarks
+- name: firefox | get toolbar bookmarks
   ansible.builtin.shell: |
     sqlite3 {{ profile_subdir }}/places.sqlite "select moz_places.url, moz_bookmarks.title
                        from moz_places, moz_bookmarks
@@ -50,7 +50,7 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | add bookmarks to toolbar
+- name: firefox | add bookmarks to toolbar
   ansible.builtin.shell: |
     sqlite3 {{ profile_subdir }}/places.sqlite <<EOF
     INSERT OR IGNORE INTO moz_places (url, title, rev_host, frecency, last_visit_date)
@@ -85,7 +85,7 @@
     VALUES (2, (SELECT id FROM moz_bookmarks WHERE guid = 'tags________'), '{{ item.tags }}');
     {% endif %}
     EOF
-  loop: "{{ waterfox_bookmarks }}"
+  loop: "{{ firefox_bookmarks }}"
   when: 
     - item.url | length > 0
     - "item.url not in existing_bookmarks.stdout"

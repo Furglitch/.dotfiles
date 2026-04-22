@@ -1,4 +1,4 @@
-# waterfox
+# firefox
 
 Privacy-focused browser with extensive customization.
 
@@ -6,7 +6,7 @@ Privacy-focused browser with extensive customization.
 
 ```mermaid
 flowchart TD
-    A[Start] --> B[Install waterfox]
+    A[Start] --> B[Install firefox]
     B --> C[Create profile directory]
     C --> D[Install ff-ultima theme]
     D --> E[Install extensions & Firefox Color]

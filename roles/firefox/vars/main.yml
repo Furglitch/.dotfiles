@@ -1,11 +1,11 @@
 ---
 # profile configuration
 profile: "furglitch"
-profile_dir: "{{ ansible_facts['user_dir'] }}/.waterfox"
+profile_dir: "{{ ansible_facts['user_dir'] }}/.config/mozilla/firefox"
 profile_subdir: "{{ profile_dir }}/123a1234.{{ profile}}"
 
 # List of Firefox extensions to install
-waterfox_extensions:
+firefox_extensions:
   - ublock-origin
   - bitwarden-password-manager
   - styl-us
@@ -39,7 +39,7 @@ kagi_session_token: !vault |
 kagi_search_url: "https://kagi.com/search?token={{ kagi_session_token }}&q={searchTerms}"
 
 # Bookmarks to add to the toolbar
-waterfox_bookmarks:
+firefox_bookmarks:
   - name: "YouTube"
     url: "https://www.youtube.com/subscriptions/"
     tags: ""

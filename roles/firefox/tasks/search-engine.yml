@@ -1,11 +1,11 @@
 ---
-- name: waterfox | ensure python-lz4 is installed
+- name: firefox | ensure python-lz4 is installed
   community.general.pacman:
     name: python-lz4
     state: present
   become: true
 
-- name: waterfox | set default search engine
+- name: firefox | set default search engine
   ansible.builtin.shell: |
     python3 << 'ENDPY'
     import lz4.block

@@ -1,14 +1,14 @@
 ---
-- name: waterfox | ensure waterfox installed
+- name: firefox | ensure firefox installed
   kewlfft.aur.aur:
-    name: waterfox-bin
+    name: firefox
     state: present
     use: paru
     extra_args: --mflags --skipinteg
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | create profile directory
+- name: firefox | create profile directory
   ansible.builtin.file:
     path: "{{ profile_subdir }}"
     state: directory
@@ -17,33 +17,33 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | symlink bin files
+- name: firefox | symlink config files
   ansible.builtin.file:
-    src: "{{ role_path }}/files/waterfox/config/{{ item.path }}"
-    dest: "{{ ansible_facts['user_dir'] }}/.waterfox/{{ item.path }}"
+    src: "{{ role_path }}/files/firefox/config/{{ item.path }}"
+    dest: "{{ profile_dir }}/{{ item.path }}"
     state: link
     force: true
-  with_filetree: waterfox/config
+  with_filetree: firefox/config
   when: item.state == "file"
   become: true
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
-- name: waterfox | install ff-ultima theme
+- name: firefox | install ff-ultima theme
   ansible.builtin.include_tasks: ff-ultima.yml
 
-- name: waterfox | install extensions
+- name: firefox | install extensions
   ansible.builtin.include_tasks: install-addon.yml
   vars:
     addon_slug: "{{ item }}"
-  loop: "{{ waterfox_extensions }}"
-  when: waterfox_extensions is defined and waterfox_extensions | length > 0
+  loop: "{{ firefox_extensions }}"
+  when: firefox_extensions is defined and firefox_extensions | length > 0
 
-- name: waterfox | set default search engine
+- name: firefox | set default search engine
   ansible.builtin.include_tasks: search-engine.yml
 
-- name: waterfox | manage bookmarks
+- name: firefox | manage bookmarks
   ansible.builtin.include_tasks: bookmarks.yml
 
-- name: waterfox | install addons
+- name: firefox | install addons
   ansible.builtin.include_tasks: addons.yml
