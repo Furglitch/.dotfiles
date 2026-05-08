@@ -1,9 +1,28 @@
 #!/bin/bash
 
 sfw_mode=false
-if [[ "$1" == "--sfw" ]]; then
-    sfw_mode=true
+nsfw_mode=false
+for arg in "$@"; do
+    case "$arg" in
+        --sfw)
+            sfw_mode=true
+            ;;
+        --nsfw)
+            nsfw_mode=true
+            ;;
+        *)
+            ;;
+    esac
+done
+
+if [[ "$sfw_mode" == true && "$nsfw_mode" == true ]]; then
+    echo "Cannot use --sfw and --nsfw together." >&2
+    exit 1
+elif [[ "$sfw_mode" == true ]]; then
     echo "SFW mode enabled - filtering out NSFW wallpapers"
+    echo
+elif [[ "$nsfw_mode" == true ]]; then
+    echo "NSFW mode enabled - only using dot-prefixed wallpapers"
     echo
 fi
 
@@ -33,7 +52,7 @@ for i in 5 8; do
     fi
 
     echo "Scanning directory: $directory"
-    shopt -s nullglob && matches=("$directory"*) && shopt -u nullglob
+    shopt -s nullglob dotglob && matches=("$directory"*) && shopt -u nullglob dotglob
     if [[ ${#matches[@]} -eq 0 ]]; then
         echo "  (no matches)"
     else
@@ -41,6 +60,8 @@ for i in 5 8; do
             echo "  - $(basename "$m")"
         done
     fi
+    # Iterate including dotfiles; we'll apply SFW/NSFW filters per-entry below
+    shopt -s nullglob dotglob
     for entry in "$directory"*; do
         if [[ -d "$entry" || -f "$entry" ]]; then
             basename_entry="$(basename "$entry")"
@@ -48,9 +69,13 @@ for i in 5 8; do
             if [[ "$sfw_mode" == true && "$basename_entry" == .* ]]; then
                 continue
             fi
+            if [[ "$nsfw_mode" == true && "$basename_entry" != .* ]]; then
+                continue
+            fi
             wallpapers+=("$basename_entry")
         fi
     done
+    shopt -u nullglob dotglob
     if [[ ${#wallpapers[@]} -eq 0 ]]; then
         echo "  (no wallpaper entries found in $directory)"
         continue
