@@ -22,5 +22,32 @@
         "customcss": true,
         "liveUpdate": true,
         "openAction": "settings"
+    },
+    "editor": {
+        "theme": "system",
+        "lineNumbers": true,
+        "minimap": true,
+        "hover": true,
+        "quickSuggestions": true,
+        "insertSpaces": false,
+        "tabSize": 4,
+        "fontSize": 14,
+        "renderWhitespace": "selection"
+    },
+    "window": {
+        "transparency": false,
+        "removeMinimumSize": false,
+        "frame": false,
+        "inAppTrafficLights": false
+    },
+    "developer": {
+        "debugLogs": false,
+        "devTools": false,
+        "debuggerHotkey": false,
+        "reactDevTools": false,
+        "inspectElement": false,
+        "devToolsWarning": false,
+        "recovery": true,
+        "canary": false
     }
 }
