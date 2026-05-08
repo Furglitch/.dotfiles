@@ -1,15 +1,15 @@
 monitors:
   screens: 
-    - name: DP-1                  # center
-      resolution: 2560x1440
-      refresh_rate: 240
-      position: auto-right
-      scale: 1
-    - name: DP-2                  # left
+    - name: DP-5                  # center
       resolution: 2560x1440
       refresh_rate: 240
       position: auto-left
       scale: 1
+    - name: DP-2                  # right
+      resolution: 2560x1440
+      refresh_rate: 240
+      position: auto-right
+      scale: 1
   workspaces:
       DP-2: 5
-      DP-1: 5
+      DP-5: 5
