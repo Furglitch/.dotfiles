@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-mem_info=$(awk '/MemTotal/ {total=$2} /MemFree/ {free=$2} /Buffers/ {buffers=$2} /Cached/ {cached=$2} /SReclaimable/ {sreclaim=$2} END {printf "%.0f %.0f %.0f %.0f %.0f", total, free, buffers, cached, sreclaim}' /proc/meminfo)
-read -r total free buffers cached sreclaim <<< "$mem_info"
+mem_info=$(awk '/MemTotal/ {total=$2} /MemAvailable/ {available=$2} END {printf "%.0f %.0f", total, available}' /proc/meminfo)
+read -r total available <<< "$mem_info"
 
-used=$((total - free - buffers - cached - sreclaim))
+used=$((total - available))
+if [ "$used" -lt 0 ]; then
+    used=0
+fi
 if [ "$total" -gt 0 ]; then
     mem_percent=$((used * 100 / total))
 else
@@ -27,10 +30,6 @@ swap_used=$((swap_total - swap_free))
 
 total_gb=$(format_gb "$total")
 used_gb=$(format_gb "$used")
-free_gb=$(format_gb "$free")
-buffers_gb=$(format_gb "$buffers")
-cached_gb=$(format_gb "$cached")
-
 if [ "$swap_total" -gt 0 ]; then
     swap_total_gb=$(format_gb "$swap_total")
     swap_used_gb=$(format_gb "$swap_used")
