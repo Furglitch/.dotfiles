@@ -39,7 +39,7 @@ fi
 echo
 killall linux-wallpaperengine 2>/dev/null || true
 
-for i in 5 8; do
+for i in 6 8; do
     type=null
     directory=null
     wallpapers=()

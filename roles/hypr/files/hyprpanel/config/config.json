@@ -2,6 +2,17 @@
   "bar.layouts": {
     "0": {
       "left": [
+        "workspaces"
+      ],
+      "middle": [],
+      "right": [
+        "custom/cpu",
+        "custom/memory",
+        "custom/storage"
+      ]
+    },
+    "1": {
+      "left": [
         "dashboard",
         "workspaces",
         "windowtitle"
@@ -16,17 +27,6 @@
         "systray",
         "clock",
         "notifications"
-      ]
-    },
-    "1": {
-      "left": [
-        "workspaces"
-      ],
-      "middle": [],
-      "right": [
-        "custom/cpu",
-        "custom/memory",
-        "custom/storage"
       ]
     }
   },
