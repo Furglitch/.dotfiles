@@ -2,6 +2,7 @@
 autoload -Uz compinit && compinit
 autoload -U colors && colors
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="/home/furglitch/.local/share/gem/ruby/3.4.0/bin:$PATH"
 export EDITOR='nano'
 
 # zinit
