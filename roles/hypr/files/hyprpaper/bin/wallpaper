@@ -39,7 +39,24 @@ fi
 echo
 killall linux-wallpaperengine 2>/dev/null || true
 
-for i in 6 8; do
+# Resolve connector names from serials (connector names can change between reboots)
+get_connector_by_serial() {
+    local serial="$1"
+    hyprctl monitors all | awk -v serial="$serial" '
+        /^Monitor / { connector = $2 }
+        /serial: / && $NF == serial { print connector; exit }
+    '
+}
+
+left_connector=$(get_connector_by_serial "RK2RBJA004944")
+right_connector=$(get_connector_by_serial "RK2RCUA004294")
+
+if [[ -z "$left_connector" || -z "$right_connector" ]]; then
+    echo "Failed to resolve monitor connectors from serials." >&2
+    exit 1
+fi
+
+for connector in "$left_connector" "$right_connector"; do
     type=null
     directory=null
     wallpapers=()
@@ -95,13 +112,13 @@ for i in 6 8; do
     echo "Chosen wallpaper for type $type: $wallpaper"
 
     if [[ "$type" == "engine" ]]; then
-        linux-wallpaperengine --volume 0 --screen-root DP-$i --path "$directory$wallpaper"
-        echo "Set screen DP-$i to WPE wallpaper: $wallpaper"
-        notify-send -u normal "Wallpaper Changed" "Set screen DP-$i to WPE wallpaper: $wallpaper" --icon=$directory$wallpaper
+        linux-wallpaperengine --volume 0 --screen-root "$connector" --path "$directory$wallpaper"
+        echo "Set screen $connector to WPE wallpaper: $wallpaper"
+        notify-send -u normal "Wallpaper Changed" "Set screen $connector to WPE wallpaper: $wallpaper" --icon=$directory$wallpaper
     else
-        hyprctl hyprpaper wallpaper DP-$i,"$directory$wallpaper"
-        echo "Set screen DP-$i to static wallpaper: $wallpaper"
-        notify-send -u normal "Wallpaper Changed" "Set screen DP-$i to static wallpaper: $wallpaper" --icon=$directory$wallpaper
+        hyprctl hyprpaper wallpaper "$connector,$directory$wallpaper"
+        echo "Set screen $connector to static wallpaper: $wallpaper"
+        notify-send -u normal "Wallpaper Changed" "Set screen $connector to static wallpaper: $wallpaper" --icon=$directory$wallpaper
     fi
     echo
 
