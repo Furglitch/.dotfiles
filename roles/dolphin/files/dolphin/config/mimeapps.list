@@ -1,6 +1,7 @@
 [Added Associations]
 application/json=code-2.desktop;
 application/pdf=waterfox.desktop;
+application/vnd.rar=ark-2.desktop;ark.desktop;
 application/x-extension-htm=firefox.desktop;
 application/x-extension-html=firefox.desktop;
 application/x-extension-shtml=firefox.desktop;
@@ -14,11 +15,14 @@ text/javascript=userapp-firefox.desktop;
 x-scheme-handler/chrome=firefox.desktop;
 x-scheme-handler/http=firefox.desktop;
 x-scheme-handler/https=firefox.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-FZCWQ3.desktop;
+x-scheme-handler/mid=userapp-Thunderbird-FZCWQ3.desktop;
 
 [Default Applications]
 application/java-archive=7zFM.desktop;
 application/json=code-2.desktop
 application/pdf=waterfox.desktop
+application/vnd.rar=ark-2.desktop;
 application/x-extension-htm=firefox.desktop
 application/x-extension-html=firefox.desktop
 application/x-extension-shtml=firefox.desktop
@@ -31,6 +35,7 @@ audio/flac=vlc.desktop
 audio/mpeg=vlc.desktop
 image/png=firefox.desktop
 inode/directory=org.kde.dolphin.desktop
+message/rfc822=userapp-Thunderbird-FZCWQ3.desktop
 text/html=firefox.desktop
 text/markdown=code.desktop
 text/plain=code.desktop
@@ -41,4 +46,7 @@ x-scheme-handler/chrome=firefox.desktop
 x-scheme-handler/discord=discord.desktop
 x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop
+x-scheme-handler/mailto=userapp-Thunderbird-FZCWQ3.desktop
+x-scheme-handler/mid=userapp-Thunderbird-FZCWQ3.desktop
+x-scheme-handler/nxm=mo2lint_nxm-handler.desktop
 x-scheme-handler/sgdb=com.steamgriddb.SGDBoop.desktop
