@@ -2,8 +2,13 @@
 
 sudo dnf install -y git ansible python3-dnf
 
-git clone https://github.com/Furglitch/.dotfiles.git -b fedora-swap ~/.dotfiles
-cd ~/.dotfiles
+if [ ! -d ~/.dotfiles ]; then
+    git clone https://github.com/Furglitch/.dotfiles.git -b fedora-swap ~/.dotfiles
+    cd ~/.dotfiles
+else
+    cd ~/.dotfiles
+    git pull origin fedora-swap
+fi
 
 if [ ! -d ~/.ansible ]; then
     mkdir ~/.ansible
