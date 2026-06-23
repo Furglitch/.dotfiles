@@ -1,4 +1,9 @@
 --- # Post-Download, Checks wallpaper dimensions and upscales if needed
+- name: wallpaper | ensure ImageMagick is installed
+  ansible.builtin.dnf:
+    name: ImageMagick
+    state: present
+
 - name: wallpaper | find downloaded images
   ansible.builtin.find:
     paths: "{{ ansible_facts['user_dir'] }}/.local/share/wallpapers/"
