@@ -36,6 +36,7 @@
     - .config/systemd/user
     - .config/systemd/user/timers.target.wants
     - .local/bin
+    - .dotfiles/roles/hyprland/files/waypaper/config
   tags:
     - waypaper
 
