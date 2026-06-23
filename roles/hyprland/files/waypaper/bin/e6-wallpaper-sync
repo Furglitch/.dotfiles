@@ -1,0 +1,179 @@
+#!/usr/bin/env bash
+# e621 wallpaper sync
+# Filename format: e6.{s|n}.{id}.{ext}
+#   s = safe (rating:s), n = nsfw (rating:q or rating:e)
+#
+# Usage:
+#   e6-wallpaper-sync <set_id>
+#   E621_SET=<set_id> e6-wallpaper-sync
+#
+# Optional env vars:
+#   WALLPAPER_DIR   - target directory (default: ~/.local/share/wallpapers)
+#   E621_USER       - e621 username for authenticated requests
+#   E621_API_KEY    - e621 API key for authenticated requests
+#   USER_AGENT      - HTTP User-Agent header
+
+set -euo pipefail
+
+# ── config ────────────────────────────────────────────────────────────────────
+
+WALLPAPER_DIR="${WALLPAPER_DIR:-$HOME/.local/share/wallpapers}"
+USER_AGENT="${USER_AGENT:-dotfiles/e6-wallpaper-sync}"
+E621_SET="${E621_SET:-${1:-}}"
+E621_USER="${E621_USER:-}"
+E621_API_KEY="${E621_API_KEY:-}"
+MAX_PAGES=2
+RATE_LIMIT_SECS=2
+DOWNLOAD_PAUSE_SECS=1
+
+# ── pre-flight ────────────────────────────────────────────────────────────────
+
+if [[ -z "$E621_SET" ]]; then
+    echo "error: no set ID provided" >&2
+    echo "usage: $(basename "$0") <set_id>" >&2
+    echo "       or set E621_SET environment variable" >&2
+    exit 1
+fi
+
+echo "Syncing wallpapers for e621 set: $E621_SET"
+echo "Target directory: $WALLPAPER_DIR"
+
+if ! command -v jq &>/dev/null; then
+    echo "error: jq is required but not installed" >&2
+    exit 1
+fi
+
+if ! command -v curl &>/dev/null; then
+    echo "error: curl is required but not installed" >&2
+    exit 1
+fi
+
+mkdir -p "$WALLPAPER_DIR"
+
+# ── helpers ───────────────────────────────────────────────────────────────────
+
+# Build a base curl command array with auth if provided
+if [[ -n "$E621_USER" && -n "$E621_API_KEY" ]]; then
+    curl_cmd=(curl -sf -H "User-Agent: $USER_AGENT" -u "${E621_USER}:${E621_API_KEY}")
+else
+    curl_cmd=(curl -sf -H "User-Agent: $USER_AGENT")
+fi
+
+# ── fetch post list ───────────────────────────────────────────────────────────
+
+echo "Fetching post list for set: $E621_SET"
+
+declare -A expected_files  # filename → download URL
+
+for page in $(seq 1 "$MAX_PAGES"); do
+    echo "  Page $page..."
+
+    response=$("${curl_cmd[@]}" \
+        "https://e621.net/posts.json?tags=set:${E621_SET}&limit=320&page=${page}") || {
+        echo "  warning: request failed for page $page, skipping" >&2
+        continue
+    }
+
+    post_count=$(printf '%s' "$response" | jq '.posts | length')
+
+    if [[ "$post_count" -eq 0 ]]; then
+        echo "  No posts on page $page, stopping."
+        break
+    fi
+
+    echo "  Found $post_count posts"
+
+    # Parse each post into: id <TAB> rating <TAB> ext <TAB> url
+    while IFS=$'\t' read -r id rating ext url; do
+        [[ -z "$id" || "$url" == "null" || -z "$url" ]] && continue
+
+        case "$rating" in
+            s)   rating_char="s" ;;
+            q|e) rating_char="n" ;;
+            *)   rating_char="n" ;;
+        esac
+
+        filename="e6.${rating_char}.${id}.${ext}"
+        expected_files["$filename"]="$url"
+    done < <(printf '%s' "$response" | jq -r \
+        '.posts[] | [
+            (.id | tostring),
+            .rating,
+            (.file.ext // "jpg"),
+            (.file.url // "null")
+        ] | @tsv')
+
+    if [[ "$page" -lt "$MAX_PAGES" ]]; then
+        sleep "$RATE_LIMIT_SECS"
+    fi
+done
+
+total="${#expected_files[@]}"
+echo "Total posts fetched: $total"
+
+if [[ "$total" -eq 0 ]]; then
+    echo "No posts found — aborting to avoid accidental deletion." >&2
+    exit 1
+fi
+
+# ── remove stale wallpapers ───────────────────────────────────────────────────
+
+echo ""
+echo "Checking for stale wallpapers..."
+removed=0
+
+while IFS= read -r -d '' filepath; do
+    filename=$(basename "$filepath")
+    if [[ ! -v expected_files["$filename"] ]]; then
+        echo "  Remove: $filename"
+        rm -- "$filepath"
+        (( removed++ )) || true
+    fi
+done < <(find "$WALLPAPER_DIR" -maxdepth 1 -name 'e6.*' -type f -print0)
+
+echo "  Removed $removed file(s)"
+
+# ── download missing wallpapers ───────────────────────────────────────────────
+
+echo ""
+echo "Downloading missing wallpapers..."
+downloaded=0
+skipped=0
+failed=0
+
+for filename in "${!expected_files[@]}"; do
+    filepath="$WALLPAPER_DIR/$filename"
+    url="${expected_files[$filename]}"
+
+    if [[ -f "$filepath" ]]; then
+        (( skipped++ )) || true
+        continue
+    fi
+
+    if [[ "$url" == "null" || -z "$url" ]]; then
+        echo "  Skip (no URL): $filename" >&2
+        (( failed++ )) || true
+        continue
+    fi
+
+    echo "  Download: $filename"
+
+    if "${curl_cmd[@]}" -o "$filepath" -- "$url"; then
+        (( downloaded++ )) || true
+    else
+        echo "  Failed: $filename" >&2
+        rm -f -- "$filepath"
+        (( failed++ )) || true
+    fi
+
+    sleep "$DOWNLOAD_PAUSE_SECS"
+done
+
+# ── summary ───────────────────────────────────────────────────────────────────
+
+echo ""
+echo "Done."
+printf '  Downloaded:    %d\n' "$downloaded"
+printf '  Already exist: %d\n' "$skipped"
+printf '  Failed:        %d\n' "$failed"
+printf '  Removed:       %d\n' "$removed"

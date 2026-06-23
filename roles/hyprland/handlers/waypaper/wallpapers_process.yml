@@ -1,0 +1,50 @@
+--- # Post-Download, Checks wallpaper dimensions and upscales if needed
+- name: wallpaper | find downloaded images
+  ansible.builtin.find:
+    paths: "{{ ansible_facts['user_dir'] }}/.local/share/wallpapers/"
+    patterns: "e6.*"
+  register: wallpaper_files
+
+- name: wallpaper | DEBUG list found files
+  ansible.builtin.debug:
+    msg: "Found {{ wallpaper_files.matched }} files: {{ wallpaper_files.files | map(attribute='path') | list }}"
+
+- name: wallpaper | check image dimensions
+  ansible.builtin.command:
+    cmd: "identify -format '%w %h' {{ item.path }}"
+  loop: "{{ wallpaper_files.files }}"
+  register: wallpaper_dimensions
+  when: wallpaper_files.matched > 0
+
+- name: wallpaper | DEBUG list dimensions
+  ansible.builtin.debug:
+    msg: "Image {{ item.item.path }}: {{ item.stdout }}"
+  loop: "{{ wallpaper_dimensions.results | default([]) }}"
+  when: 
+    - wallpaper_dimensions is defined
+    - wallpaper_dimensions.results is defined
+    - item.stdout is defined
+
+- name: wallpaper | install latest upscayl rpm
+  ansible.builtin.dnf:
+    name: "https://github.com/upscayl/upscayl/releases/latest/download/{{ upscayl_latest_filename }}"
+    state: present
+  when:
+    - upscayl_latest_filename is defined
+    - upscayl_latest_filename | length > 0
+    - upscayl_latest_filename is match('.*\\.rpm$')
+
+- name: wallpaper | upscale low resolution images
+  ansible.builtin.command:
+    cmd: >-
+      upscayl 
+      -i "{{ item.item.path }}"
+      -o "{{ item.item.path }}"
+      -s {{ (item.stdout.split()[1] | int < 720) | ternary('4', '2') }}
+  loop: "{{ wallpaper_dimensions.results | default([]) }}"
+  when: 
+    - wallpaper_dimensions is defined
+    - wallpaper_dimensions.results is defined
+    - item.stdout is defined
+    - item.stdout.split()[1] | int < 1440
+  register: upscale_jobs

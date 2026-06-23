@@ -7,7 +7,7 @@ end)
 hl.on("hyprland.start", function()
     hl.exec_cmd("hyprpanel")
     hl.exec_cmd("hyprpaper")
-    hl.exec_cmd(scripts.wallpaper)
+    hl.exec_cmd("waypaper --random")
     hl.exec_cmd("vicinae server")
 end)
 

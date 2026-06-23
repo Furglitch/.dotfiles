@@ -40,11 +40,6 @@ local screenshotPath = home .. "/Pictures/Screenshots"
 local screenshotFile = "hyprshot_" .. os.date("%Y-%m-%d_%H-%M-%S") .. ".png"
 screenshot = "hyprshot --freeze -f " .. screenshotFile .. " -o " .. screenshotPath .. " -m "
 
--- Scripts
-scripts = ({
-    wallpaper = home .. "/.local/bin/wallpaper"
-})
-
 -- Color Palette
 catppuccin = ({
     mocha = {

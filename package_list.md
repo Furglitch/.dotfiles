@@ -1,6 +1,6 @@
 ## Desktop Environment
 
-hyprland : copr - sdegler/hyprland
+hyprland : copr - lionheartp/Hyprland
     waypaper
 		hyprpaper
     hyprshot
@@ -9,7 +9,8 @@ hyprland : copr - sdegler/hyprland
 	xdg-desktop-portal-hyprland
 		xdg-utils
     wayle : https://github.com/wayle-rs/wayle#install // replace hyprpanel
-	catppuccin-cursors : https://github.com/catppuccin/cursors#github-release
+	hyprcursor
+		catppuccin-cursors : https://github.com/catppuccin/cursors#github-release
 	hyprshutdown
 vicinae : copr - quadratech188/vicinae
 

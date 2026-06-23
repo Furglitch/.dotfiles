@@ -2,7 +2,7 @@
 - name: hyprland | ensure copr repo is enabled
   community.general.copr:
     host: copr.fedorainfracloud.org
-    name: sdegler/hyprland
+    name: lionheartp/Hyprland
     state: enabled
 
 - name: hyprland | ensure hyprland is installed

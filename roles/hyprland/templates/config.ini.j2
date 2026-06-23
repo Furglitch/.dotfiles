@@ -1,0 +1,14 @@
+[Settings]
+language = en
+number_of_columns = 4
+show_path_in_tooltip = True
+fill = fill
+sort = name
+color = #ffffff
+backend = hyprpaper
+folder = ~/.local/share/wallpapers
+wallpaper = ~/.local/share/wallpapers/temp.png
+	~/.local/share/wallpapers/temp.png
+monitors = {% for monitor in monitors.screens %}desc:{{ monitor.desc }}
+    {% endfor %}
+

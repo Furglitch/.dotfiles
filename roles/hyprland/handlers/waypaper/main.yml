@@ -1,0 +1,8 @@
+---
+- name: waypaper | process downloaded wallpapers
+  block:
+    - name: waypaper | resolve latest upscayl release metadata
+      ansible.builtin.include_tasks: handlers/wallpapers_upscayl_latest.yml
+
+    - name: waypaper | run wallpaper processing tasks
+      ansible.builtin.include_tasks: handlers/wallpapers_process.yml
