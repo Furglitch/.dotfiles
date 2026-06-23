@@ -1,0 +1,3 @@
+---
+- name: hyprland | run hyprland tasks
+  ansible.builtin.include_tasks: hyprland.yml

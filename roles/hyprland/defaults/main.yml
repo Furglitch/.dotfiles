@@ -1,0 +1,14 @@
+monitors:
+  screens:
+    - position: auto-right
+      desc: AOC Q27G4ZDR RK2RCUA004294
+      resolution: 2560x1440
+      refresh_rate: 240
+      scale: 1
+      workspaces: 5
+    - position: auto-left
+      desc: AOC Q27G4ZDR RK2RBJA004944
+      resolution: 2560x1440
+      refresh_rate: 240
+      scale: 1
+      workspaces: 5
