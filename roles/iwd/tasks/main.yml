@@ -1,8 +1,0 @@
----
-- name: iwd | ensure iwd installed
-  kewlfft.aur.aur:
-    name: iwd
-    state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"

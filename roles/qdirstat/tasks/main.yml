@@ -1,8 +1,0 @@
----
-- name: qdirstat | ensure qdirstat-bin installed
-  kewlfft.aur.aur:
-    name: qdirstat-bin
-    state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"

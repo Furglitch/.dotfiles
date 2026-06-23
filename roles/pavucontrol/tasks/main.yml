@@ -1,8 +1,0 @@
----
-- name: pavucontrol | ensure pavucontrol installed
-  kewlfft.aur.aur:
-    name: pavucontrol
-    state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
