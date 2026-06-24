@@ -1,0 +1,41 @@
+---
+- name: xdg | ensure xdg-utils is installed
+  ansible.builtin.dnf:
+    name: xdg-utils
+    state: present
+  tags:
+    - xdg
+
+- name: xdg | ensure copr repo is enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: lionheartp/Hyprland
+    state: enabled
+  tags:
+    - xdg
+
+- name: xdg | ensure xdg-desktop-portal-hyprland is installed
+  ansible.builtin.dnf:
+    name: xdg-desktop-portal-hyprland
+    state: present
+  tags:
+    - xdg
+
+- name: xdg | ensure .config/xdg-desktop-portal exists
+  ansible.builtin.file:
+    path: '{{ ansible_facts["user_dir"] }}/.config/xdg-desktop-portal'
+    state: directory
+    mode: '0755'
+    owner: '{{ target_user }}'
+    group: '{{ target_user }}'
+  tags:
+    - xdg
+
+- name: xdg | symlink xdg config directory
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/xdg/config"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/xdg-desktop-portal"
+    state: link
+    force: true
+  tags:
+    - xdg
