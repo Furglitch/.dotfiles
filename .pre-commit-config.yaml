@@ -12,3 +12,11 @@ repos:
           - --strict
           - role
           - task
+          - chore
+          - feat
+          - fix
+          - refactor
+          - ci
+          - docs
+          - style
+          - test
