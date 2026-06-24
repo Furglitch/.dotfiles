@@ -27,6 +27,11 @@
     - upscayl_latest_rpm_local_path | length > 0
 
 - name: waypaper | upscale low resolution images
+  become: true
+  become_user: "{{ target_user }}"
+  environment:
+    HOME: "{{ ansible_facts['user_dir'] }}"
+    XDG_CONFIG_HOME: "{{ ansible_facts['user_dir'] }}/.config"
   ansible.builtin.command:
     cmd: >-
       upscayl 
@@ -35,6 +40,7 @@
       -s {{ (item.stdout.split()[1] | int < 720) | ternary('4', '2') }}
   loop: "{{ wallpaper_dimensions.results | default([]) }}"
   when: 
+    - target_user is defined
     - wallpaper_dimensions is defined
     - wallpaper_dimensions.results is defined
     - item.stdout is defined
