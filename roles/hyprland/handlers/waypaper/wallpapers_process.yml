@@ -1,36 +1,23 @@
 --- # Post-Download, Checks wallpaper dimensions and upscales if needed
-- name: wallpaper | ensure ImageMagick is installed
+- name: waypaper | ensure ImageMagick is installed
   ansible.builtin.dnf:
     name: ImageMagick
     state: present
 
-- name: wallpaper | find downloaded images
+- name: waypaper | find downloaded images
   ansible.builtin.find:
     paths: "{{ ansible_facts['user_dir'] }}/.local/share/wallpapers/"
     patterns: "e6.*"
   register: wallpaper_files
 
-- name: wallpaper | DEBUG list found files
-  ansible.builtin.debug:
-    msg: "Found {{ wallpaper_files.matched }} files: {{ wallpaper_files.files | map(attribute='path') | list }}"
-
-- name: wallpaper | check image dimensions
+- name: waypaper | check image dimensions
   ansible.builtin.command:
     cmd: "identify -format '%w %h' {{ item.path }}"
   loop: "{{ wallpaper_files.files }}"
   register: wallpaper_dimensions
   when: wallpaper_files.matched > 0
 
-- name: wallpaper | DEBUG list dimensions
-  ansible.builtin.debug:
-    msg: "Image {{ item.item.path }}: {{ item.stdout }}"
-  loop: "{{ wallpaper_dimensions.results | default([]) }}"
-  when: 
-    - wallpaper_dimensions is defined
-    - wallpaper_dimensions.results is defined
-    - item.stdout is defined
-
-- name: wallpaper | install latest upscayl rpm from local file
+- name: waypaper | install latest upscayl rpm from local file
   ansible.builtin.dnf:
     name: "{{ upscayl_latest_rpm_local_path }}"
     state: present
@@ -39,7 +26,7 @@
     - upscayl_latest_rpm_local_path is defined
     - upscayl_latest_rpm_local_path | length > 0
 
-- name: wallpaper | upscale low resolution images
+- name: waypaper | upscale low resolution images
   ansible.builtin.command:
     cmd: >-
       upscayl 
