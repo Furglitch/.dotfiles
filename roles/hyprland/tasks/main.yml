@@ -5,6 +5,12 @@
     - hypr
     - hyprland
 
+- name: hyprland | run wayle tasks
+  ansible.builtin.include_tasks: wayle.yml
+  tags:
+    - hypr
+    - wayle
+
 - name: hyprland | run waypaper tasks
   ansible.builtin.include_tasks: waypaper.yml
   tags:

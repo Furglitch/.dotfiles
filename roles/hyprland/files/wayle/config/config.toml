@@ -1,0 +1,161 @@
+[general]
+font-sans = "Ubuntu Nerd Font"
+font-mono = "UbuntuMono Nerd Font Mono"
+
+[bar]
+scale = 0.75
+padding = 0.5
+padding-ends = 1.0
+module-gap = 1.0
+background-opacity = 90
+border-location = "bottom"
+border-color = "bg-active"
+
+[[bar.layout]]
+monitor = "DP-8"
+show = true
+left = [
+    "dashboard",
+    "hyprland-workspaces",
+]
+center = ["media"]
+right = [
+    "volume",
+    "microphone",
+    "systray",
+    "clock",
+    "notifications",
+]
+
+[[bar.layout]]
+monitor = "*"
+show = true
+left = ["hyprland-workspaces"]
+center = ["cava"]
+right = [
+    "network",
+    "bluetooth",
+    "cpu",
+    "ram",
+    "storage",
+]
+
+[styling.palette]
+bg = "#11111b"
+surface = "#181825"
+elevated = "#1e1e2e"
+fg = "#cdd6f4"
+fg-muted = "#bac2de"
+primary = "#b4befe"
+red = "#f38ba8"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+blue = "#74c7ec"
+
+[modules.bluetooth]
+disabled-icon = "md-bluetooth_disabled"
+disconnected-icon = "md-bluetooth"
+connected-icon = "md-bluetooth_connected"
+searching-icon = "md-bluetooth_searching"
+label-show = false
+
+[modules.cava]
+bars = 50
+framerate = 240
+noise-reduction = 0.3950617283950617
+color = "blue"
+button-bg-color = "transparent"
+border-color = "blue"
+
+[modules.clock]
+format = "%a %b %d %H:%M"
+icon-name = "md-calendar_clock"
+border-color = "blue"
+icon-bg-color = "blue"
+label-color = "blue"
+
+[modules.cpu]
+icon-name = "md-developer_board"
+
+[modules.dashboard]
+border-color = "blue"
+icon-bg-color = "blue"
+
+[modules.hyprland-workspaces]
+show-special = false
+active-color = "blue"
+occupied-color = "blue"
+empty-color = "status-info-subtle"
+
+[modules.hyprland-workspaces.workspace-map.-98]
+label = "S"
+
+[modules.media]
+icon-name = "md-music_note"
+spinning-disc-icon = "md-album"
+
+[modules.microphone]
+icon-active = "md-mic"
+icon-muted = "md-mic_off"
+border-color = "blue"
+icon-bg-color = "blue"
+label-color = "blue"
+
+[modules.network]
+wifi-disabled-icon = "md-wifi_off"
+wifi-acquiring-icon = "md-network_check"
+wifi-offline-icon = "md-android_wifi_3_bar_alert"
+wifi-connected-icon = "md-wifi"
+wifi-signal-icons = [
+    "md-signal_wifi_0_bar",
+    "md-network_wifi_1_bar",
+    "md-network_wifi_2_bar",
+    "md-network_wifi_3_bar",
+    "md-signal_wifi_4_bar",
+]
+wired-connected-icon = "md-language"
+wired-acquiring-icon = "md-globe_2_question"
+wired-disconnected-icon = "md-globe_2_cancel"
+border-color = "blue"
+icon-bg-color = "blue"
+label-show = false
+label-color = "blue"
+
+[modules.notifications]
+icon-name = "md-notifications"
+icon-unread = "md-notifications_unread"
+icon-dnd = "md-notifications_paused"
+border-color = "blue"
+icon-bg-color = "blue"
+label-color = "blue"
+popup-urgency-bar = "normal"
+
+[modules.ram]
+icon-name = "md-memory_alt"
+border-color = "blue"
+icon-bg-color = "blue"
+label-color = "blue"
+
+[modules.storage]
+icon-name = "md-hard_drive"
+border-color = "blue"
+icon-bg-color = "blue"
+label-color = "blue"
+
+[modules.volume]
+level-icons = [
+    "md-volume_mute",
+    "md-volume_down",
+    "md-volume_up",
+]
+icon-muted = "md-volume_off"
+border-color = "blue"
+icon-bg-color = "blue"
+label-color = "blue"
+
+[osd]
+position = "bottom-right"
+margin = 50.0
+
+[wallpaper]
+engine-enabled = false
