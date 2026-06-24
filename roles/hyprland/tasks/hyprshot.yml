@@ -1,0 +1,11 @@
+---
+- name: hyprshot | ensure copr repo is enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: lionheartp/Hyprland
+    state: enabled
+
+- name: hyprshot | ensure hyprshot is installed
+  ansible.builtin.dnf:
+    name: hyprshot
+    state: present
