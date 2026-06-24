@@ -1,0 +1,11 @@
+---
+- name: hyprpolkitagent | ensure copr repo is enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: lionheartp/Hyprland
+    state: enabled
+
+- name: hyprpolkitagent | ensure hyprpolkitagent is installed
+  ansible.builtin.dnf:
+    name: hyprpolkitagent
+    state: present
