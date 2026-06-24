@@ -78,7 +78,7 @@
 - name: waypaper | process downloaded wallpapers
   block:
     - name: waypaper | resolve latest upscayl release metadata
-      ansible.builtin.include_tasks: roles/hyprland/handlers/waypaper/wallpapers_upscayl_latest.yml
+      ansible.builtin.include_tasks: roles/hyprland/handlers/waypaper/wallpapers_download_upscayl.yml
 
     - name: waypaper | run wallpaper processing tasks
       ansible.builtin.include_tasks: roles/hyprland/handlers/waypaper/wallpapers_process.yml

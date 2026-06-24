@@ -1,0 +1,74 @@
+---
+- name: wallpaper | fetch latest upscayl linux metadata
+  ansible.builtin.uri:
+    url: https://github.com/upscayl/upscayl/releases/latest/download/latest-linux.yml
+    method: GET
+    return_content: true
+  register: upscayl_latest_linux_yml
+  changed_when: false
+
+- name: wallpaper | parse latest upscayl rpm filename
+  ansible.builtin.set_fact:
+    upscayl_latest_rpm_filename: >-
+      {{
+        (
+          upscayl_latest_linux_yml.content
+          | from_yaml
+        ).files
+        | default([])
+        | selectattr('url', 'defined')
+        | map(attribute='url')
+        | select('match', '.*[.]rpm$')
+        | list
+        | first
+        | default('', true)
+      }}
+  changed_when: false
+
+- name: wallpaper | assert latest upscayl rpm filename was found
+  ansible.builtin.assert:
+    that:
+      - upscayl_latest_rpm_filename | length > 0
+    fail_msg: >-
+      Could not find an RPM asset in latest-linux.yml. Files were:
+      {{ ((upscayl_latest_linux_yml.content | from_yaml).files | default([]) | map(attribute='url') | list) }}
+
+- name: wallpaper | normalize upscayl rpm URL
+  ansible.builtin.set_fact:
+    upscayl_latest_rpm_url: >-
+      {{
+        'https://github.com/upscayl/upscayl/releases/latest/download/' ~ (upscayl_latest_rpm_filename | basename)
+      }}
+  when:
+    - upscayl_latest_rpm_filename is defined
+    - upscayl_latest_rpm_filename | length > 0
+
+- name: wallpaper | normalize upscayl rpm local path
+  ansible.builtin.set_fact:
+    upscayl_latest_rpm_local_path: >-
+      {{
+        ansible_facts['user_dir'] ~ '/Downloads/' ~ (upscayl_latest_rpm_filename | basename)
+      }}
+  when:
+    - upscayl_latest_rpm_url is defined
+    - upscayl_latest_rpm_url | length > 0
+
+- name: wallpaper | ensure Downloads directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/Downloads"
+    state: directory
+    mode: '0755'
+  when:
+    - upscayl_latest_rpm_url is defined
+    - upscayl_latest_rpm_url | length > 0
+
+- name: wallpaper | download latest upscayl rpm
+  ansible.builtin.get_url:
+    url: "{{ upscayl_latest_rpm_url }}"
+    dest: "{{ upscayl_latest_rpm_local_path }}"
+    mode: '0644'
+  when:
+    - upscayl_latest_rpm_url is defined
+    - upscayl_latest_rpm_url | length > 0
+    - upscayl_latest_rpm_local_path is defined
+    - upscayl_latest_rpm_local_path | length > 0

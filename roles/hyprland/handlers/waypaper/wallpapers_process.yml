@@ -30,14 +30,14 @@
     - wallpaper_dimensions.results is defined
     - item.stdout is defined
 
-- name: wallpaper | install latest upscayl rpm
+- name: wallpaper | install latest upscayl rpm from local file
   ansible.builtin.dnf:
-    name: "https://github.com/upscayl/upscayl/releases/latest/download/{{ upscayl_latest_filename }}"
+    name: "{{ upscayl_latest_rpm_local_path }}"
     state: present
+    disable_gpg_check: true
   when:
-    - upscayl_latest_filename is defined
-    - upscayl_latest_filename | length > 0
-    - upscayl_latest_filename is match('.*\\.rpm$')
+    - upscayl_latest_rpm_local_path is defined
+    - upscayl_latest_rpm_local_path | length > 0
 
 - name: wallpaper | upscale low resolution images
   ansible.builtin.command:
