@@ -1,0 +1,11 @@
+---
+- name: hyprshutdown | ensure copr repo is enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: lionheartp/Hyprland
+    state: enabled
+
+- name: hyprshutdown | ensure hyprshutdown is installed
+  ansible.builtin.dnf:
+    name: hyprshutdown
+    state: present
