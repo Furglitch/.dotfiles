@@ -1,0 +1,17 @@
+---
+- name: hyprcursor | ensure copr repo is enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: lionheartp/Hyprland
+    state: enabled
+  tags:
+    - hypr
+    - hyprcursor
+
+- name: hyprcursor | ensure hyprcursor is installed
+  ansible.builtin.dnf:
+    name: hyprcursor
+    state: present
+  tags:
+    - hypr
+    - hyprcursor
