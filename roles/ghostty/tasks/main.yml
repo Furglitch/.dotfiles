@@ -1,0 +1,23 @@
+---
+- name: ghostty | ensure copr repos are enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: "{{ item }}"
+    state: enabled
+  loop: "{{ ghostty_copr_repos }}"
+  tags:
+    - ghostty
+
+- name: ghostty | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ ghostty_packages }}"
+    state: present
+  tags:
+    - ghostty
+
+- name: ghostty | run command-based installers
+  ansible.builtin.shell:
+    cmd: "{{ item }}"
+  loop: "{{ ghostty_commands }}"
+  tags:
+    - ghostty

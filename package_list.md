@@ -59,7 +59,7 @@ neovim
 python3.13
 uv
 ruby-devel
-	! jekyll
+	* jekyll
 adoptium-temurin-java-repository
 	temurin-17-jdk
 	temurin-21-temurin
@@ -72,7 +72,6 @@ docker-ce
 steam
 	millenium : `curl -fsSL "https://steambrew.app/install.sh" | bash`
 prismlauncher : copr - g3tchoo/prismlauncher
-	blockbench : manual?
 heroic-games-launcher-bin : copr - atim/heroic-games-launcher
 wine
 

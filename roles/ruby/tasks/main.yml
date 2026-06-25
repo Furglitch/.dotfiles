@@ -1,0 +1,8 @@
+---
+- name: ruby-devel | ensure ruby-devel is installed
+  ansible.builtin.dnf:
+    name: ruby-devel
+    state: present
+  tags:
+    - ruby-devel
+

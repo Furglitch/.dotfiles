@@ -1,0 +1,8 @@
+---
+- name: code | ensure code is installed
+  ansible.builtin.dnf:
+    name: code
+    state: present
+  tags:
+    - code
+

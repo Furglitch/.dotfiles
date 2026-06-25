@@ -2,5 +2,27 @@
 default_roles:
   - sddm
   - hyprland
+  - kde
   - xdg
   - vicinae
+  - git
+  - code
+  - pre-commit
+  - neovim
+  - python
+  - uv
+  - ruby
+  - java
+  - docker
+  - steam
+  - prismlauncher
+  - heroic-launcher
+  - wine
+  - discord
+  - telegram
+  - firefox
+  - gimp
+  - vlc
+  - grub
+  - ssh
+  - ghostty

@@ -1,0 +1,16 @@
+---
+- name: gimp | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ gimp_packages }}"
+    state: present
+  tags:
+    - gimp
+
+- name: gimp | ensure URL rpms are installed
+  ansible.builtin.dnf:
+    name: "{{ gimp_rpm_urls }}"
+    state: present
+    disable_gpg_check: true
+  tags:
+    - gimp
+

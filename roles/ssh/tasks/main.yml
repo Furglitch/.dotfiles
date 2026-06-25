@@ -1,0 +1,8 @@
+---
+- name: ssh | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ ssh_packages }}"
+    state: present
+  tags:
+    - ssh
+

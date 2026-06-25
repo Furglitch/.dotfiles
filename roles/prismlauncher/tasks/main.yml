@@ -1,0 +1,16 @@
+---
+- name: prismlauncher | ensure copr repos are enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: g3tchoo/prismlauncher
+    state: enabled
+  tags:
+    - prismlauncher
+
+- name: prismlauncher | ensure prismlauncher is installed
+  ansible.builtin.dnf:
+    name: prismlauncher
+    state: present
+  tags:
+    - prismlauncher
+

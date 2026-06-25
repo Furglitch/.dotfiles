@@ -1,0 +1,13 @@
+---
+- name: kde | ensure dolphin packages are installed
+  ansible.builtin.dnf:
+    name:
+      - dolphin
+      - ffmpegthumbs
+      - kdegraphics-thumbnailers
+      - kio-admin
+      - kf6-baloo-file
+    state: present
+  tags:
+    - kde
+    - dolphin

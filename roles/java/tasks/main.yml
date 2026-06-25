@@ -1,0 +1,8 @@
+---
+- name: adoptium-temurin-java-repository | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ adoptium_temurin_java_repository_packages }}"
+    state: present
+  tags:
+    - adoptium-temurin-java-repository
+

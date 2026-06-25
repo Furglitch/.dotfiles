@@ -1,0 +1,6 @@
+---
+steam_packages:
+  - steam
+
+steam_commands:
+  - 'curl -fsSL "https://steambrew.app/install.sh" | bash'

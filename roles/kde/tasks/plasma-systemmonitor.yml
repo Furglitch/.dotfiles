@@ -1,0 +1,8 @@
+---
+- name: kde | ensure plasma-systemmonitor is installed
+  ansible.builtin.dnf:
+    name: plasma-systemmonitor
+    state: present
+  tags:
+    - kde
+    - plasma-systemmonitor

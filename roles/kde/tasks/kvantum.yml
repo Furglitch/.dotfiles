@@ -1,0 +1,10 @@
+---
+- name: kde | ensure kvantum packages are installed
+  ansible.builtin.dnf:
+    name:
+      - kvantum
+      - qt6-qtwayland
+    state: present
+  tags:
+    - kde
+    - kvantum

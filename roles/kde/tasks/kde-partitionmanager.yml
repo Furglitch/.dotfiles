@@ -1,0 +1,12 @@
+---
+- name: kde | ensure kde-partitionmanager packages are installed
+  ansible.builtin.dnf:
+    name:
+      - kde-partitionmanager
+      - smartmontools
+      - nfs-utils
+      - qdirstat
+    state: present
+  tags:
+    - kde
+    - kde-partitionmanager

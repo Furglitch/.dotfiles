@@ -1,0 +1,8 @@
+---
+- name: docker-ce | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ docker_ce_packages }}"
+    state: present
+  tags:
+    - docker-ce
+

@@ -1,0 +1,50 @@
+---
+- name: kde | install plasma-systemsettings stack
+  ansible.builtin.import_tasks: plasma-systemsettings.yml
+  tags:
+    - kde
+
+- name: kde | install kwalletmanager5 stack
+  ansible.builtin.import_tasks: kwalletmanager5.yml
+  tags:
+    - kde
+
+- name: kde | install dolphin stack
+  ansible.builtin.import_tasks: dolphin.yml
+  tags:
+    - kde
+
+- name: kde | install kvantum stack
+  ansible.builtin.import_tasks: kvantum.yml
+  tags:
+    - kde
+
+- name: kde | install kinfocenter
+  ansible.builtin.import_tasks: kinfocenter.yml
+  tags:
+    - kde
+
+- name: kde | install plasma-pa
+  ansible.builtin.import_tasks: plasma-pa.yml
+  tags:
+    - kde
+
+- name: kde | install kde-partitionmanager stack
+  ansible.builtin.import_tasks: kde-partitionmanager.yml
+  tags:
+    - kde
+
+- name: kde | install ark stack
+  ansible.builtin.import_tasks: ark.yml
+  tags:
+    - kde
+
+- name: kde | install plasma-nm stack
+  ansible.builtin.import_tasks: plasma-nm.yml
+  tags:
+    - kde
+
+- name: kde | install plasma-systemmonitor
+  ansible.builtin.import_tasks: plasma-systemmonitor.yml
+  tags:
+    - kde

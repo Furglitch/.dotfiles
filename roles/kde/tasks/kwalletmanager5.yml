@@ -1,0 +1,11 @@
+---
+- name: kde | ensure kwalletmanager5 packages are installed
+  ansible.builtin.dnf:
+    name:
+      - kwalletmanager5
+      - pam-kwallet
+      - ksshaskpass
+    state: present
+  tags:
+    - kde
+    - kwalletmanager5

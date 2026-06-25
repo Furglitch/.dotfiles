@@ -1,0 +1,8 @@
+---
+- name: grub | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ grub_packages }}"
+    state: present
+  tags:
+    - grub
+

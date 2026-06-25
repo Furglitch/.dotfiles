@@ -1,0 +1,10 @@
+---
+discord_packages:
+  - discord
+  - betterdiscordctl
+
+discord_copr_repos:
+  - observeroftime/betterdiscordctl
+
+discord_rpmfusion:
+  - nonfree

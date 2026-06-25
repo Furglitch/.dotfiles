@@ -1,0 +1,8 @@
+---
+- name: vlc | ensure vlc is installed
+  ansible.builtin.dnf:
+    name: vlc
+    state: present
+  tags:
+    - vlc
+

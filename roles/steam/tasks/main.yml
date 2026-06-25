@@ -1,0 +1,14 @@
+---
+- name: steam | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ steam_packages }}"
+    state: present
+  tags:
+    - steam
+
+- name: steam | run command-based installers
+  ansible.builtin.shell:
+    cmd: "{{ item }}"
+  loop: "{{ steam_commands }}"
+  tags:
+    - steam

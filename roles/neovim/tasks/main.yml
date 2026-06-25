@@ -1,0 +1,8 @@
+---
+- name: neovim | ensure neovim is installed
+  ansible.builtin.dnf:
+    name: neovim
+    state: present
+  tags:
+    - neovim
+

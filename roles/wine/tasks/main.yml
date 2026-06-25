@@ -1,0 +1,8 @@
+---
+- name: wine | ensure wine is installed
+  ansible.builtin.dnf:
+    name: wine
+    state: present
+  tags:
+    - wine
+

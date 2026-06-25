@@ -1,0 +1,8 @@
+---
+- name: git | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ git_packages }}"
+    state: present
+  tags:
+    - git
+

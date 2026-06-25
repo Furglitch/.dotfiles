@@ -1,0 +1,8 @@
+---
+- name: uv | ensure uv is installed
+  ansible.builtin.dnf:
+    name: uv
+    state: present
+  tags:
+    - uv
+
