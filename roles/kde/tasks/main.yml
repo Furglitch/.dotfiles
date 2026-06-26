@@ -48,3 +48,15 @@
   ansible.builtin.import_tasks: plasma-systemmonitor.yml
   tags:
     - kde
+
+- name: kde | symlink config files
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/kde/config/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/{{ item.path }}"
+    state: link
+    force: true
+  with_filetree: kde/config
+  when: item.state == "file"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
