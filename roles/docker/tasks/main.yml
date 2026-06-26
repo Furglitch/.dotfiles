@@ -6,3 +6,9 @@
   tags:
     - docker-ce
 
+- name: docker | add user to docker group
+  ansible.builtin.user:
+    name: "{{ target_user }}"
+    groups: docker
+    append: yes
+  become: true
