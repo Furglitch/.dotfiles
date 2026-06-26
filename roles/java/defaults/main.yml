@@ -1,5 +1,4 @@
 ---
-adoptium_temurin_java_repository_packages:
-  - adoptium-temurin-java-repository
+java_packages:
   - temurin-17-jdk
-  - temurin-21-temurin
+  - temurin-21-jdk

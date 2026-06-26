@@ -1,8 +1,21 @@
 ---
-- name: adoptium-temurin-java-repository | ensure packages are installed
+- name: java | ensure repository is enabled
   ansible.builtin.dnf:
-    name: "{{ adoptium_temurin_java_repository_packages }}"
+    name: "adoptium-temurin-java-repository"
     state: present
   tags:
-    - adoptium-temurin-java-repository
+    - java
+
+- name: java | ensure third party repos enabled
+  ansible.builtin.command:
+    cmd: "sudo fedora-third-party enable"
+  tags:
+    - java
+
+- name: java | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ java_packages }}"
+    state: present
+  tags:
+    - java
 
