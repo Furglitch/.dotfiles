@@ -1,0 +1,7 @@
+# custom-shader = ~/.config/ghostty/shaders/bloom.glsl
+# custom-shader = ~/.config/ghostty/shaders/in-game-crt-cursor.glsl
+# custom-shader = ~/.config/ghostty/shaders/retro-terminal.glsl
+
+theme = "catppuccin-mocha.conf"
+font-family = "UbuntuMono Nerd Font"
+font-style = "Regular"
