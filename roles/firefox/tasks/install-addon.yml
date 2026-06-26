@@ -1,0 +1,76 @@
+# Source: arensb/ansible-firefox/profiles/tasks/firefox-addon.yml
+---
+- name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: look up information"
+  vars:
+    info_base: "https://services.addons.mozilla.org/api/v4/addons/addon"
+  uri:
+    url: "{{ info_base }}/{{ addon_slug }}/"
+    return_content: yes
+    # body_format: json
+  register: addon_info
+  check_mode: no
+  tags:
+    - firefox
+
+- name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: create extension directory"
+  vars:
+    ext_dir: "{{ profile_subdir }}/extensions"
+  ansible.builtin.file:
+    path: "{{ ext_dir }}"
+    state: directory
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: "0755"
+  tags:
+    - firefox
+
+- name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: allow auto-enable for sideloaded extensions"
+  ansible.builtin.lineinfile:
+    path: "{{ profile_subdir }}/user.js"
+    create: true
+    mode: "0644"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    line: 'user_pref("extensions.autoDisableScopes", 0);'
+  tags:
+    - firefox
+
+- name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: download extension file"
+  vars:
+    slug: "{{ addon_info.json | json_query('slug') }}"
+    guid: "{{ addon_info.json | json_query('guid') }}"
+    basename: "{{ guid }}.xpi"
+    ext_dir: "{{ profile_subdir }}/extensions"
+  uri:
+    url: "{{ item.url }}"
+    dest: "{{ ext_dir }}/{{ basename }}"
+    creates: "{{ profile_subdir }}/extensions/{{ basename }}"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: "0644"
+    force: true
+  with_items: "{{ addon_info.json | json_query('current_version.files') | list }}"
+  loop_control:
+    label: "{{ slug }}"
+  tags:
+    - firefox
+
+- name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: check extension database"
+  ansible.builtin.stat:
+    path: "{{ profile_subdir }}/extensions.sqlite"
+  register: extensions_db
+  tags:
+    - firefox
+
+- name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: enable extension in database"
+  vars:
+    guid: "{{ addon_info.json | json_query('guid') }}"
+  ansible.builtin.shell: |
+    sqlite3 "{{ profile_subdir }}/extensions.sqlite" \
+      "UPDATE addon SET active = 1, userDisabled = 0, softDisabled = 0, appDisabled = 0, pendingUninstall = 0 WHERE id = '{{ guid }}';"
+  register: addon_enable_db
+  changed_when: addon_enable_db.rc == 0
+  failed_when: false
+  when: extensions_db.stat.exists
+  tags:
+    - firefox

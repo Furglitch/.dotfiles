@@ -1,0 +1,69 @@
+---
+- name: firefox | clone ff-ultima repository
+  ansible.builtin.git:
+    repo: "https://github.com/soulhotel/FF-ULTIMA.git"
+    dest: "{{ role_path }}/files/firefox/repo/ff-ultima"
+    clone: true
+    depth: 1
+    version: main
+    force: true
+  tags:
+    - firefox
+
+- name: firefox | symlink ff-ultima to profile chrome directory
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/firefox/repo/ff-ultima"
+    dest: "{{ profile_subdir }}/chrome"
+    state: link
+    force: true
+  tags:
+    - firefox
+
+- name: firefox | copy ff-ultima user.js to profile
+  ansible.builtin.copy:
+    src: "{{ profile_subdir }}/chrome/user.js"
+    dest: "{{ profile_subdir }}/user.js"
+    mode: "0644"
+    force: true
+  tags:
+    - firefox
+
+- name: firefox | ensure firefox killed
+  ansible.builtin.shell: "pkill -9 -f firefox"
+  ignore_errors: true
+  tags:
+    - firefox
+
+- name: firefox | ensure firefox restarted
+  ansible.builtin.shell: "nohup firefox > /dev/null 2>&1 &"
+  ignore_errors: true
+  tags:
+    - firefox
+
+- name: firefox | wait for 2 seconds
+  ansible.builtin.pause:
+    seconds: 2
+  tags:
+    - firefox
+
+- name: firefox | remove ff-ultima user.js
+  ansible.builtin.file:
+    path: "{{ profile_subdir }}/user.js"
+    state: absent
+  tags:
+    - firefox
+
+- name: firefox | ensure firefox killed
+  ansible.builtin.shell: "pkill -9 -f firefox"
+  ignore_errors: true
+  tags:
+    - firefox
+
+- name: firefox | symlink prefs.js
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/firefox/profile/prefs.js"
+    dest: "{{ profile_subdir }}/prefs.js"
+    state: link
+    force: true
+  tags:
+    - firefox  
