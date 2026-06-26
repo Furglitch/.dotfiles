@@ -1,0 +1,4 @@
+---
+- name: grub | rebuild config
+  ansible.builtin.command:
+    cmd: grub2-mkconfig -o /boot/grub2/grub.cfg

@@ -3,6 +3,42 @@
   ansible.builtin.dnf:
     name: "{{ grub_packages }}"
     state: present
+  notify:
+    - grub | rebuild config
+  tags:
+    - grub
+
+- name: grub | ensure themes directory exists
+  ansible.builtin.file:
+    path: /boot/grub2/themes
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+  tags:
+    - grub
+
+- name: grub | copy theme files
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/grub/themes/elegant-modified/"
+    dest: /boot/grub2/themes/elegant-modified/
+    mode: preserve
+    owner: root
+    group: root
+  notify:
+    - grub | rebuild config
+  tags:
+    - grub
+
+- name: grub | ensure GRUB_THEME is configured
+  ansible.builtin.lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_THEME='
+    line: 'GRUB_THEME="/boot/grub2/themes/elegant-modified/theme.txt"'
+    create: true
+    mode: '0644'
+  notify:
+    - grub | rebuild config
   tags:
     - grub
 
