@@ -21,3 +21,9 @@
   loop: "{{ ghostty_commands }}"
   tags:
     - ghostty
+
+- name: ghostty | run fastfetch tasks
+  ansible.builtin.include_tasks: fastfetch.yml
+  tags:
+    - ghostty
+    - fastfetch
