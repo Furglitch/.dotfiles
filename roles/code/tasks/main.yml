@@ -6,3 +6,29 @@
   tags:
     - code
 
+- name: code | install extensions
+  ansible.builtin.command:
+    cmd: "code --install-extension {{ item }}"
+  loop: "{{ vscode_extensions }}"
+  when: vscode_extensions is defined and vscode_extensions | length > 0
+  tags:
+    - code
+
+- name: code | ensure config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/Code/User"
+    state: directory
+    mode: "0755"
+  tags:
+    - code
+
+- name: code | symlink config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/code/config/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/Code/User/{{ item.path }}"
+    state: link
+    force: true
+  with_filetree: code/config
+  when: item.state == "file"
+  tags:
+    - code
