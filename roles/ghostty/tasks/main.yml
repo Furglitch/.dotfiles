@@ -52,3 +52,9 @@
   tags:
     - ghostty
     - zsh
+
+- name: ghostty | run starship tasks
+  ansible.builtin.include_tasks: starship.yml
+  tags:
+    - ghostty
+    - starship
