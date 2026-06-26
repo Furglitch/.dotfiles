@@ -27,7 +27,7 @@
 - name: discord | symlink betterdiscordctl upgrade script (to .local/bin)
   ansible.builtin.file:
     src: "{{ role_path }}/files/betterdiscord/bin/betterdiscord-upgrade"
-    dest: "{{ ansible_facts['user_dir']/}}/.local/bin/betterdiscord-upgrade"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/bin/betterdiscord-upgrade"
     state: link
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
