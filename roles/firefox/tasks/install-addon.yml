@@ -37,8 +37,8 @@
 
 - name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: download extension file"
   vars:
-    slug: "{{ addon_info.json | json_query('slug') }}"
-    guid: "{{ addon_info.json | json_query('guid') }}"
+    slug: "{{ addon_info.json.slug }}"
+    guid: "{{ addon_info.json.guid }}"
     basename: "{{ guid }}.xpi"
     ext_dir: "{{ profile_subdir }}/extensions"
   uri:
@@ -49,7 +49,7 @@
     group: "{{ target_user }}"
     mode: "0644"
     force: true
-  with_items: "{{ addon_info.json | json_query('current_version.files') | list }}"
+  with_items: "{{ addon_info.json.current_version.files | list }}"
   loop_control:
     label: "{{ slug }}"
   tags:
@@ -64,7 +64,7 @@
 
 - name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: enable extension in database"
   vars:
-    guid: "{{ addon_info.json | json_query('guid') }}"
+    guid: "{{ addon_info.json.guid }}"
   ansible.builtin.shell: |
     sqlite3 "{{ profile_subdir }}/extensions.sqlite" \
       "UPDATE addon SET active = 1, userDisabled = 0, softDisabled = 0, appDisabled = 0, pendingUninstall = 0 WHERE id = '{{ guid }}';"
