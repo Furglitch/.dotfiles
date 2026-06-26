@@ -1,4 +1,26 @@
 ---
+- name: steam | ensure Fedora workstation repositories package is installed
+  ansible.builtin.dnf:
+    name: "{{ steam_prereq_packages }}"
+    state: present
+  tags:
+    - steam
+
+- name: steam | ensure rpmfusion repos are installed
+  ansible.builtin.dnf:
+    name: "{{ steam_rpmfusion_repo_packages }}"
+    state: present
+    disable_gpg_check: true
+  tags:
+    - steam
+
+- name: steam | ensure rpmfusion nonfree steam repo is enabled
+  ansible.builtin.command:
+    cmd: dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1
+  changed_when: false
+  tags:
+    - steam
+
 - name: steam | ensure packages are installed
   ansible.builtin.dnf:
     name: "{{ steam_packages }}"
