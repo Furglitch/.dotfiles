@@ -46,3 +46,9 @@
   tags:
     - ghostty
     - fastfetch
+
+- name: ghostty | run zsh tasks
+  ansible.builtin.include_tasks: zsh.yml
+  tags:
+    - ghostty
+    - zsh
