@@ -1,5 +1,5 @@
 ---
 docker_ce_packages:
-  - docker-ce
-  - docker-ce-cli
-  - docker-compose-plugin
+  - moby-engine
+  - docker-cli
+  - docker-compose
