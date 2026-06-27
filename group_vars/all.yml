@@ -24,6 +24,6 @@ default_roles:
   - gimp
   - vlc
   - grub
-  # - fstab
+  - fstab
   - ssh
   - ghostty

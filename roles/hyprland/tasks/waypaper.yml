@@ -75,15 +75,15 @@
   tags:
     - waypaper
 
-# - name: waypaper | process downloaded wallpapers
-#   block:
-#     - name: waypaper | resolve latest upscayl release metadata
-#       ansible.builtin.include_tasks: "{{ role_path }}/handlers/waypaper/wallpapers_download_upscayl.yml"
+- name: waypaper | process downloaded wallpapers
+  block:
+    - name: waypaper | resolve latest upscayl release metadata
+      ansible.builtin.include_tasks: "{{ role_path }}/handlers/waypaper/wallpapers_download_upscayl.yml"
 
-#     - name: waypaper | run wallpaper processing tasks
-#       ansible.builtin.include_tasks: "{{ role_path }}/handlers/waypaper/wallpapers_process.yml"
-#   tags:
-#     - waypaper
+    - name: waypaper | run wallpaper processing tasks
+      ansible.builtin.include_tasks: "{{ role_path }}/handlers/waypaper/wallpapers_process.yml"
+  tags:
+    - waypaper
 
 - name: waypaper | ensure waypaper is installed
   ansible.builtin.dnf:
