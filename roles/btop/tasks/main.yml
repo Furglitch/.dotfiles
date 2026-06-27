@@ -32,6 +32,11 @@
     path: "{{ ansible_facts['user_dir'] }}/.config/btop"
     state: directory
     mode: "0755"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: btop | symlink catppuccin themes into ~/.config/btop
   ansible.builtin.file:
@@ -39,18 +44,31 @@
     dest: "{{ ansible_facts['user_dir'] }}/.config/btop/themes"
     state: link
     force: true
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: btop | ensure local share dir for managed files exists
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.local/share/archdot/btop"
     state: directory
     mode: "0755"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: btop | install btop.conf from role files
   copy:
     src: btop/config/btop.conf
     dest: "{{ ansible_facts['user_dir'] }}/.local/share/archdot/btop/btop.conf"
     mode: "0644"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: btop | symlink btop.conf into ~/.config/btop
   ansible.builtin.file:
@@ -58,3 +76,6 @@
     dest: "{{ ansible_facts['user_dir'] }}/.config/btop/btop.conf"
     state: link
     force: true
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"

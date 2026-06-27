@@ -34,10 +34,16 @@
 - name: firefox | ensure firefox killed
   ansible.builtin.shell: "pkill -9 -f firefox"
   ignore_errors: true
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: firefox | ensure firefox restarted
   ansible.builtin.shell: "nohup firefox > /dev/null 2>&1 &"
   ignore_errors: true
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: firefox | wait for 2 seconds
   ansible.builtin.pause:
@@ -54,6 +60,9 @@
 - name: firefox | ensure firefox killed
   ansible.builtin.shell: "pkill -9 -f firefox"
   ignore_errors: true
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: firefox | symlink prefs.js
   ansible.builtin.file:

@@ -18,6 +18,14 @@
 
 - name: xdg-utils | ensure .config/xdg-desktop-portal exists
   ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/xdg-desktop-portal"
+    state: directory
+    mode: "0755"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: xdg-utils | symlink config files
   ansible.builtin.file:

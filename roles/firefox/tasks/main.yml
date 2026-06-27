@@ -17,6 +17,17 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
+- name: firefox | ensure mozilla config ownership
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/mozilla"
+    state: directory
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    recurse: true
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+
 - name: firefox | symlink config files
   ansible.builtin.file:
     src: "{{ role_path }}/files/firefox/config/{{ item.path }}"

@@ -19,6 +19,9 @@
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     mode: "0755"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: allow auto-enable for sideloaded extensions"
   ansible.builtin.lineinfile:
@@ -28,6 +31,9 @@
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     line: 'user_pref("extensions.autoDisableScopes", 0);'
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: download extension file"
   vars:
@@ -46,11 +52,17 @@
   with_items: "{{ addon_info.json | json_query('current_version.files') | list }}"
   loop_control:
     label: "{{ slug }}"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: check extension database"
   ansible.builtin.stat:
     path: "{{ profile_subdir }}/extensions.sqlite"
   register: extensions_db
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: enable extension in database"
   vars:

@@ -25,6 +25,9 @@
     mode: "0755"
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
 
 - name: discord | ensure .config/BetterDiscord subdirectories exist
   ansible.builtin.file:
