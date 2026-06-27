@@ -15,12 +15,33 @@
   become_user: "{{ target_user }}"
   become_flags: "-H"
 
+- name: grub | ensure themes directory exists
+  ansible.builtin.file:
+    path: /boot/grub/themes
+    state: directory
+    mode: "0755"
+
+- name: grub | copy elegant-modified theme
+  ansible.builtin.copy:
+    src: grub/themes/elegant-modified/
+    dest: /boot/grub/themes/elegant-modified/
+    mode: "0755"
+
 - name: grub | set GRUB_THEME in /etc/default/grub
   ansible.builtin.lineinfile:
     path: /etc/default/grub
     regexp: "^#?GRUB_THEME="
-    line: "GRUB_THEME=/usr/share/grub/themes/elegant-modified/theme.txt"
+    line: "GRUB_THEME=/boot/grub/themes/elegant-modified/theme.txt"
     state: present
+  notify: regenerate grub config
+
+- name: grub | ensure GRUB_TERMINAL_OUTPUT uses gfxterm
+  ansible.builtin.lineinfile:
+    path: /etc/default/grub
+    regexp: "^#?GRUB_TERMINAL_OUTPUT="
+    line: "GRUB_TERMINAL_OUTPUT=gfxterm"
+    state: present
+  notify: regenerate grub config
 
 - name: grub | enable os-prober in /etc/default/grub
   ansible.builtin.lineinfile:
@@ -28,16 +49,4 @@
     regexp: "^#?GRUB_DISABLE_OS_PROBER="
     line: "GRUB_DISABLE_OS_PROBER=false"
     state: present
-
-- name: grub | ensure themes directory exists
-  ansible.builtin.file:
-    path: /usr/share/grub/themes
-    state: directory
-    mode: "0755"
-
-- name: grub | copy elegant-modified theme
-  ansible.builtin.copy:
-    src: grub/themes/elegant-modified
-    dest: /usr/share/grub/themes/
-    mode: "0755"
   notify: regenerate grub config
