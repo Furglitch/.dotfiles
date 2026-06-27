@@ -1,4 +1,4 @@
 ---
 grub_packages:
-  - grub
+  - grub2-tools
   - os-prober
