@@ -21,6 +21,8 @@
     path: "{{ ansible_facts['user_dir'] }}/.config/hypr"
     state: directory
     mode: "0755"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
   tags:
     - hypr
     - hyprland
@@ -30,6 +32,8 @@
     path: "{{ ansible_facts['user_dir'] }}/.config/hypr/{{ item.path | dirname }}"
     state: directory
     mode: "0755"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
   with_filetree: hyprland/config
   when: item.state == "file"
   tags:

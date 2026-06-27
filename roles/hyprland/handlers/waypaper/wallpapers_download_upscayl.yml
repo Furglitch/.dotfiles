@@ -58,6 +58,8 @@
     path: "{{ ansible_facts['user_dir'] }}/Downloads"
     state: directory
     mode: '0755'
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
   when:
     - upscayl_latest_rpm_url is defined
     - upscayl_latest_rpm_url | length > 0

@@ -11,6 +11,8 @@
     path: "{{ profile_subdir }}"
     state: directory
     mode: "0755"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
   tags:
     - firefox
 

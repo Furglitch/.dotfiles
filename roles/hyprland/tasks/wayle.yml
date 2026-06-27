@@ -36,6 +36,8 @@
     path: "{{ ansible_facts['user_dir'] }}/.config/wayle"
     state: directory
     mode: "0755"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
   tags:
     - hypr
     - wayle
