@@ -1,7 +1,7 @@
 ---
 - name: firefox | ensure firefox is installed
   ansible.builtin.dnf:
-    name: firefox
+    name: "{{ firefox_packages }}"
     state: present
   tags:
     - firefox
