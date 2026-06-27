@@ -20,6 +20,14 @@
   tags:
     - firefox
 
+- name: firefox | ensure Downloads directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/Downloads"
+    state: directory
+    mode: "0755"
+  tags:
+    - firefox
+
 - name: firefox | setup stylus themes for import
   ansible.builtin.copy:
     src: firefox/config/stylus.json
