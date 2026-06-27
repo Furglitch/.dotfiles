@@ -63,11 +63,19 @@ hl.workspace_rule({
     layout = "dwindle",
 })
 
--- hl.window_rule({
---     name = "borders",
---     match = {
---         class = ".*"
---     },
---     border_size = 2,
---     border_color = catppuccin.mocha.sky .. " " .. catppuccin.mocha.base,
--- })
+hl.workspace_rule({
+    workspace = "s[true]",
+    no_border = true,
+    gaps_in = 3,
+    gaps_out = 6,
+    layout = "dwindle",
+})
+
+hl.window_rule({
+    name = "borders",
+    match = {
+        class = ".*"
+    },
+    border_size = 2,
+    border_color = catppuccin.mocha.base .. " " .. catppuccin.mocha.crust,
+})
