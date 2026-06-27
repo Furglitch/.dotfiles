@@ -1,7 +1,7 @@
 ---
 gimp_packages:
   - gimp
-  - imagemagick
+  - ImageMagick
 
 gimp_rpm_urls:
   - https://github.com/upscayl/upscayl/releases/download/v2.15.0/upscayl-2.15.0-linux.rpm
