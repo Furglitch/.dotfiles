@@ -1,0 +1,58 @@
+---
+- name: hyprcursor | ensure copr repo is enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: lionheartp/Hyprland
+    state: enabled
+  tags:
+    - hypr
+    - hyprcursor
+
+- name: hyprcursor | ensure hyprcursor is installed
+  ansible.builtin.dnf:
+    name: hyprcursor
+    state: present
+  tags:
+    - hypr
+    - hyprcursor
+
+- name: hyprcursor | ensure unzip is installed
+  ansible.builtin.dnf:
+    name: unzip
+    state: present
+  tags:
+    - hypr
+    - hyprcursor
+
+
+- name: hyprcursor | ensure user icons directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.icons"
+    state: directory
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: "0755"
+  tags:
+    - hypr
+    - hyprcursor
+
+- name: hyprcursor | download catppuccin mocha dark cursor theme archive
+  ansible.builtin.get_url:
+    url: https://github.com/catppuccin/cursors/releases/download/v2.0.0/catppuccin-mocha-dark-cursors.zip
+    dest: /var/tmp/catppuccin-mocha-dark-cursors.zip
+    mode: "0644"
+  tags:
+    - hypr
+    - hyprcursor
+
+- name: hyprcursor | install catppuccin mocha dark cursor theme
+  ansible.builtin.unarchive:
+    src: /var/tmp/catppuccin-mocha-dark-cursors.zip
+    dest: "{{ ansible_facts['user_dir'] }}/.icons"
+    remote_src: true
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    creates: "{{ ansible_facts['user_dir'] }}/.icons/catppuccin-mocha-dark-cursors/index.theme"
+  tags:
+    - hypr
+    - hyprcursor

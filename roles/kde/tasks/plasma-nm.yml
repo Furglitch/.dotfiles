@@ -1,0 +1,10 @@
+---
+- name: kde | ensure plasma-nm packages are installed
+  ansible.builtin.dnf:
+    name:
+      - plasma-nm
+      - iwd
+    state: present
+  tags:
+    - kde
+    - plasma-nm

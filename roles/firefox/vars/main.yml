@@ -1,8 +1,13 @@
 ---
 # profile configuration
 profile: "furglitch"
+profile_num: "123a1234"
 profile_dir: "{{ ansible_facts['user_dir'] }}/.config/mozilla/firefox"
-profile_subdir: "{{ profile_dir }}/123a1234.{{ profile}}"
+profile_subdir: "{{ profile_dir }}/{{ profile_num }}.{{ profile }}"
+
+firefox_packages:
+  - firefox
+  - sqlite
 
 # List of Firefox extensions to install
 firefox_extensions:
@@ -13,6 +18,8 @@ firefox_extensions:
   - sponsorblock
   - dearrow
   - violentmonkey
+  - linkclump-for-firefox
+  - webserial-for-firefox
 
 firefox_color: "https://color.firefox.com/?theme=XQAAAAJCBAAAAAAAAABBqYhm849SCicxcUcPX38oKRicm6da8pFtMcajvXaAE3RJ0F_F447xQs-L1kFlGgDKq4IIvWciiy4upusW7OvXIRinrLrwLvjXB37kvhN5ElayHo02fx3o8RrDShIhRpNiQMOdww5V2sCMLAfehho7r-tNa1SUtGS7I1CTZPy-PytvuYpnFiOqD91PyT5-oYf07MFNkQL1-mpkSfsafhS81iVCbahFQLTHZeroonPBnAGkaLJ2dRDLmW_ekCLmoty20NcEekV8xFQYv721-QIo9PeuYe33F-mNR9-0e-QMdtuksaYkOl_aH_NyI8RDM1HUiQCcd3StPLq3UyDaJhC_rhvlZWMMwDAuoHMI1RAnUbn3_KGbvErQEyBxxtEkWzHTed2xIpT8jcV1yQY9odOLm0ydbWlYpb-kUOoX_nF9hQq7Gf0ORYtSpGO_uA458GGCpImunZ68j-GfRy90T73zU1VU-sqA_YzfFoSZcZqLLa4UF-FMpwPQeeJR5w4GSti1briOisS9yTOAmYWfRpSbogOZzhEW2o-i8Fje__nq5cE"
 
@@ -21,54 +28,50 @@ userscripts:
   - "https://gist.github.com/Furglitch/a63a1dd249f7126b473bd6f1fd76285d/raw/noVNCCopyPasteProxmox.user.js"
   - "https://update.greasyfork.org/scripts/560618/YouTube%20Improvements%20%E2%80%93%20Layout%20%20Video%20Enhancer.user.js"
   - "https://update.greasyfork.org/scripts/508784/YouTube%20HD%20Plus.user.js"
-  - "https://update.greasyfork.org/scripts/537017/YouTube%20%2B.user.js"
 
 # Default search engine
 default_search_engine: "Kagi Search"
-kagi_session_token: !vault |
+kagi_search_url: !vault |
           $ANSIBLE_VAULT;1.1;AES256
-          30376664306239363430326638616530346132646366373565336233633134303237323664333837
-          3566623061656131376362353430646130346661656462330a616238643131313731643731663464
-          65363934343762363239643065353830613331316433656139336633663065383536633662383533
-          3335363836346365320a313661323861616264653164626261623636623065343661323133386531
-          37306666643064653563323430396561353661376462363165313463333432366339383237646339
-          38303330316339383031323465663933316664323630313638373738323731633337613762353862
-          35316635313433333066326439343838316132386563653731376535336265333337396539373866
-          61323033666336633235656663333531666266343032643839373338363962393637353535323339
-          3163
-kagi_search_url: "https://kagi.com/search?token={{ kagi_session_token }}&q={searchTerms}"
+          30323461643763333536366636353232373432333932313634353463656133653530623530363464
+          6139613134303631346234373463643131643033633530350a323866366361316133343135613831
+          33393836666162373035343462656237623664323466303462343066346631396461343039343033
+          6539396237623766310a363130353039656164666235336339336533396466353432353437303138
+          36666433623831646637613137363334643537353430356665356563366661663938393038353961
+          30613065306335313762373439653163303631366434386134333664343531653131383166343635
+          30623732396335633634393964353734613463343733663764306330366232646334333339643833
+          38623736653132343430343830393465393538656139626433626662333863653938336132623064
+          65623938383866336166623162313235323035643436613033313562666432303262376430643865
+          3931393565386238316565373362346234663166343039313265
 
 # Bookmarks to add to the toolbar
 firefox_bookmarks:
+  - name: "Homarr"
+    url: "http://192.168.1.222:8081/"
   - name: "YouTube"
     url: "https://www.youtube.com/subscriptions/"
-    tags: ""
     keyword: "yt"
+  - name: "YouTube Music"
+    url: "https://music.youtube.com/playlist?list=PLdK4JFOwwFBifUeWxFRVPnNofp6qbaal9/"
+    keyword: "ytm"
   - name: "GitHub"
     url: "https://www.github.com/Furglitch/"
-    tags: ""
     keyword: "gh"
   - name: "Furglitch Wiki"
     url: "https://wiki.furglitch.com/"
-    tags: ""
     keyword: "wiki"
   - name: "Proton Mail"
-    url: "https://mail.proton.me/u/0/inbox"
-    tags: ""
+    url: "https://mail.proton.me/u/1/inbox"
     keyword: "pm"
   - name: "Listful"
     url: "https://www.listful.com/furglitch"
-    tags: ""
     keyword: "lf"
   - name: "ToyHouse"
     url: "https://toyhou.se/furglitch"
-    tags: ""
     keyword: "th"
   - name: "Kitsunet"
     url: "https://www.kitsunet.net/"
-    tags: ""
     keyword: "kit"
   - name: "e621"
     url: "https://www.e621.net/posts/"
-    tags: ""
     keyword: "e6"

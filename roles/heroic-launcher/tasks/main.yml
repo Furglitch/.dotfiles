@@ -1,0 +1,16 @@
+---
+- name: heroic-games-launcher-bin | ensure copr repos are enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: atim/heroic-games-launcher
+    state: enabled
+  tags:
+    - heroic-games-launcher-bin
+
+- name: heroic-games-launcher-bin | ensure heroic-games-launcher-bin is installed
+  ansible.builtin.dnf:
+    name: heroic-games-launcher-bin
+    state: present
+  tags:
+    - heroic-games-launcher-bin
+

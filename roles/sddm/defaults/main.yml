@@ -1,0 +1,15 @@
+---
+sddm_packages:
+  - sddm
+  - sddm-conf
+  - sddm-wayland-miriway
+  - plymouth
+  - qt6-qtsvg
+  - qt6-qtvirtualkeyboard
+  - qt6-qtmultimedia
+  - qt6-qtimageformats
+
+sddm_theme_name: SilentSDDM
+sddm_theme_dir: "/usr/share/sddm/themes/{{ sddm_theme_name }}"
+sddm_theme_config_dir: "{{ sddm_theme_dir }}/configs"
+sddm_theme_metadata_path: "{{ sddm_theme_dir }}/metadata.desktop"

@@ -1,21 +1,18 @@
 ---
-- name: firefox | ensure firefox installed
-  kewlfft.aur.aur:
-    name: firefox
+- name: firefox | ensure firefox is installed
+  ansible.builtin.dnf:
+    name: "{{ firefox_packages }}"
     state: present
-    use: paru
-    extra_args: --mflags --skipinteg
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox
 
 - name: firefox | create profile directory
   ansible.builtin.file:
     path: "{{ profile_subdir }}"
     state: directory
     mode: "0755"
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox
 
 - name: firefox | symlink config files
   ansible.builtin.file:
@@ -25,9 +22,8 @@
     force: true
   with_filetree: firefox/config
   when: item.state == "file"
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox
 
 - name: firefox | install ff-ultima theme
   ansible.builtin.include_tasks: ff-ultima.yml

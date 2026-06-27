@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# archdot-archinstall: runs `archinstall` with the predefined config file
-#
-# Usage:
-#     archdot-archinstall
-
-curl -Lso /tmp/config.json https://raw.githubusercontent.com/Furglitch/archdot/main/archinstall/config.json
-archinstall --config /tmp/config.json

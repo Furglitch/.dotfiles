@@ -1,0 +1,21 @@
+---
+
+- name: user.get | detect invoking user
+  ansible.builtin.set_fact:
+    target_user: "{{ ansible_env.SUDO_USER | default(ansible_user_id) }}"
+  tags:
+    - always
+
+- name: user.get | resolve user's home directory
+  ansible.builtin.shell: "getent passwd {{ target_user }} | cut -d: -f6"
+  register: target_home_cmd
+  changed_when: false
+  tags:
+    - always
+
+- name: user.get | override ansible_facts.user_dir to user's home
+  ansible.builtin.set_fact:
+    ansible_facts:
+      user_dir: "{{ target_home_cmd.stdout | default(ansible_facts['user_dir']) }}"
+  tags:
+    - always

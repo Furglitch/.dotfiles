@@ -7,9 +7,8 @@
     depth: 1
     version: main
     force: true
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox
 
 - name: firefox | symlink ff-ultima to profile chrome directory
   ansible.builtin.file:
@@ -17,9 +16,8 @@
     dest: "{{ profile_subdir }}/chrome"
     state: link
     force: true
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox
 
 - name: firefox | copy ff-ultima user.js to profile
   ansible.builtin.copy:
@@ -27,33 +25,39 @@
     dest: "{{ profile_subdir }}/user.js"
     mode: "0644"
     force: true
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox
 
 - name: firefox | ensure firefox killed
   ansible.builtin.shell: "pkill -9 -f firefox"
   ignore_errors: true
+  tags:
+    - firefox
 
 - name: firefox | ensure firefox restarted
   ansible.builtin.shell: "nohup firefox > /dev/null 2>&1 &"
   ignore_errors: true
+  tags:
+    - firefox
 
 - name: firefox | wait for 2 seconds
   ansible.builtin.pause:
     seconds: 2
+  tags:
+    - firefox
 
 - name: firefox | remove ff-ultima user.js
   ansible.builtin.file:
     path: "{{ profile_subdir }}/user.js"
     state: absent
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox
 
 - name: firefox | ensure firefox killed
   ansible.builtin.shell: "pkill -9 -f firefox"
   ignore_errors: true
+  tags:
+    - firefox
 
 - name: firefox | symlink prefs.js
   ansible.builtin.file:
@@ -61,6 +65,5 @@
     dest: "{{ profile_subdir }}/prefs.js"
     state: link
     force: true
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"  
+  tags:
+    - firefox  

@@ -1,22 +1,8 @@
 ---
-- name: ssh | ensure openssh installed
-  kewlfft.aur.aur:
-    name: openssh
+- name: ssh | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ ssh_packages }}"
     state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
-- name: ssh | ensure sshpass installed
-  kewlfft.aur.aur:
-    name: sshpass
-    state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
-- name: ssh | ensure sshfs installed
-  kewlfft.aur.aur:
-    name: sshfs
-    state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - ssh
+

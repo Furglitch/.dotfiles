@@ -1,22 +1,8 @@
 ---
-- name: python | ensure python (latest) installed
-  kewlfft.aur.aur:
-    name: python
+- name: python3-13 | ensure python3.13 is installed
+  ansible.builtin.dnf:
+    name: python3.13
     state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
-- name: python | ensure python313 installed
-  kewlfft.aur.aur:
-    name: python313
-    state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
-- name: python | ensure uv installed
-  kewlfft.aur.aur:
-    name: uv
-    state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - python3-13
+

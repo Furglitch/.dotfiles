@@ -1,11 +1,12 @@
 ---
 - name: firefox | ensure python-lz4 is installed
-  community.general.pacman:
-    name: python-lz4
+  ansible.builtin.dnf:
+    name: python3-lz4
     state: present
-  become: true
+  tags:
+    - firefox
 
-- name: firefox | set default search engine
+- name: firefox | set default search engine to Kagi
   ansible.builtin.shell: |
     python3 << 'ENDPY'
     import lz4.block
@@ -76,6 +77,5 @@
   register: search_result
   changed_when: "'SUCCESS' in search_result.stdout"
   failed_when: "'ERROR' in search_result.stdout"
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox

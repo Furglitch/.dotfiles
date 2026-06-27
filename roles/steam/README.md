@@ -1,21 +1,41 @@
-# steam
+# 🎮 Steam Role
 
-Steam gaming platform with Millennium theme engine.
+An Ansible role for installing [Steam](https://store.steampowered.com/) and [Millennium](https://steambrew.app/) — the Steam mod loader.
 
-## Process
+## 📦 What Gets Installed
+
+### Packages
+- `fedora-workstation-repositories` - Enables Fedora workstation third-party repos
+- `steam` - Steam gaming platform (via RPMFusion nonfree steam repo)
+
+### Installers
+- `millennium` - Steam mod loader (installed via official install script)
+
+## 🏗️ Role Architecture
 
 ```mermaid
 flowchart TD
-    A[Start] --> B[Install steam]
-    B --> C[Install steam-rom-manager]
-    C --> D[Install millennium theme engine]
-    D --> E[Launch steam to initialize]
-    E --> F[Wait for steam process]
-    F --> G[Wait for full initialization]
-    G --> H[Kill steam]
-    H --> I[Configure millennium themes & plugins]
+    A[main.yml] --> B[Install fedora-workstation-repositories]
+    B --> C[Install RPMFusion repos]
+    C --> D[Enable rpmfusion-nonfree-steam repo]
+    D --> E[Install steam]
+    E --> F[Install Millennium via curl installer]
+    F --> G[✓ Steam Ready]
+
+    style A fill:#89b4fa,stroke:#1e1e2e,color:#1e1e2e
+    style G fill:#a6e3a1,stroke:#1e1e2e,color:#1e1e2e
 ```
 
-## Millennium
+## 📚 Dependencies
 
-Millennium is a theme engine for Steam. Themes and plugins are symlinked from role files.
+No role dependencies.
+
+**Repositories required**:
+- RPMFusion free + nonfree
+- rpmfusion-nonfree-steam (enabled explicitly via `dnf config-manager`)
+
+## 🚀 Usage
+
+```bash
+ansible-playbook main.yml -t steam
+```

@@ -1,0 +1,25 @@
+---
+- name: kde | ensure dolphin packages are installed
+  ansible.builtin.dnf:
+    name:
+      - dolphin
+      - ffmpegthumbs
+      - kdegraphics-thumbnailers
+      - kio-admin
+      - kf6-baloo-file
+    state: present
+  tags:
+    - kde
+    - dolphin
+
+- name: kde | symlink dolphin config files
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/dolphin/config/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/{{ item.path }}"
+    state: link
+    force: true
+  with_filetree: dolphin/config
+  when: item.state == "file"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"

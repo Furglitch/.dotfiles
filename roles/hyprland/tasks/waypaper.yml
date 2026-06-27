@@ -1,0 +1,140 @@
+---
+- name: waypaper | ensure curl and jq are installed
+  ansible.builtin.dnf:
+    name:
+      - curl
+      - jq
+    state: present
+  tags:
+    - waypaper
+
+- name: waypaper | ensure copr repo is enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: lionheartp/Hyprland
+    state: enabled
+  tags:
+    - waypaper
+
+- name: waypaper | ensure hyprpaper is installed
+  ansible.builtin.dnf:
+    name: hyprpaper
+    state: present
+  tags:
+    - waypaper
+
+- name: waypaper | ensure user config directories exist
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/{{ item }}"
+    state: directory
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: "0755"
+  loop:
+    - .config/hypr
+    - .config/systemd
+    - .config/systemd/user
+    - .config/systemd/user/timers.target.wants
+    - .local/bin
+    - .dotfiles/roles/hyprland/files/waypaper/config
+  tags:
+    - waypaper
+
+- name: waypaper | ensure wallpaper directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.local/share/wallpapers"
+    state: directory
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: "0755"
+  tags:
+    - waypaper
+
+- name: waypaper | symlink e6-wallpaper-sync script
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/waypaper/bin/e6-wallpaper-sync"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/bin/e6-wallpaper-sync"
+    state: link
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: "0755"
+    force: true
+  tags:
+    - waypaper
+
+- name: waypaper | run e6-wallpaper-sync with env
+  become: true
+  become_user: "{{ target_user }}"
+  ansible.builtin.command:
+    cmd: "{{ ansible_facts['user_dir'] }}/.local/bin/e6-wallpaper-sync"
+  environment:
+    E621_SET: "{{ wallpapers.e621.set_id }}"
+    E621_USER: "{{ wallpapers.e621.user }}"
+    E621_API_KEY: "{{ wallpapers.e621.token }}"
+    USER_AGENT: "furglitch/.dotfiles"
+  tags:
+    - waypaper
+
+- name: waypaper | process downloaded wallpapers
+  block:
+    - name: waypaper | resolve latest upscayl release metadata
+      ansible.builtin.include_tasks: "{{ role_path }}/handlers/waypaper/wallpapers_download_upscayl.yml"
+
+    - name: waypaper | run wallpaper processing tasks
+      ansible.builtin.include_tasks: "{{ role_path }}/handlers/waypaper/wallpapers_process.yml"
+  tags:
+    - waypaper
+
+- name: waypaper | ensure waypaper is installed
+  ansible.builtin.dnf:
+    name: waypaper
+    state: present
+  tags:
+    - waypaper
+
+- name: waypaper | process config.ini template
+  ansible.builtin.template:
+    src: config.ini.j2
+    dest: "{{ role_path }}/files/waypaper/config/config.ini"
+    mode: "0644"
+  tags:
+    - waypaper
+
+- name: waypaper | symlink waypaper config directory
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/waypaper/config"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/waypaper"
+    state: link
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    force: true
+  tags:
+    - waypaper
+
+- name: waypaper | symlink waypaper service files
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/waypaper/systemd/{{ item }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/systemd/user/{{ item }}"
+    state: link
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    force: true
+  loop:
+    - waypaper.service
+    - waypaper.timer
+  tags:
+    - waypaper
+
+- name: waypaper | enable and start waypaper timer
+  become: true
+  become_user: "{{ target_user }}"
+  ansible.builtin.systemd:
+    name: waypaper.timer
+    scope: user
+    enabled: true
+    state: started
+    daemon_reload: true
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ lookup('ansible.builtin.pipe', 'id -u ' + target_user) }}"
+  tags:
+    - waypaper

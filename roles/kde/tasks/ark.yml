@@ -1,0 +1,10 @@
+---
+- name: kde | ensure ark packages are installed
+  ansible.builtin.dnf:
+    name:
+      - ark
+      - 7zip
+    state: present
+  tags:
+    - kde
+    - ark

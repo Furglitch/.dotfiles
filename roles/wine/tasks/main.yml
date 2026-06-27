@@ -1,8 +1,8 @@
 ---
-- name: wine | ensure wine installed
-  kewlfft.aur.aur:
+- name: wine | ensure wine is installed
+  ansible.builtin.dnf:
     name: wine
     state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - wine
+

@@ -1,0 +1,11 @@
+---
+- name: user.own_dir | ensure base user directories are owned by target user
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/{{ item }}"
+    state: directory
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: "0755"
+  loop:
+    - .config
+    - .local

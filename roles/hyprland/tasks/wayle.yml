@@ -1,0 +1,62 @@
+---
+- name: wayle | ensure build dependencies are installed
+  ansible.builtin.dnf:
+    name:
+      - wireplumber
+      - NetworkManager
+      - bluez
+      - upower
+      - power-profiles-daemon
+    state: present
+  tags:
+    - hypr
+    - wayle
+
+- name: wayle | download wayle release package
+  ansible.builtin.get_url:
+    url: https://github.com/wayle-rs/wayle/releases/download/v0.6.0/wayle-0.6.0-1.fc44.x86_64.rpm
+    dest: /var/tmp/wayle-0.6.0-1.fc44.x86_64.rpm
+    checksum: sha256:7484bf10d56b3de323cb115abe2d0a10dc1b262e4a2e1f12924c2d5a0524c988
+    mode: "0644"
+  tags:
+    - hypr
+    - wayle
+
+- name: wayle | install wayle release package
+  ansible.builtin.dnf:
+    name: /var/tmp/wayle-0.6.0-1.fc44.x86_64.rpm
+    state: present
+    disable_gpg_check: true
+  tags:
+    - hypr
+    - wayle
+
+- name: wayle | ensure user config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/wayle"
+    state: directory
+    mode: "0755"
+  tags:
+    - hypr
+    - wayle
+
+- name: wayle | symlink wayle config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/wayle/config/config.toml"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/wayle/config.toml"
+    state: link
+    mode: "0644"
+  tags:
+    - hypr
+    - wayle
+
+- name: wayle | set up icons
+  become: true
+  become_user: "{{ target_user }}"
+  ansible.builtin.command: wayle icons sync
+  environment:
+    HOME: "{{ ansible_facts['user_dir'] }}"
+    XDG_CONFIG_HOME: "{{ ansible_facts['user_dir'] }}/.config"
+  tags:
+    - hypr
+    - wayle

@@ -9,6 +9,8 @@
     # body_format: json
   register: addon_info
   check_mode: no
+  tags:
+    - firefox
 
 - name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: create extension directory"
   vars:
@@ -19,6 +21,8 @@
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     mode: "0755"
+  tags:
+    - firefox
 
 - name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: allow auto-enable for sideloaded extensions"
   ansible.builtin.lineinfile:
@@ -28,11 +32,13 @@
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
     line: 'user_pref("extensions.autoDisableScopes", 0);'
+  tags:
+    - firefox
 
 - name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: download extension file"
   vars:
-    slug: "{{ addon_info.json | json_query('slug') }}"
-    guid: "{{ addon_info.json | json_query('guid') }}"
+    slug: "{{ addon_info.json.slug }}"
+    guid: "{{ addon_info.json.guid }}"
     basename: "{{ guid }}.xpi"
     ext_dir: "{{ profile_subdir }}/extensions"
   uri:
@@ -43,18 +49,22 @@
     group: "{{ target_user }}"
     mode: "0644"
     force: true
-  with_items: "{{ addon_info.json | json_query('current_version.files') | list }}"
+  with_items: "{{ addon_info.json.current_version.files | list }}"
   loop_control:
     label: "{{ slug }}"
+  tags:
+    - firefox
 
 - name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: check extension database"
   ansible.builtin.stat:
     path: "{{ profile_subdir }}/extensions.sqlite"
   register: extensions_db
+  tags:
+    - firefox
 
 - name: "firefox | profile {{ profile }}: addon {{ addon_slug }}: enable extension in database"
   vars:
-    guid: "{{ addon_info.json | json_query('guid') }}"
+    guid: "{{ addon_info.json.guid }}"
   ansible.builtin.shell: |
     sqlite3 "{{ profile_subdir }}/extensions.sqlite" \
       "UPDATE addon SET active = 1, userDisabled = 0, softDisabled = 0, appDisabled = 0, pendingUninstall = 0 WHERE id = '{{ guid }}';"
@@ -62,6 +72,5 @@
   changed_when: addon_enable_db.rc == 0
   failed_when: false
   when: extensions_db.stat.exists
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox

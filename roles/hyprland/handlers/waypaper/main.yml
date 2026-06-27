@@ -1,0 +1,8 @@
+---
+- name: waypaper | process downloaded wallpapers
+  block:
+    - name: waypaper | download latest upscayl rpm
+      ansible.builtin.include_tasks: "{{ role_path }}/handlers/waypaper/wallpapers_download_upscayl.yml"
+
+    - name: waypaper | run wallpaper processing tasks
+      ansible.builtin.include_tasks: "{{ role_path }}/handlers/waypaper/wallpapers_process.yml"

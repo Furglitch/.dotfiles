@@ -1,0 +1,13 @@
+---
+steam_prereq_packages:
+  - fedora-workstation-repositories
+
+steam_rpmfusion_repo_packages:
+  - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-44.noarch.rpm"
+  - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-44.noarch.rpm"
+
+steam_packages:
+  - steam
+
+steam_commands:
+  - 'curl -fsSL "https://steambrew.app/install.sh" | bash'

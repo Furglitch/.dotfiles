@@ -3,35 +3,31 @@
   ansible.builtin.stat:
     path: "{{ profile_subdir }}/places.sqlite"
   register: places_db
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox
 
 - name: firefox | initialize profile if database doesn't exist
   ansible.builtin.shell: |
     timeout 10 firefox --headless --new-instance --profile {{ profile_subdir }} || true
   when: not places_db.stat.exists
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox
 
 - name: firefox | wait for places.sqlite to be created
   ansible.builtin.wait_for:
     path: "{{ profile_subdir }}/places.sqlite"
     timeout: 30
   when: not places_db.stat.exists
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox
 
 - name: firefox | clean up bookmarks with NULL GUIDs
   ansible.builtin.shell: |
     sqlite3 {{ profile_subdir }}/places.sqlite "DELETE FROM moz_bookmarks WHERE guid IS NULL"
   register: cleanup_result
   changed_when: cleanup_result.rc == 0
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox
 
 - name: firefox | get toolbar bookmarks
   ansible.builtin.shell: |
@@ -46,49 +42,52 @@
                        order by moz_bookmarks.dateAdded"
   register: existing_bookmarks
   changed_when: false
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox
 
 - name: firefox | add bookmarks to toolbar
-  ansible.builtin.shell: |
-    sqlite3 {{ profile_subdir }}/places.sqlite <<EOF
-    INSERT OR IGNORE INTO moz_places (url, title, rev_host, frecency, last_visit_date)
-    VALUES ('{{ item.url }}', '{{ item.name }}', '', -1, strftime('%s', 'now') * 1000000);
-    
-    INSERT INTO moz_bookmarks (type, fk, parent, position, title, dateAdded, lastModified, guid, syncStatus, syncChangeCounter, keyword_id)
-    SELECT 1, 
-           moz_places.id, 
-           toolbar.id, 
-           COALESCE((SELECT MAX(position) + 1 FROM moz_bookmarks WHERE parent = toolbar.id), 0),
-           '{{ item.name }}', 
-           strftime('%s', 'now') * 1000000, 
-           strftime('%s', 'now') * 1000000,
-           lower(hex(randomblob(6))),
-           1,
-           1,
-           COALESCE((SELECT id FROM moz_keywords WHERE keyword = '{{ item.keyword }}'), NULL)
-    FROM moz_places, (SELECT id FROM moz_bookmarks WHERE guid = 'toolbar_____') AS toolbar
-    WHERE moz_places.url = '{{ item.url }}'
-    AND NOT EXISTS (
-        SELECT 1 FROM moz_bookmarks WHERE fk = moz_places.id AND parent = toolbar.id
-    );
-    
-    {% if item.keyword %}
-    INSERT OR IGNORE INTO moz_keywords (keyword, place_id, post_data)
-    SELECT '{{ item.keyword }}', moz_places.id, NULL
-    FROM moz_places WHERE moz_places.url = '{{ item.url }}';
-    {% endif %}
-    
-    {% if item.tags %}
-    INSERT OR IGNORE INTO moz_bookmarks (type, parent, title)
-    VALUES (2, (SELECT id FROM moz_bookmarks WHERE guid = 'tags________'), '{{ item.tags }}');
-    {% endif %}
-    EOF
+  vars:
+    bookmark_keyword: "{{ item.keyword | default('') }}"
+    bookmark_tags: "{{ item.tags | default('') }}"
+  ansible.builtin.command:
+    argv:
+      - sqlite3
+      - "{{ profile_subdir }}/places.sqlite"
+    stdin: |
+      INSERT OR IGNORE INTO moz_places (url, title, rev_host, frecency, last_visit_date)
+      VALUES ('{{ item.url }}', '{{ item.name }}', '', -1, strftime('%s', 'now') * 1000000);
+
+      INSERT INTO moz_bookmarks (type, fk, parent, position, title, dateAdded, lastModified, guid, syncStatus, syncChangeCounter, keyword_id)
+      SELECT 1,
+             moz_places.id,
+             toolbar.id,
+             COALESCE((SELECT MAX(position) + 1 FROM moz_bookmarks WHERE parent = toolbar.id), 0),
+             '{{ item.name }}',
+             strftime('%s', 'now') * 1000000,
+             strftime('%s', 'now') * 1000000,
+             lower(hex(randomblob(6))),
+             1,
+             1,
+             COALESCE((SELECT id FROM moz_keywords WHERE keyword = '{{ bookmark_keyword }}'), NULL)
+      FROM moz_places, (SELECT id FROM moz_bookmarks WHERE guid = 'toolbar_____') AS toolbar
+      WHERE moz_places.url = '{{ item.url }}'
+      AND NOT EXISTS (
+          SELECT 1 FROM moz_bookmarks WHERE fk = moz_places.id AND parent = toolbar.id
+      );
+
+      {% if bookmark_keyword | length > 0 %}
+      INSERT OR IGNORE INTO moz_keywords (keyword, place_id, post_data)
+      SELECT '{{ bookmark_keyword }}', moz_places.id, NULL
+      FROM moz_places WHERE moz_places.url = '{{ item.url }}';
+      {% endif %}
+
+      {% if bookmark_tags | length > 0 %}
+      INSERT OR IGNORE INTO moz_bookmarks (type, parent, title)
+      VALUES (2, (SELECT id FROM moz_bookmarks WHERE guid = 'tags________'), '{{ bookmark_tags }}');
+      {% endif %}
   loop: "{{ firefox_bookmarks }}"
   when: 
     - item.url | length > 0
     - "item.url not in existing_bookmarks.stdout"
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - firefox

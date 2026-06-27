@@ -1,0 +1,66 @@
+{% for monitor in monitors.screens %}
+hl.monitor({
+    output = "desc:{{ monitor.desc }}",
+    mode = "{{ monitor.resolution }}@{{ monitor.refresh_rate }}",
+    position = "{{ monitor.position }}",
+    scale = {{ monitor.scale }}
+})
+{% endfor %}
+
+hl.window_rule({
+    name = "supress-maximize",
+    match = {
+        class = ".*"
+    },
+    suppress_event = "maximize"
+})
+
+hl.window_rule({
+    name = "no-empty-focus",
+    match = {
+        class = "^$",
+        title = "^$",
+        xwayland = true,
+        float = true,
+        fullscreen = false,
+        pin = false
+    },
+    no_focus = true
+})
+
+{% set ns = namespace(count=0) %}
+{% for monitor in monitors.screens %}
+{% for i in range(1, monitor.workspaces + 1) %}
+{% set ns.count = ns.count + 1 %}
+hl.workspace_rule({ workspace = "{{ ns.count }}", monitor = "desc:{{ monitor.desc }}", persistent = true })
+{% endfor %}
+{% endfor %}
+
+hl.config({
+    decoration = {
+        rounding = 6,
+        shadow = { enabled = false }
+    },
+    dwindle = {
+        force_split = 0,
+        preserve_split = true,
+        smart_split = true
+    }
+})
+
+hl.workspace_rule({
+    workspace = "r[1-10]",
+    no_border = true,
+    gaps_in = 3,
+    gaps_out = 6,
+    layout = "dwindle",
+})
+
+-- hl.window_rule({
+--     name = "borders",
+--     match = {
+--         class = ".*"
+--     },
+--     border_size = 2,
+--     border_color = catppuccin.mocha.sky .. " " .. catppuccin.mocha.base,
+-- })

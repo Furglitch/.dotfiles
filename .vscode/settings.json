@@ -1,0 +1,17 @@
+{
+  "Lua.workspace.library": [
+    "/usr/share/hypr/stubs"
+  ],
+  "Lua.diagnostics.globals": [
+    "terminal",
+    "files",
+    "editor",
+    "browser",
+    "menu",
+    "menuClipboard",
+    "menuEmoji",
+    "screenshotPath",
+    "screenshotFile",
+    "screenshot"
+  ]
+}

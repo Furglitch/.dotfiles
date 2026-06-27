@@ -1,0 +1,16 @@
+---
+ghostty_packages:
+  - ghostty
+  - zsh
+  - fzf
+  - eza
+  - thefuck
+  - bat
+  - fastfetch
+  - wget2
+
+ghostty_copr_repos:
+  - scottames/ghostty
+
+ghostty_commands:
+  - 'curl -sS https://starship.rs/install.sh | sh -s -- --yes'

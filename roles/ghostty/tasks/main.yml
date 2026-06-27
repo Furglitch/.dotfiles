@@ -1,19 +1,37 @@
 ---
-- name: ghostty | ensure ghostty installed
-  kewlfft.aur.aur:
-    name: ghostty
-    state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+- name: ghostty | ensure copr repos are enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: "{{ item }}"
+    state: enabled
+  loop: "{{ ghostty_copr_repos }}"
+  tags:
+    - ghostty
 
-- name: ghostty | ensure .config/ghostty/shaders directory exists
+- name: ghostty | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ ghostty_packages }}"
+    state: present
+  tags:
+    - ghostty
+
+- name: ghostty | ensure .config/ghostty directory exists
   ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.config/ghostty/shaders"
+    path: "{{ ansible_facts['user_dir'] }}/.config/ghostty"
     state: directory
     mode: "0755"
-    owner: "{{ target_user }}"
-    group: "{{ target_user }}"
+  tags:
+    - ghostty
+
+- name: ghostty | ensure config subdirectories exist
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/ghostty/{{ item.path }}"
+    state: directory
+    mode: "0755"
+  with_filetree: ghostty/config
+  when: item.state == "directory"
+  tags:
+    - ghostty
 
 - name: ghostty | symlink config files
   ansible.builtin.file:
@@ -23,14 +41,30 @@
     force: true
   with_filetree: ghostty/config
   when: item.state == "file"
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - ghostty
 
-- name: ghostty | uninstall kitty
-  kewlfft.aur.aur:
-    name: kitty
-    state: absent
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+- name: ghostty | run command-based installers
+  ansible.builtin.shell:
+    cmd: "{{ item }}"
+  loop: "{{ ghostty_commands }}"
+  tags:
+    - ghostty
+
+- name: ghostty | run fastfetch tasks
+  ansible.builtin.include_tasks: fastfetch.yml
+  tags:
+    - ghostty
+    - fastfetch
+
+- name: ghostty | run zsh tasks
+  ansible.builtin.include_tasks: zsh.yml
+  tags:
+    - ghostty
+    - zsh
+
+- name: ghostty | run starship tasks
+  ansible.builtin.include_tasks: starship.yml
+  tags:
+    - ghostty
+    - starship

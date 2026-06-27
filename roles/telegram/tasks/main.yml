@@ -1,9 +1,17 @@
 ---
-- name: telegram | ensure telegram-desktop installed
-  kewlfft.aur.aur:
+- name: telegram-desktop | ensure rpmfusion repos are installed
+  ansible.builtin.dnf:
+    name:
+      - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-44.noarch.rpm"
+      - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-44.noarch.rpm"
+    state: present
+  tags:
+    - telegram-desktop
+
+- name: telegram-desktop | ensure telegram-desktop is installed
+  ansible.builtin.dnf:
     name: telegram-desktop
     state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
-  ignore_errors: true
+  tags:
+    - telegram-desktop
+

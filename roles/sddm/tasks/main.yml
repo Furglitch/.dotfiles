@@ -1,16 +1,59 @@
 ---
-- name: sddm | ensure sddm installed
-  kewlfft.aur.aur:
-    name: sddm
+- name: sddm | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ sddm_packages }}"
     state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - sddm
 
-- name: sddm | ensure sddm-kcm installed
-  kewlfft.aur.aur:
-    name: sddm-kcm
-    state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+- name: sddm | remove existing silent sddm theme directory
+  ansible.builtin.file:
+    path: "{{ sddm_theme_dir }}"
+    state: absent
+  tags:
+    - sddm
+
+- name: sddm | copy silent sddm theme directory
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/sddm/theme/"
+    dest: "{{ sddm_theme_dir }}/"
+    mode: preserve
+    owner: root
+    group: root
+  tags:
+    - sddm
+
+- name: sddm | ensure sddm uses silent sddm theme
+  ansible.builtin.copy:
+    dest: /etc/sddm.conf.d/10-theme.conf
+    mode: '0644'
+    owner: root
+    group: root
+    content: |
+      [Theme]
+      Current={{ sddm_theme_name }}
+  tags:
+    - sddm
+
+- name: sddm | set system default target to graphical
+  ansible.builtin.file:
+    src: /usr/lib/systemd/system/graphical.target
+    dest: /etc/systemd/system/default.target
+    state: link
+    force: true
+  tags:
+    - sddm
+
+- name: sddm | ensure sddm service is enabled
+  ansible.builtin.systemd_service:
+    name: sddm.service
+    enabled: true
+  tags:
+    - sddm
+
+- name: sddm | apply furglitch avatar
+  ansible.builtin.command:
+    cmd: ./change_avatar.sh furglitch ./icons/avatar.furglitch.png
+    chdir: "{{ sddm_theme_dir }}"
+  tags:
+    - sddm

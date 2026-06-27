@@ -1,0 +1,64 @@
+---
+- name: hyprland | ensure copr repo is enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: lionheartp/Hyprland
+    state: enabled
+  tags:
+    - hypr
+    - hyprland
+
+- name: hyprland | ensure hyprland is installed
+  ansible.builtin.dnf:
+    name: hyprland
+    state: present
+  tags:
+    - hypr
+    - hyprland
+
+- name: hyprland | ensure .config/hypr directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/hypr"
+    state: directory
+    mode: "0755"
+  tags:
+    - hypr
+    - hyprland
+
+- name: hyprland | ensure .config/hypr subdirectories exist
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/hypr/{{ item.path | dirname }}"
+    state: directory
+    mode: "0755"
+  with_filetree: hyprland/config
+  when: item.state == "file"
+  tags:
+    - hypr
+    - hyprland
+
+- name: hyprland | process monitor.lua template
+  ansible.builtin.template:
+    src: monitor.lua.j2
+    dest: "{{ role_path }}/files/hyprland/config/modules/monitor.lua"
+    mode: "0644"
+  tags:
+    - hypr
+    - hyprland
+
+- name: hyprland | remove existing .config/hypr directory
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/hypr"
+    state: absent
+  tags:
+    - hypr
+    - hyprland
+
+- name: hyprland | symlink hyprland config directory
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/hyprland/config"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/hypr"
+    state: link
+    force: true
+  tags:
+    - hypr
+    - hyprland

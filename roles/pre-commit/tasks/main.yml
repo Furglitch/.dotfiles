@@ -1,0 +1,8 @@
+---
+- name: pre-commit | ensure pre-commit is installed
+  ansible.builtin.dnf:
+    name: pre-commit
+    state: present
+  tags:
+    - pre-commit
+

@@ -1,0 +1,11 @@
+---
+- name: uwsm | ensure copr repo is enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: lionheartp/Hyprland
+    state: enabled
+
+- name: uwsm | ensure uwsm is installed
+  ansible.builtin.dnf:
+    name: uwsm
+    state: present

@@ -1,0 +1,48 @@
+---
+- name: fstab | validate devices schema
+  ansible.builtin.assert:
+    that:
+      - item.device is defined
+      - item.mountpoint is defined
+      - item.filesystem is defined
+      - item.options is defined
+      - item.backup is defined
+      - item.backup is integer
+      - item.check is not defined or item.check is integer
+    fail_msg: >-
+      Invalid fstab device entry: {{ item | to_nice_yaml(indent=2) }}
+      Required keys: device, mountpoint, filesystem, options, backup.
+      Optional key: check (integer).
+  loop: "{{ devices }}"
+  loop_control:
+    label: "{{ item.mountpoint | default('missing-mountpoint') }}"
+
+- name: fstab | ensure mountpoint directories exist
+  ansible.builtin.file:
+    path: "{{ item.mountpoint }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop: "{{ devices }}"
+  loop_control:
+    label: "{{ item.mountpoint }}"
+  when:
+    - item.filesystem | lower != 'swap'
+    - item.mountpoint != 'none'
+
+- name: fstab | manage entries
+  ansible.builtin.lineinfile:
+    path: /etc/fstab
+    regexp: "^\\s*{{ item.device | regex_escape }}\\s+{{ item.mountpoint | regex_escape }}\\s+"
+    line: >-
+      {{ item.device }} {{ item.mountpoint }} {{ item.filesystem }} {{ item.options }}
+      {{ item.backup }} {{ item.check | default(0) }}
+    state: present
+    create: false
+    validate: "mount -fav -T %s"
+  loop: "{{ devices }}"
+  loop_control:
+    label: "{{ item.device }} -> {{ item.mountpoint }}"
+  tags:
+    - fstab

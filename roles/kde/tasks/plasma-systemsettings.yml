@@ -1,0 +1,13 @@
+---
+- name: kde | ensure plasma-systemsettings packages are installed
+  ansible.builtin.dnf:
+    name:
+      - plasma-systemsettings
+      - bluedevil
+      - colord-kde
+      - kde-gtk-config
+      - pinentry-qt
+    state: present
+  tags:
+    - kde
+    - plasma-systemsettings

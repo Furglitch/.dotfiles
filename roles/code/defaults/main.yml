@@ -1,0 +1,15 @@
+---
+defaults:
+  - Catppuccin.catppuccin-vsc-pack
+  - edwinhuish.better-comments-next
+  - oderwat.indent-rainbow
+
+  - tyriar.sort-lines
+  - arthurlobo.easy-codesnap
+  - bierner.color-info
+
+  - donjayamanne.git-extension-pack
+  - vscodevim.vim
+
+  - donjayamanne.python-extension-pack
+  - vscjava.vscode-java-pack

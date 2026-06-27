@@ -1,0 +1,71 @@
+--- # Post-Download, Checks wallpaper dimensions and upscales if needed
+- name: waypaper | ensure ImageMagick is installed
+  ansible.builtin.dnf:
+    name: ImageMagick
+    state: present
+
+- name: waypaper | ensure Xvfb is installed for headless upscayl runs
+  ansible.builtin.dnf:
+    name: xorg-x11-server-Xvfb
+    state: present
+  when: (ansible_env.DISPLAY | default('')) | length == 0
+
+- name: waypaper | find downloaded images
+  ansible.builtin.find:
+    paths: "{{ ansible_facts['user_dir'] }}/.local/share/wallpapers/"
+    patterns: "e6.*"
+  register: wallpaper_files
+
+- name: waypaper | check image dimensions
+  ansible.builtin.command:
+    cmd: "identify -format '%w %h' {{ item.path }}"
+  loop: "{{ wallpaper_files.files }}"
+  register: wallpaper_dimensions
+  when: wallpaper_files.matched > 0
+
+- name: waypaper | install latest upscayl rpm from local file
+  ansible.builtin.dnf:
+    name: "{{ upscayl_latest_rpm_local_path }}"
+    state: present
+    disable_gpg_check: true
+  when:
+    - upscayl_latest_rpm_local_path is defined
+    - upscayl_latest_rpm_local_path | length > 0
+
+- name: waypaper | set upscayl command prefix for display mode
+  ansible.builtin.set_fact:
+    waypaper_upscayl_prefix: >-
+      {{
+        (
+          (ansible_env.DISPLAY | default('')) | length == 0
+        ) | ternary(['xvfb-run', '-a', '--server-args=-screen 0 1280x720x24'], [])
+      }}
+
+- name: waypaper | upscale low resolution images
+  become: true
+  become_user: "{{ target_user }}"
+  environment:
+    HOME: "{{ ansible_facts['user_dir'] }}"
+    XDG_CONFIG_HOME: "{{ ansible_facts['user_dir'] }}/.config"
+    LIBGL_ALWAYS_SOFTWARE: "1"
+    DISPLAY: "{{ ansible_env.DISPLAY | default(omit) }}"
+  ansible.builtin.command:
+    argv: >-
+      {{
+        waypaper_upscayl_prefix
+        + [
+          'upscayl',
+          '-i', item.item.path,
+          '-o', item.item.path,
+          '-s', ((item.stdout.split()[1] | int < 720) | ternary('4', '2'))
+        ]
+      }}
+  loop: "{{ wallpaper_dimensions.results | default([]) }}"
+  when: 
+    - target_user is defined
+    - waypaper_upscayl_prefix is defined
+    - wallpaper_dimensions is defined
+    - wallpaper_dimensions.results is defined
+    - item.stdout is defined
+    - item.stdout.split()[1] | int < 1440
+  register: upscale_jobs

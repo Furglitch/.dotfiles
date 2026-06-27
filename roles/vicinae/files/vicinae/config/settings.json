@@ -20,6 +20,7 @@
          "icon_theme": "Catppuccin Mocha Sky"
       }
    },
+   "favorites": [],
    "providers": {
       "@knoopx/store.vicinae.github": {
          "preferences": {
@@ -80,6 +81,12 @@
             }
          }
       },
+      "browser-extension": {
+         "enabled": false
+      },
+      "calculator": {
+         "enabled": false
+      },
       "clipboard": {
          "entrypoints": {
             "clear": {
@@ -128,13 +135,18 @@
          }
       },
       "developer": {
+         "enabled": false,
          "entrypoints": {
             "create": {
                "enabled": false
             }
          }
       },
+      "font": {
+         "enabled": false
+      },
       "manage-shortcuts": {
+         "enabled": false,
          "entrypoints": {
             "manage": {
                "enabled": true
@@ -142,6 +154,7 @@
          }
       },
       "power": {
+         "enabled": false,
          "entrypoints": {
             "hibernate": {
                "enabled": false
@@ -169,7 +182,17 @@
             }
          }
       },
+      "scripts": {
+         "enabled": false
+      },
+      "shortcuts": {
+         "enabled": false
+      },
+      "snippets": {
+         "enabled": false
+      },
       "system": {
+         "enabled": false,
          "entrypoints": {
             "browse-apps": {
                "enabled": true
@@ -177,6 +200,7 @@
          }
       },
       "theme": {
+         "enabled": false,
          "entrypoints": {
             "set": {
                "enabled": false
@@ -184,6 +208,7 @@
          }
       },
       "wm": {
+         "enabled": false,
          "entrypoints": {
             "switch-windows": {
                "enabled": false

@@ -1,0 +1,8 @@
+---
+- name: kde | ensure plasma-pa is installed
+  ansible.builtin.dnf:
+    name: plasma-pa
+    state: present
+  tags:
+    - kde
+    - plasma-pa

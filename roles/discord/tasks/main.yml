@@ -1,62 +1,48 @@
 ---
-- name: discord | ensure discord installed
-  kewlfft.aur.aur:
-    name: discord
+- name: discord | ensure rpmfusion repos are installed
+  ansible.builtin.dnf:
+    name:
+      - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-44.noarch.rpm"
+      - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-44.noarch.rpm"
     state: present
-    use: paru
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
-  ignore_errors: true
+  tags:
+    - discord
 
-- name: discord | ensure betterdiscordctl installed
-  kewlfft.aur.aur:
-    name: betterdiscordctl
+- name: discord | ensure copr repos are enabled
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: "{{ item }}"
+    state: enabled
+  loop: "{{ discord_copr_repos }}"
+  tags:
+    - discord
+
+- name: discord | ensure packages are installed
+  ansible.builtin.dnf:
+    name: "{{ discord_packages }}"
     state: present
-    use: paru
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
-  ignore_errors: true
+  tags:
+    - discord
 
-- name: discord | ensure .config/BetterDiscord directory exists
+- name: discord | symlink betterdiscordctl upgrade script (to .local/bin)
   ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.config/BetterDiscord"
-    state: directory
-    mode: "0755"
+    src: "{{ role_path }}/files/betterdiscord/bin/betterdiscord-upgrade"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/bin/betterdiscord-upgrade"
+    state: link
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
-
-- name: discord | ensure .config/BetterDiscord subdirectories exist
-  ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.config/BetterDiscord/{{ item.path | dirname }}"
-    state: directory
     mode: "0755"
-  with_filetree: betterdiscord/config
-  when: item.state == "file"
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
-
-- name: discord | symlink config files
-  ansible.builtin.file:
-    src: "{{ role_path }}/files/betterdiscord/config/{{ item.path }}"
-    dest: "{{ ansible_facts['user_dir'] }}/.config/BetterDiscord/{{ item.path }}"
-    state: link
     force: true
-  with_filetree: betterdiscord/config
-  when: item.state == "file"
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - discord
 
-- name: discord | symlink bin files
+- name: discord | symlink BetterDiscord config directory
   ansible.builtin.file:
-    src: "{{ role_path }}/files/betterdiscord/bin/{{ item.path }}"
-    dest: "{{ ansible_facts['user_dir'] }}/.local/bin/{{ item.path }}"
+    src: "{{ role_path }}/files/betterdiscord/config"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/BetterDiscord"
     state: link
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
     force: true
-  with_filetree: betterdiscord/bin
-  when: item.state == "file"
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
+  tags:
+    - discord

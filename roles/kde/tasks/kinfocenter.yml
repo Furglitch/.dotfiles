@@ -1,0 +1,8 @@
+---
+- name: kde | ensure kinfocenter is installed
+  ansible.builtin.dnf:
+    name: kinfocenter
+    state: present
+  tags:
+    - kde
+    - kinfocenter
