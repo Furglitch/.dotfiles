@@ -11,8 +11,15 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("vicinae server")
 end)
 
--- Applications
+-- Mounts
+hl.on("hyprland.start", function()
+    hl.exec_cmd("mount /mnt/nvme1")
+    hl.exec_cmd("mount /mnt/nvme2")
+    hl.exec_cmd("mount /nfs/cloud")
+    hl.exec_cmd("mount /nfs/media")
+end)
 
+-- Applications
 hl.on("hyprland.start", function()
     hl.exec_cmd("Telegram")
     hl.exec_cmd("discord")
