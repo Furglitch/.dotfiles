@@ -1,76 +1,92 @@
 ---
-- name: wallpaper | fetch latest upscayl linux metadata
-  ansible.builtin.uri:
-    url: https://github.com/upscayl/upscayl/releases/latest/download/latest-linux.yml
-    method: GET
-    return_content: true
-  register: upscayl_latest_linux_yml
-  changed_when: false
+- name: wallpaper | ensure upscayl-ncnn build dependencies are installed
+  ansible.builtin.dnf:
+    name:
+      - git
+      - cmake
+      - gcc
+      - gcc-c++
+      - libstdc++-static
+      - glslang
+      - libgomp
+      - vulkan-loader-devel
+    state: present
 
-- name: wallpaper | parse latest upscayl rpm filename
-  ansible.builtin.set_fact:
-    upscayl_latest_rpm_filename: >-
-      {{
-        (
-          upscayl_latest_linux_yml.content
-          | from_yaml
-        ).files
-        | default([])
-        | selectattr('url', 'defined')
-        | map(attribute='url')
-        | select('match', '.*[.]rpm$')
-        | list
-        | first
-        | default('', true)
-      }}
-  changed_when: false
-
-- name: wallpaper | assert latest upscayl rpm filename was found
-  ansible.builtin.assert:
-    that:
-      - upscayl_latest_rpm_filename | length > 0
-    fail_msg: >-
-      Could not find an RPM asset in latest-linux.yml. Files were:
-      {{ ((upscayl_latest_linux_yml.content | from_yaml).files | default([]) | map(attribute='url') | list) }}
-
-- name: wallpaper | normalize upscayl rpm URL
-  ansible.builtin.set_fact:
-    upscayl_latest_rpm_url: >-
-      {{
-        'https://github.com/upscayl/upscayl/releases/latest/download/' ~ (upscayl_latest_rpm_filename | basename)
-      }}
-  when:
-    - upscayl_latest_rpm_filename is defined
-    - upscayl_latest_rpm_filename | length > 0
-
-- name: wallpaper | normalize upscayl rpm local path
-  ansible.builtin.set_fact:
-    upscayl_latest_rpm_local_path: >-
-      {{
-        ansible_facts['user_dir'] ~ '/Downloads/' ~ (upscayl_latest_rpm_filename | basename)
-      }}
-  when:
-    - upscayl_latest_rpm_url is defined
-    - upscayl_latest_rpm_url | length > 0
-
-- name: wallpaper | ensure Downloads directory exists
+- name: wallpaper | ensure upscayl source directory exists
   ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/Downloads"
+    path: "{{ ansible_facts['user_dir'] }}/.local/src"
     state: directory
-    mode: '0755'
     owner: "{{ target_user }}"
     group: "{{ target_user }}"
-  when:
-    - upscayl_latest_rpm_url is defined
-    - upscayl_latest_rpm_url | length > 0
+    mode: '0755'
 
-- name: wallpaper | download latest upscayl rpm
-  ansible.builtin.get_url:
-    url: "{{ upscayl_latest_rpm_url }}"
-    dest: "{{ upscayl_latest_rpm_local_path }}"
-    mode: '0644'
-  when:
-    - upscayl_latest_rpm_url is defined
-    - upscayl_latest_rpm_url | length > 0
-    - upscayl_latest_rpm_local_path is defined
-    - upscayl_latest_rpm_local_path | length > 0
+- name: wallpaper | checkout upscayl-ncnn source
+  become: true
+  become_user: "{{ target_user }}"
+  ansible.builtin.git:
+    repo: https://github.com/upscayl/upscayl-ncnn.git
+    dest: "{{ ansible_facts['user_dir'] }}/.local/src/upscayl-ncnn"
+    version: master
+    recursive: true
+    update: true
+
+- name: wallpaper | ensure upscayl-ncnn build directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.local/src/upscayl-ncnn/build"
+    state: directory
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: '0755'
+
+- name: wallpaper | configure upscayl-ncnn build
+  become: true
+  become_user: "{{ target_user }}"
+  ansible.builtin.command:
+    argv:
+      - cmake
+      - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+      - ../src
+  args:
+    chdir: "{{ ansible_facts['user_dir'] }}/.local/src/upscayl-ncnn/build"
+
+- name: wallpaper | build upscayl-ncnn
+  become: true
+  become_user: "{{ target_user }}"
+  ansible.builtin.command:
+    argv:
+      - cmake
+      - --build
+      - .
+      - -j
+      - "{{ (ansible_facts.processor_vcpus | default(2) | int) | string }}"
+  args:
+    chdir: "{{ ansible_facts['user_dir'] }}/.local/src/upscayl-ncnn/build"
+
+- name: wallpaper | ensure upscayl runtime directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: '0755'
+  loop:
+    - "{{ ansible_facts['user_dir'] }}/.local/bin"
+    - "{{ ansible_facts['user_dir'] }}/.local/share/upscayl-ncnn"
+
+- name: wallpaper | install upscayl-bin executable
+  become: true
+  become_user: "{{ target_user }}"
+  ansible.builtin.copy:
+    src: "{{ ansible_facts['user_dir'] }}/.local/src/upscayl-ncnn/build/upscayl-bin"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/bin/upscayl-ncnn"
+    mode: '0755'
+    remote_src: true
+
+- name: wallpaper | install upscayl models
+  become: true
+  become_user: "{{ target_user }}"
+  ansible.builtin.copy:
+    src: "{{ ansible_facts['user_dir'] }}/.local/src/upscayl-ncnn/models/"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/share/upscayl-ncnn/models/"
+    mode: preserve
+    remote_src: true

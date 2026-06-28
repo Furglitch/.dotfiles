@@ -77,7 +77,7 @@
 
 - name: waypaper | process downloaded wallpapers
   block:
-    - name: waypaper | resolve latest upscayl release metadata
+    - name: waypaper | build and install upscayl-ncnn from source
       ansible.builtin.include_tasks: "{{ role_path }}/handlers/waypaper/wallpapers_download_upscayl.yml"
 
     - name: waypaper | run wallpaper processing tasks
