@@ -9,6 +9,7 @@
 - name: firefox | initialize profile if database doesn't exist
   ansible.builtin.shell: |
     timeout 10 firefox --headless --new-instance --profile {{ profile_subdir }} || true
+  become_user: "{{ target_user }}"
   when: not places_db.stat.exists
   tags:
     - firefox
@@ -24,6 +25,7 @@
 - name: firefox | clean up bookmarks with NULL GUIDs
   ansible.builtin.shell: |
     sqlite3 {{ profile_subdir }}/places.sqlite "DELETE FROM moz_bookmarks WHERE guid IS NULL"
+  become_user: "{{ target_user }}"
   register: cleanup_result
   changed_when: cleanup_result.rc == 0
   tags:
@@ -40,6 +42,7 @@
                            select id from moz_bookmarks where guid = 'toolbar_____'
                        )
                        order by moz_bookmarks.dateAdded"
+  become_user: "{{ target_user }}"
   register: existing_bookmarks
   changed_when: false
   tags:
@@ -85,6 +88,7 @@
       INSERT OR IGNORE INTO moz_bookmarks (type, parent, title)
       VALUES (2, (SELECT id FROM moz_bookmarks WHERE guid = 'tags________'), '{{ bookmark_tags }}');
       {% endif %}
+  become_user: "{{ target_user }}"
   loop: "{{ firefox_bookmarks }}"
   when: 
     - item.url | length > 0

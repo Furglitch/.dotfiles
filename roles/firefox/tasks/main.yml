@@ -45,3 +45,13 @@
 
 - name: firefox | install addons
   ansible.builtin.include_tasks: addons.yml
+
+- name: firefox | ensure firefox config ownership
+  ansible.builtin.file:
+    path: "{{ profile_dir }}"
+    state: directory
+    recurse: true
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+  tags:
+    - firefox
