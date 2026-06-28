@@ -9,7 +9,7 @@
 
 /* Fonts */
 :root {
-    --Chat-Font-Used: 'Ubuntu Nerd Font', "UbuntuMono Nerd Font", monospaced ;
+    --Chat-Font-Used: 'Ubuntu', "UbuntuMono", monospaced ;
     --Chat-Font-Size: 8px;
     }
 :not([class="hljs"]):not(code){

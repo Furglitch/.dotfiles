@@ -22,7 +22,7 @@ end)
 -- Applications
 hl.on("hyprland.start", function()
     hl.exec_cmd("Telegram")
-    hl.exec_cmd("discord")
+    hl.exec_cmd("Discord")
 end)
 
 hl.window_rule({

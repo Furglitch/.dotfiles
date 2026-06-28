@@ -1,7 +1,7 @@
 dnf upgrade discord betterdiscordctl -y
-discord & disown
+Discord & disown
 sleep 10s
 if ! betterdiscordctl reinstall; then
     betterdiscordctl install
 fi
-discord & disown
+Discord & disown
