@@ -1,0 +1,32 @@
+---
+- name: hyprland | ensure qt6ct package is installed
+  ansible.builtin.dnf:
+    name:
+      - qt6ct
+    state: present
+  tags:
+    - hypr
+    - qt6ct
+
+- name: hyprland | ensure .config/qt6ct directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/qt6ct"
+    state: directory
+    mode: "0755"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+  tags:
+    - hypr
+    - qt6ct
+
+- name: hyprland | symlink qt6ct config files
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/qt6ct/config/{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/qt6ct/{{ item.path }}"
+    state: link
+    force: true
+  with_filetree: qt6ct/config
+  when: item.state == "file"
+  tags:
+    - hypr
+    - qt6ct

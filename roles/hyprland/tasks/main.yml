@@ -5,6 +5,12 @@
     - hypr
     - hyprland
 
+- name: hyprland | run qt6ct tasks
+  ansible.builtin.include_tasks: qt6ct.yml
+  tags:
+    - hypr
+    - qt6ct
+
 - name: hyprland | run hyprshot tasks
   ansible.builtin.include_tasks: hyprshot.yml
   tags:
