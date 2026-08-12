@@ -8,16 +8,21 @@ PreviewSize=64
 UseSystemFont=false
 ViewFont=Ubuntu Nerd Font,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
 
+[ExtractDialog]
+2 screens: Window-Maximized=true
+DirHistory[$e]=/usr/,$HOME/Downloads/
+
 [General]
 BrowseThroughArchives=true
 GlobalViewProps=false
+LockPanels=false
 TerminalApplication=kitty
 UseTabForSwitchingSplitView=true
 Version=202
 ViewPropsTimestamp=2025,7,27,11,35,2.8529999999999998
 
 [IconsMode]
-PreviewSize=96
+PreviewSize=128
 UseSystemFont=false
 ViewFont=Ubuntu Nerd Font,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
 
@@ -35,4 +40,4 @@ Plugins=appimagethumbnail,audiothumbnail,glycin-heif,comicbookthumbnail,cursorth
 SearchTool=Baloo
 
 [UiSettings]
-ColorScheme=Kvantum
+ColorScheme=KvantumAlt
