@@ -5,5 +5,5 @@ inode/directory=org.kde.dolphin.desktop;
 [Default Applications]
 audio/mpeg=vlc-2.desktop;
 inode/directory=org.kde.dolphin.desktop;
-x-scheme-handler/betterdiscord=discord.desktop
-x-scheme-handler/nxm=mo2lint_nxm-handler.desktop
+x-scheme-handler/betterdiscord=discord.desktop;
+x-scheme-handler/nxm=mo2lint_nxm-handler.desktop;

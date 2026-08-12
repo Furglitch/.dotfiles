@@ -7,6 +7,7 @@
       - colord-kde
       - kde-gtk-config
       - pinentry-qt
+      - redhat-menus
     state: present
   tags:
     - kde

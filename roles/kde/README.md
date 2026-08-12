@@ -13,6 +13,7 @@ An Ansible role for installing KDE Plasma applications and utilities, including 
 - `kvantum` - SVG-based Qt theme engine
 - `qt6-qtwayland` - Wayland platform plugin
 - `plasma-systemsettings` - KDE System Settings
+- `redhat-menus` - System menu definitions used by KDE's application database
 - `kwalletmanager5` - KWallet manager
 - `kinfocenter` - System information viewer
 - `plasma-pa` - PulseAudio/PipeWire volume control

@@ -60,3 +60,11 @@
   become: true
   become_user: "{{ target_user }}"
   become_flags: "-H"
+
+- name: kde | refresh desktop application metadata caches
+  ansible.builtin.shell:
+    cmd: "update-desktop-database {{ ansible_facts['user_dir'] }}/.local/share/applications && kbuildsycoca6"
+  become: true
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+  changed_when: false
