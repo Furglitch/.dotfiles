@@ -88,6 +88,9 @@
          "enabled": false
       },
       "clipboard": {
+         "preferences": {
+            "monitoring": true
+         },
          "entrypoints": {
             "clear": {
                "enabled": false
