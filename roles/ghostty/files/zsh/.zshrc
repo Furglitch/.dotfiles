@@ -20,13 +20,12 @@ export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init zsh)"
 
 # plugins
-zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
-zinit light Aloxaf/fzf-tab
+if [[ "$TERM_PROGRAM" != "vscode" ]]; then zinit light Aloxaf/fzf-tab; fi
+zinit light zsh-users/zsh-autosuggestions
 zinit light z-shell/zsh-eza
-zinit light zsh-users/zsh-syntax-highlighting
 zinit light MichaelAquilina/zsh-you-should-use
-zinit snippet OMZP::archlinux; alias parorph='pacrmorphans'
+zinit light zsh-users/zsh-syntax-highlighting
 zinit snippet OMZP::aliases
 zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::command-not-found
@@ -87,4 +86,7 @@ setopt hist_ignore_all_dups hist_save_no_dups hist_ignore_dups hist_find_no_dups
 setopt auto_cd auto_pushd
 alias clrhist='rm -f $HISTFILE; touch $HISTFILE; reset'
 
-ff && echo && echo
+if [[ -o interactive ]]; then
+  fastfetch
+  echo
+fi
