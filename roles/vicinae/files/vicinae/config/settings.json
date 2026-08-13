@@ -61,8 +61,29 @@
             "nm-connection-editor": {
                "enabled": false
             },
+            "nwg-panel-config": {
+               "enabled": false
+            },
+            "obsidian": {
+               "enabled": true
+            },
+            "org.dosbox-staging.dosbox-staging": {
+               "enabled": false
+            },
+            "org.freedesktop.MalcontentControl": {
+               "enabled": false
+            },
+            "org.gnome.ColorProfileViewer": {
+               "enabled": false
+            },
+            "org.kde.kwalletmanager": {
+               "enabled": false
+            },
             "org.kde.partitionmanager": {
                "enabled": true
+            },
+            "qt6ct": {
+               "enabled": false
             },
             "qv4l2": {
                "enabled": false
@@ -76,7 +97,43 @@
             "rofi-theme-selector": {
                "enabled": false
             },
+            "rygel-preferences": {
+               "enabled": false
+            },
             "uuctl": {
+               "enabled": false
+            },
+            "wine-notepad": {
+               "enabled": false
+            },
+            "wine-oleview": {
+               "enabled": false
+            },
+            "wine-regedit": {
+               "enabled": false
+            },
+            "wine-uninstaller": {
+               "enabled": false
+            },
+            "wine-wineboot": {
+               "enabled": false
+            },
+            "wine-winecfg": {
+               "enabled": false
+            },
+            "wine-winefile": {
+               "enabled": false
+            },
+            "wine-winemine": {
+               "enabled": false
+            },
+            "wine-winhelp": {
+               "enabled": false
+            },
+            "wine-wordpad": {
+               "enabled": false
+            },
+            "yad-icon-browser": {
                "enabled": false
             }
          }
