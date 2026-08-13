@@ -86,7 +86,7 @@ setopt hist_ignore_all_dups hist_save_no_dups hist_ignore_dups hist_find_no_dups
 setopt auto_cd auto_pushd
 alias clrhist='rm -f $HISTFILE; touch $HISTFILE; reset'
 
-if [[ -o interactive ]]; then
+if [[ -o interactive && ${TERM_PROGRAM:-} != vscode && -z ${VSCODE_INJECTION:-} ]]; then
   fastfetch
   echo
 fi
