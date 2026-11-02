@@ -2,10 +2,10 @@
 - name: wayle | install Wayle and dependencies
   kewlfft.aur.aur:
     name:
-      - wireplumber-git
-      - networkmanager-git
-      - bluez-git
-      - upower-git
+      - wireplumber
+      - networkmanager
+      - bluez
+      - upower
       - power-profiles-daemon
       - wayle
     state: present
