@@ -24,10 +24,11 @@
   when: paru_needs_build | default(true) | bool
 
 - name: paru | install Paru
-  ansible.builtin.shell: makepkg -si --noconfirm
-  args:
+  ansible.builtin.command:
+    cmd: makepkg -si --noconfirm
     chdir: /tmp/paru
   become_user: "{{ target_user }}"
+  become_flags: "-H"
   when: paru_needs_build | default(true) | bool
 
 - name: paru | configure the Chaotic AUR repo
