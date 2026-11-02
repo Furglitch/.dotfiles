@@ -4,12 +4,14 @@
     name: imagemagick-full
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: waypaper | install xvfb # for headless upscayl runs
   kewlfft.aur.aur:
     name: xorg-server-xvfb
     state: present
     use: paru
+  become_user: "{{ target_user }}"
   when: (ansible_env.DISPLAY | default('')) | length == 0
 
 - name: waypaper | find downloaded images

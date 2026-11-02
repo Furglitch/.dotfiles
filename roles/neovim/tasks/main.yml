@@ -4,6 +4,7 @@
     name: neovim
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: neovim | clone the config starter
   ansible.builtin.git:

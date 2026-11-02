@@ -4,12 +4,14 @@
     name: git
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: git | install GitHub CLI
   kewlfft.aur.aur:
     name: github-cli
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: git | configure global username
   community.general.git_config:

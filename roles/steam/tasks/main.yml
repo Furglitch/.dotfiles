@@ -6,6 +6,7 @@
       - proton-ge-custom-bin
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: steam | install Millennium
   ansible.builtin.shell:

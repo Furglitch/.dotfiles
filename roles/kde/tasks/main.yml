@@ -25,6 +25,7 @@
       - pinentry-hypr
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: kde | symlink kdeglobals
   ansible.builtin.file:

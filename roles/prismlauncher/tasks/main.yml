@@ -4,12 +4,14 @@
     name: prismlauncher
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: prismlauncher | install Blockbench
   kewlfft.aur.aur:
     name: blockbench
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: prismlauncher | symlink catpacks
   ansible.builtin.file:

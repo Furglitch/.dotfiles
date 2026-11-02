@@ -4,6 +4,7 @@
     name: vicinae
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: vicinae | symlink the config
   ansible.builtin.file:

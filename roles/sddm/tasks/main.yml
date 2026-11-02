@@ -7,6 +7,7 @@
       - qt5-declarative
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: sddm | copy theme directory
   ansible.builtin.copy:

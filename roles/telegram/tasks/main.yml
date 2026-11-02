@@ -4,3 +4,4 @@
     name: telegram-desktop-bin
     state: present
     use: paru
+  become_user: "{{ target_user }}"

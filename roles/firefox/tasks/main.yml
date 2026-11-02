@@ -5,3 +5,4 @@
     state: present
     use: paru
     extra_args: --mflags --skipinteg
+  become_user: "{{ target_user }}"

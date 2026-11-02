@@ -6,12 +6,14 @@
       - jq
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: waypaper | ensure Hyprpaper is installed
   kewlfft.aur.aur:
     name: hyprpaper
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: waypaper | ensure config directories exist
   ansible.builtin.file:
@@ -63,6 +65,7 @@
     name: waypaper
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: waypaper | process the config.ini template
   ansible.builtin.template:

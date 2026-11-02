@@ -4,3 +4,4 @@
     name: wine
     state: present
     use: paru
+  become_user: "{{ target_user }}"

@@ -4,12 +4,14 @@
     name: discord
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: discord | install betterdiscordctl
   kewlfft.aur.aur:
     name: betterdiscordctl
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: discord | symlink betterdiscordctl-upgrade script
   ansible.builtin.file:

@@ -4,6 +4,7 @@
     name: hyprland
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: hyprland | ensure .config/hypr directory exists
   ansible.builtin.file:

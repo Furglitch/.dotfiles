@@ -4,3 +4,4 @@
     name: heroic-games-launcher-bin
     state: present
     use: paru
+  become_user: "{{ target_user }}"

@@ -3,12 +3,13 @@
     name: grub
     state: present
     use: paru
-
+  become_user: "{{ target_user }}"
 - name: grub | install os-prober
   kewlfft.aur.aur:
     name: os-prober
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: grub | enable os-prober in /etc/default/grub
   ansible.builtin.lineinfile:

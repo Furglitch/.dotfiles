@@ -4,15 +4,18 @@
     name: gimp
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: gimp | install ImageMagick
   kewlfft.aur.aur:
     name: imagemagick-full
     state: present
     use: paru
+  become_user: "{{ target_user }}"
 
 - name: gimp | install Upscayl
   kewlfft.aur.aur:
     name: upscayl-bin
     state: present
     use: paru
+  become_user: "{{ target_user }}"
