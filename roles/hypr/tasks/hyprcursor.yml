@@ -1,10 +1,11 @@
 ---
 - name: hyprcursor | install Hyprcursor
   kewlfft.aur.aur:
-    name: hyprcursor-git
+    name: hyprcursor
     state: present
     use: paru
   become_user: "{{ target_user }}"
+
 - name: hyprcursor | install unzip
   kewlfft.aur.aur:
     name: unzip
