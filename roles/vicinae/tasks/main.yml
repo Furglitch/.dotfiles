@@ -1,12 +1,12 @@
 ---
-- name: vicinae | Install packages
+- name: vicinae | install Vicinae
   kewlfft.aur.aur:
     name: vicinae
     state: present
     use: paru
 
-- name: vicinae | Symlink config
+- name: vicinae | symlink the config
   ansible.builtin.file:
     src: "{{ role_path }}/files/settings.json"
     dest: "{{ ansible_facts['user_dir'] }}/.config/vicinae/settings.json"
-    state: link1
+    state: link

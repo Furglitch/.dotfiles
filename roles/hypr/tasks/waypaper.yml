@@ -7,7 +7,7 @@
     state: present
     use: paru
 
-- name: waypaper | ensure hyprpaper is installed
+- name: waypaper | ensure Hyprpaper is installed
   kewlfft.aur.aur:
     name: hyprpaper
     state: present
@@ -29,7 +29,7 @@
     - .local/share/wallpapers
     - .dotfiles/roles/hyprland/files/waypaper/config
 
-- name: waypaper | symlink e6-wallpaper-sync script
+- name: waypaper | symlink the e6-wallpaper-sync script
   ansible.builtin.file:
     src: "{{ role_path }}/files/waypaper/bin/e6-wallpaper-sync"
     dest: "{{ ansible_facts['user_dir'] }}/.local/bin/e6-wallpaper-sync"
@@ -39,7 +39,7 @@
     mode: "0755"
     force: true
 
-- name: waypaper | run e6-wallpaper-sync with env
+- name: waypaper | run e6-wallpaper-sync with the environment
   become: true
   become_user: "{{ target_user }}"
   ansible.builtin.command:
@@ -58,19 +58,19 @@
     - name: waypaper | run wallpaper processing tasks
       ansible.builtin.include_tasks: "{{ role_path }}/handlers/waypaper/wallpapers_process.yml"
 
-- name: waypaper | ensure waypaper is installed
+- name: waypaper | ensure Waypaper is installed
   kewlfft.aur.aur:
     name: waypaper
     state: present
     use: paru
 
-- name: waypaper | process config.ini template
+- name: waypaper | process the config.ini template
   ansible.builtin.template:
     src: waypaper.config.ini.j2
     dest: "{{ role_path }}/files/waypaper/config/config.ini"
     mode: "0644"
 
-- name: waypaper | symlink waypaper config directory
+- name: waypaper | symlink the Waypaper config directory
   ansible.builtin.file:
     src: "{{ role_path }}/files/waypaper/config"
     dest: "{{ ansible_facts['user_dir'] }}/.config/waypaper"
@@ -79,7 +79,7 @@
     group: "{{ target_user }}"
     force: true
 
-- name: waypaper | symlink waypaper service files
+- name: waypaper | symlink the Waypaper service files
   ansible.builtin.file:
     src: "{{ role_path }}/files/waypaper/systemd/{{ item }}"
     dest: "{{ ansible_facts['user_dir'] }}/.config/systemd/user/{{ item }}"
@@ -91,7 +91,7 @@
     - waypaper.service
     - waypaper.timer
 
-- name: waypaper | enable and start waypaper timer
+- name: waypaper | enable and start the Waypaper timer
   become: true
   become_user: "{{ target_user }}"
   ansible.builtin.systemd:

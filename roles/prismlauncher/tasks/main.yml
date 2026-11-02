@@ -1,38 +1,38 @@
 ---
-- name: prismlauncher | Install prismlauncher
+- name: prismlauncher | install Prism Launcher
   kewlfft.aur.aur:
     name: prismlauncher
     state: present
     use: paru
 
-- name: prismlauncher | Install blockbench
+- name: prismlauncher | install Blockbench
   kewlfft.aur.aur:
     name: blockbench
     state: present
     use: paru
 
-- name: prismlauncher | Symlink catpacks
+- name: prismlauncher | symlink catpacks
   ansible.builtin.file:
     src: "{{ role_path }}/files/catpacks"
     dest: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher/catpacks"
     state: link
     force: true
 
-- name: prismlauncher | Clone theme
+- name: prismlauncher | clone theme
   ansible.builtin.git:
     repo: "{{ theme.repo }}"
     dest: "{{ role_path }}/files/theme"
     version: main
     force: true
 
-- name: prismlauncher | Symlink theme
+- name: prismlauncher | symlink theme
   ansible.builtin.file:
     src: "{{ role_path }}/files/theme"
     dest: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher/themes/{{ theme.name }}"
     state: link
     force: true
 
-- name: prismlauncher | Symlink config
+- name: prismlauncher | symlink config
   ansible.builtin.file:
     src: "{{ role_path }}/files/prismlauncher.cfg"
     dest: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher/prismlauncher.cfg"

@@ -1,24 +1,24 @@
 ---
-- name: discord | ensure discord is installed
+- name: discord | install Discord
   kewlfft.aur.aur:
     name: discord
     state: present
     use: paru
 
-- name: discord | ensure betterdiscordctl is installed
+- name: discord | install betterdiscordctl
   kewlfft.aur.aur:
     name: betterdiscordctl
     state: present
     use: paru
 
-- name: discord | bin betterdiscordctl-upgrade script
+- name: discord | symlink betterdiscordctl-upgrade script
   ansible.builtin.file:
     src: "{{ role_path }}/files/betterdiscord/bin/betterdiscord-upgrade"
     dest: "{{ ansible_facts['user_dir'] }}/.local/bin/betterdiscord-upgrade"
     state: link
     mode: "0755"
 
-- name: discord | apply betterdiscord config
+- name: discord | apply BetterDiscord config
   ansible.builtin.file:
     src: "{{ role_path }}/files/betterdiscord/config"
     dest: "{{ ansible_facts['user_dir'] }}/.config/BetterDiscord"

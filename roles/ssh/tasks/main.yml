@@ -1,5 +1,5 @@
 ---
-- name: ssh | Install ssh packages
+- name: ssh | install SSH packages
   ansible.builtin.dnf:
     name:
       - openssh

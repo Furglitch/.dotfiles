@@ -1,5 +1,5 @@
 ---
-- name: fstab | validate devices schema
+- name: fstab | validate device schema
   ansible.builtin.assert:
     that:
       - item.device is defined
@@ -31,7 +31,7 @@
     - item.filesystem | lower != 'swap'
     - item.mountpoint != 'none'
 
-- name: fstab | manage entries
+- name: fstab | manage fstab entries
   ansible.builtin.lineinfile:
     path: /etc/fstab
     regexp: "^\\s*{{ item.device | regex_escape }}\\s+{{ item.mountpoint | regex_escape }}\\s+"

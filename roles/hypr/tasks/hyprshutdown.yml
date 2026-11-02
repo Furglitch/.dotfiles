@@ -1,5 +1,5 @@
 ---
-- name: hyprshutdown | Install hyprshutdown
+- name: hyprshutdown | install hyprshutdown
   kewlfft.aur.aur:
     name: hyprshutdown
     state: present

@@ -1,5 +1,5 @@
 ---
-- name: sddm | ensure packages are installed
+- name: sddm | install SDDM packages
   kewlfft.aur.aur:
     name:
       - sddm
@@ -16,7 +16,7 @@
     owner: root
     group: root
 
-- name: sddm | ensure sddm uses silent sddm theme
+- name: sddm | ensure SDDM uses the silent SDDM theme
   ansible.builtin.copy:
     dest: /etc/sddm.conf.d/10-theme.conf
     mode: '0644'
@@ -26,19 +26,19 @@
       [Theme]
       Current={{ theme.name }}
 
-- name: sddm | set system default target to graphical
+- name: sddm | set the default system target to graphical
   ansible.builtin.file:
     src: /usr/lib/systemd/system/graphical.target
     dest: /etc/systemd/system/default.target
     state: link
     force: true
 
-- name: sddm | ensure sddm service is enabled
+- name: sddm | ensure the SDDM service is enabled
   ansible.builtin.systemd_service:
     name: sddm.service
     enabled: true
 
-- name: sddm | Insert custom background image
+- name: sddm | copy the custom background image
   ansible.builtin.copy:
     src: "{{ role_path }}/files/custom/background.png"
     dest: "/usr/share/sddm/themes/{{ theme.name }}/background.png"
@@ -46,7 +46,7 @@
     owner: root
     group: root
 
-- name: sddm | Insert custom background into theme.conf
+- name: sddm | insert the custom background into theme.conf
   ansible.builtin.lineinfile:
     path: "/usr/share/sddm/themes/{{ theme.name }}/theme.conf"
     regexp: '^(Background=).*'

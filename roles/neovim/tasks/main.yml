@@ -1,22 +1,22 @@
 ---
-- name: neovim | Install neovim
+- name: neovim | install Neovim
   kewlfft.aur.aur:
     name: neovim
     state: present
     use: paru
 
-- name: neovim | Clone config starter
+- name: neovim | clone the config starter
   ansible.builtin.git:
     repo: "{{ config.repo }}"
     dest: "{{ role_path }}/files/config"
     version: "main"
 
-- name: neovim | Remove included .git folder
+- name: neovim | remove the included .git folder
   ansible.builtin.file:
     path: "{{ role_path }}/files/config/.git"
     state: absent
 
-- name: neovim | Symlink config
+- name: neovim | symlink the config
   ansible.builtin.file:
     src: "{{ role_path }}/files/config"
     dest: "{{ ansible_facts['user_dir'] }}/.config/nvim"

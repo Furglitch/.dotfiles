@@ -1,5 +1,5 @@
 ---
-- name: pre-commit | Install pre-commit
+- name: pre-commit | install pre-commit
   kewlfft.aur.aur:
     name: pre-commit
     state: present

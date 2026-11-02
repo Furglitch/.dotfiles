@@ -1,5 +1,5 @@
 ---
-- name: wine | Install packages
+- name: wine | install Wine
   kewlfft.aur.aur:
     name: wine
     state: present

@@ -1,5 +1,5 @@
 ---
-- name: heroic-games-launcher | ensure heroic-games-launcher-bin installed
+- name: heroic-games-launcher | install Heroic Games Launcher
   kewlfft.aur.aur:
     name: heroic-games-launcher-bin
     state: present

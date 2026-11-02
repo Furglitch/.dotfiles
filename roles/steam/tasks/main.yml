@@ -1,5 +1,5 @@
 ---
-- name: steam | Install packages
+- name: steam | install Steam packages
   kewlfft.aur.aur:
     name:
       - steam
@@ -7,6 +7,6 @@
     state: present
     use: paru
 
-- name: steam | Install Millennium
+- name: steam | install Millennium
   ansible.builtin.shell:
     cmd: 'curl -fsSL "https://steambrew.app/install.sh" | bash'

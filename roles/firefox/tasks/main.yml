@@ -1,5 +1,5 @@
 ---
-- name: firefox | ensure firefox installed
+- name: firefox | install Firefox
   kewlfft.aur.aur:
     name: firefox
     state: present

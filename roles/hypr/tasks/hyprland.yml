@@ -1,11 +1,11 @@
 ---
-- name: hyprland | Install hyprland
+- name: hyprland | install hyprland
   kewlfft.aur.aur:
     name: hyprland
     state: present
     use: paru
 
-- name: hyprland | Ensure .config/hypr directory exists
+- name: hyprland | ensure .config/hypr directory exists
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.config/hypr"
     state: directory
@@ -19,7 +19,7 @@
   with_filetree: hyprland/config
   when: item.state == "file"
 
-- name: hyprland | process monitor.lua template
+- name: hyprland | render monitor.lua template
   ansible.builtin.template:
     src: hyprland.monitor.lua.j2
     dest: "{{ role_path }}/files/hyprland/config/modules/monitor.lua"

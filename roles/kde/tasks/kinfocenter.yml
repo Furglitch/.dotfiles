@@ -1,5 +1,5 @@
 ---
-- name: kinfocenter | Install kinfocenter and related packages
+- name: kinfocenter | install Kinfocenter and related packages
   kewlfft.aur.aur:
     name:
       - kinfocenter

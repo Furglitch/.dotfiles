@@ -1,5 +1,5 @@
 ---
-- name: hyprpolkitagent | Install hyprpolkitagent
+- name: hyprpolkitagent | install hyprpolkitagent
   kewlfft.aur.aur:
     name: hyprpolkitagent
     state: present

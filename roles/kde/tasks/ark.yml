@@ -1,5 +1,5 @@
 ---
-- name: ark | Install ark and archiving dependencies
+- name: ark | install Ark and archiving dependencies
   kewlfft.aur.aur:
     name:
       - ark

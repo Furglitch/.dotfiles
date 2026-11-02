@@ -1,5 +1,5 @@
 ---
-- name: kvantum | Install kvantum
+- name: kvantum | install Kvantum
   kewlfft.aur.aur:
     name:
       - kinfocenter
@@ -8,19 +8,19 @@
     state: present
     use: paru
 
-- name: kvantum | Create config directory
+- name: kvantum | create the Kvantum config directory
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.config/Kvantum"
     state: directory
     mode: "0755"
 
-- name: kvantum | Create qt6ct config directory
+- name: kvantum | create the Qt6ct config directory
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.config/qt6ct"
     state: directory
     mode: "0755"
 
-- name: kvantum | Symlink config
+- name: kvantum | symlink config files
   ansible.builtin.file:
     src: "{{ role_path }}/files/kvantum/config/{{ item.path }}"
     dest: "{{ ansible_facts['user_dir'] }}/.config/Kvantum/{{ item.path }}"
@@ -29,7 +29,7 @@
   with_filetree: kvantum/config
   when: item.state == "file"
 
-- name: kvantum | Symlink qt6ct config
+- name: kvantum | symlink the Qt6ct config
   ansible.builtin.file:
     src: "{{ role_path }}/files/qt6ct.conf"
     dest: "{{ ansible_facts['user_dir'] }}/.config/qt6ct/qt6ct.conf"
@@ -38,14 +38,14 @@
   with_filetree: qt6ct/config
   when: item.state == "file"
 
-- name: kvantum | Clone theme
+- name: kvantum | clone the theme
   ansible.builtin.git:
     repo: "{{ kvantum.theme.repo }}"
     dest: "{{ role_path }}/files/kvantum/theme/{{ kvantum.theme.path }}"
     version: "main"
     force: true
 
-- name: kvantum | Symlink theme
+- name: kvantum | symlink the theme
   ansible.builtin.file:
     src: "{{ role_path }}/files/kvantum/theme/{{ kvantum.theme.path }}"
     dest: "{{ ansible_facts['user_dir'] }}/.config/Kvantum/custom-theme"

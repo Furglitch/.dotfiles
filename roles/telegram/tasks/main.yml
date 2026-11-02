@@ -1,5 +1,5 @@
 ---
-- name: telegram | Install packages
+- name: telegram | install Telegram
   kewlfft.aur.aur:
     name: telegram-desktop-bin
     state: present

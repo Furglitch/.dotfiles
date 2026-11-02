@@ -1,17 +1,17 @@
 ---
-- name: kde | run ark tasks
+- name: kde | include ark tasks
   ansible.builtin.include_tasks: ark.yml
 
-- name: kde | run dolphin tasks
+- name: kde | include dolphin tasks
   ansible.builtin.include_tasks: dolphin.yml
 
-- name: kde | run kinfocenter tasks
+- name: kde | include kinfocenter tasks
   ansible.builtin.include_tasks: kinfocenter.yml
 
-- name: kde | run partitionmanager tasks
+- name: kde | include partitionmanager tasks
   ansible.builtin.include_tasks: partitionmanager.yml
 
-- name: kde | Install additional packages
+- name: kde | install additional packages
   kewlfft.aur.aur:
     name:
       - iwd
@@ -26,14 +26,14 @@
     state: present
     use: paru
 
-- name: kde | Symlink kdeglobals
+- name: kde | symlink kdeglobals
   ansible.builtin.file:
     src: "{{ role_path }}/files/kdeglobals"
     dest: "{{ ansible_facts['user_dir'] }}/.config/kdeglobals"
     state: link
     force: true
 
-- name: kde | Symlink mimeapps.list
+- name: kde | symlink mimeapps.list
   ansible.builtin.file:
     src: "{{ role_path }}/files/mimeapps.list"
     dest: "{{ ansible_facts['user_dir'] }}/.config/mimeapps.list"

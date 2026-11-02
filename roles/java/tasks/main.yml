@@ -1,4 +1,4 @@
-- name: java | Install JDK
+- name: java | install JDK
   kewlfft.aur.aur:
     name:
       - jdk17-temurin

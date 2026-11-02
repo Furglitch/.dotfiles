@@ -1,4 +1,4 @@
-- name: python | Install python and related packages
+- name: python | install Python and related packages
   kewlfft.aur.aur:
     name:
       - python3-aur

@@ -1,5 +1,5 @@
 ---
-- name: dolphin | Install dolphin and related packages
+- name: dolphin | install Dolphin and related packages
   kewlfft.aur.aur:
     name:
       - dolphin
@@ -10,7 +10,7 @@
     state: present
     use: paru
 
-- name: dolphin | Symlink dolphinrc
+- name: dolphin | symlink dolphinrc
   ansible.builtin.file:
     src: "{{ role_path }}/files/dolphinrc"
     dest: "{{ ansible_facts['user_dir'] }}/.config/dolphinrc"

@@ -1,35 +1,35 @@
 ---
-- name: git | Install git
+- name: git | install Git
   kewlfft.aur.aur:
     name: git
     state: present
     use: paru
 
-- name: git | Install github-cli
+- name: git | install GitHub CLI
   kewlfft.aur.aur:
     name: github-cli
     state: present
     use: paru
 
-- name: git | Configure git username
+- name: git | configure global username
   community.general.git_config:
     name: user.name
     value: "{{ git.user }}"
     scope: global
 
-- name: git | Configure git email
+- name: git | configure global email
   community.general.git_config:
     name: user.email
     value: "{{ git.mail }}"
     scope: global
 
-- name: git | Configure default branch
+- name: git | configure default branch
   community.general.git_config:
     name: init.defaultBranch
     value: main
     scope: global
 
-- name: git | Configure rebase pulls
+- name: git | configure rebase pulls
   community.general.git_config:
     name: pull.rebase
     value: true

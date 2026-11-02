@@ -1,17 +1,17 @@
 ---
-- name: hyprcursor | Install hyprcursor
+- name: hyprcursor | install Hyprcursor
   kewlfft.aur.aur:
     name: hyprcursor-git
     state: present
     use: paru
 
-- name: hyprcursor | Install unzip
+- name: hyprcursor | install unzip
   kewlfft.aur.aur:
     name: unzip
     state: present
     use: paru
 
-- name: hyprcursor | Install simp1e cursor
+- name: hyprcursor | install simp1e cursor
   kewlfft.aur.aur:
     name: xcursor-simp1e-tokyo-night
     state: present

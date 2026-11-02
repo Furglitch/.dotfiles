@@ -1,16 +1,16 @@
-- name: grub | Install grub
+- name: grub | install GRUB
   kewlfft.aur.aur:
     name: grub
     state: present
     use: paru
 
-- name: grub | Install os-prober
+- name: grub | install os-prober
   kewlfft.aur.aur:
     name: os-prober
     state: present
     use: paru
 
-- name: grub | Enable os-prober in /etc/default/grub
+- name: grub | enable os-prober in /etc/default/grub
   ansible.builtin.lineinfile:
     path: /etc/default/grub
     regexp: "^#?GRUB_DISABLE_OS_PROBER="
@@ -18,20 +18,20 @@
     state: present
   notify: regenerate config
 
-- name: grub | Ensure themes directory exists
+- name: grub | ensure the themes directory exists
   ansible.builtin.file:
     path: /usr/share/grub/themes
     state: directory
     mode: "0755"
 
-- name: grub | Set GRUB_THEME in /etc/default/grub
+- name: grub | set GRUB_THEME in /etc/default/grub
   ansible.builtin.lineinfile:
     path: /etc/default/grub
     regexp: "^#?GRUB_THEME="
     line: "GRUB_THEME=/usr/share/grub/themes/elegant-modified/theme.txt"
     state: present
 
-- name: grub | Copy elegant-modified theme
+- name: grub | copy the elegant-modified theme
   ansible.builtin.copy:
     src: grub/themes/elegant-modified
     dest: /usr/share/grub/themes/

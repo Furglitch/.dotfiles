@@ -1,4 +1,4 @@
-- name: ruby | Install ruby and related packages
+- name: ruby | install Ruby and related packages
   kewlfft.aur.aur:
     name:
       - ruby

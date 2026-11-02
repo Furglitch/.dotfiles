@@ -1,17 +1,17 @@
 ---
-- name: docker | ensure docker installed
+- name: docker | install Docker
   kewlfft.aur.aur:
     name: docker
     state: present
     use: paru
 
-- name: docker | ensure docker-compose installed
+- name: docker | install Docker Compose
   kewlfft.aur.aur:
     name: docker-compose
     state: present
     use: paru
 
-- name: docker | add user to docker group
+- name: docker | add user to the docker group
   ansible.builtin.user:
     name: "{{ target_user }}"
     groups: docker

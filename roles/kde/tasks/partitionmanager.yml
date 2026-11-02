@@ -1,5 +1,5 @@
 ---
-- name: partition manager | Install kde-partitionmanager and related packages
+- name: partition manager | install KDE Partition Manager and related packages
   kewlfft.aur.aur:
     name:
       - partitionmanager

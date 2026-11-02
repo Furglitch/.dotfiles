@@ -1,5 +1,5 @@
 ---
-- name: fonts | Install fonts
+- name: fonts | install fonts
   kewlfft.aur.aur:
     name:
      - nerd-fonts

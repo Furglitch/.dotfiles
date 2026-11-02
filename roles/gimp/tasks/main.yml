@@ -1,17 +1,17 @@
 ---
-- name: gimp | Install gimp
+- name: gimp | install GIMP
   kewlfft.aur.aur:
     name: gimp
     state: present
     use: paru
 
-- name: gimp | Install imagemagick
+- name: gimp | install ImageMagick
   kewlfft.aur.aur:
     name: imagemagick-full
     state: present
     use: paru
 
-- name: gimp | Install upscayl
+- name: gimp | install Upscayl
   kewlfft.aur.aur:
     name: upscayl-bin
     state: present
