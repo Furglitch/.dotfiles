@@ -10,6 +10,7 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
+  ignore_errors: true
 
 - name: dolphin | symlink dolphinrc
   ansible.builtin.file:
