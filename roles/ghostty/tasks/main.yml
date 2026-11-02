@@ -1,15 +1,9 @@
 ---
-- name: ghostty | ensure COPR repos are enabled
-  community.general.copr:
-    host: copr.fedorainfracloud.org
-    name: "{{ item }}"
-    state: enabled
-  loop: "{{ ghostty_copr_repos }}"
-
-- name: ghostty | ensure packages are installed
-  ansible.builtin.dnf:
-    name: "{{ ghostty_packages }}"
+- name: zsh | install ghostty
+  kewlfft.aur.aur:
+    name: ghostty
     state: present
+    use: paru
 
 - name: ghostty | ensure the .config/ghostty directory exists
   ansible.builtin.file:
@@ -39,8 +33,5 @@
     cmd: "{{ item }}"
   loop: "{{ ghostty_commands }}"
 
-- name: ghostty | include fastfetch tasks
-  ansible.builtin.include_tasks: fastfetch.yml
-
-- name: ghostty | include zsh tasks
+- name: ghostty | run zsh tasks
   ansible.builtin.include_tasks: zsh.yml

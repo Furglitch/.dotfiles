@@ -1,16 +1,16 @@
 ---
 - name: wallpaper | ensure upscayl-ncnn build dependencies are installed
-  ansible.builtin.dnf:
+  kewlfft.aur.aur:
     name:
       - git
       - cmake
       - gcc
-      - gcc-c++
-      - libstdc++-static
+      - libstdc++
       - glslang
       - libgomp
-      - vulkan-loader-devel
+      - vulkan-icd-loader
     state: present
+    use: paru
 
 - name: wallpaper | ensure upscayl source directory exists
   ansible.builtin.file:

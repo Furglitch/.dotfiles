@@ -1,8 +1,9 @@
 ---
 - name: ssh | install SSH packages
-  ansible.builtin.dnf:
+  kewlfft.aur.aur:
     name:
       - openssh
       - sshpass
       - sshfs
     state: present
+    use: paru

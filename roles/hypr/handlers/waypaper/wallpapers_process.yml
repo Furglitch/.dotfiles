@@ -1,13 +1,15 @@
 --- # Post-Download, Checks wallpaper dimensions and upscales if needed
-- name: waypaper | ensure ImageMagick is installed
-  ansible.builtin.dnf:
-    name: ImageMagick
+- name: waypaper | install ImageMagick
+  kewlfft.aur.aur:
+    name: imagemagick-full
     state: present
+    use: paru
 
-- name: waypaper | ensure Xvfb is installed for headless upscayl runs
-  ansible.builtin.dnf:
-    name: xorg-x11-server-Xvfb
+- name: waypaper | install xvfb # for headless upscayl runs
+  kewlfft.aur.aur:
+    name: xorg-server-xvfb
     state: present
+    use: paru
   when: (ansible_env.DISPLAY | default('')) | length == 0
 
 - name: waypaper | find downloaded images
