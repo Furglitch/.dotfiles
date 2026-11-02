@@ -63,7 +63,7 @@ fi
 
 echo "Fetching post list for set: $E621_SET"
 
-declare -A expected_files  # filename → download URL
+declare -A expected_files=()  # filename → download URL
 
 for page in $(seq 1 "$MAX_PAGES"); do
     echo "  Page $page..."
