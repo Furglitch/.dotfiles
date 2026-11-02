@@ -17,5 +17,5 @@
 - name: hypr | include wayle tasks
   ansible.builtin.include_tasks: wayle.yml
 
-- name: hypr | include waypaper tasks
-  ansible.builtin.include_tasks: waypaper.yml
+# - name: hypr | include waypaper tasks
+#   ansible.builtin.include_tasks: waypaper.yml
