@@ -1,0 +1,42 @@
+---
+- name: paru | import the Chaotic AUR signing key
+  ansible.builtin.command: pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+  register: chaotic_key
+  changed_when: false
+
+- name: paru | locally trust the Chaotic AUR signing key
+  ansible.builtin.command: pacman-key --lsign-key 3056513887B78AEB
+  register: chaotic_lsign
+  changed_when: false
+
+- name: paru | check whether the Chaotic repo packages are installed
+  ansible.builtin.command: pacman -Qq chaotic-keyring chaotic-mirrorlist
+  register: chaotic_repo_packages
+  changed_when: false
+  failed_when: false
+
+- name: paru | install the Chaotic repo package files
+  ansible.builtin.command:
+    argv:
+      - pacman
+      - -U
+      - --noconfirm
+      - https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst
+      - https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst
+  when: chaotic_repo_packages.stdout_lines | length < 2
+
+- name: paru | enable the Chaotic AUR repository
+  ansible.builtin.lineinfile:
+    path: /etc/pacman.conf
+    regexp: "^\\[chaotic-aur\\]$"
+    line: "[chaotic-aur]"
+    insertafter: "^\\[multilib\\]$"
+    state: present
+
+- name: paru | enable the Chaotic AUR include directive
+  ansible.builtin.lineinfile:
+    path: /etc/pacman.conf
+    regexp: "^Include = /etc/pacman.d/chaotic-mirrorlist$"
+    line: "Include = /etc/pacman.d/chaotic-mirrorlist"
+    insertafter: "^\\[chaotic-aur\\]$"
+    state: present

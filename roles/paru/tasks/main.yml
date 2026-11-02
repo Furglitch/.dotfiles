@@ -12,6 +12,7 @@
   ansible.builtin.git:
     repo: https://aur.archlinux.org/paru-bin.git
     dest: /tmp/paru
+  become_user: "{{ target_user }}"
   when: paru_needs_build | default(true) | bool
 
 - name: paru | ensure Paru dependencies are installed
@@ -26,7 +27,11 @@
   ansible.builtin.shell: makepkg -si --noconfirm
   args:
     chdir: /tmp/paru
+  become_user: "{{ target_user }}"
   when: paru_needs_build | default(true) | bool
+
+- name: paru | configure the Chaotic AUR repo
+  ansible.builtin.include_tasks: chaotic-aur.yml
 
 - name: paru | clear the build directory
   ansible.builtin.file:
