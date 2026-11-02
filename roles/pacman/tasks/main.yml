@@ -31,6 +31,22 @@
     insertafter: "^\\[options\\]"
     state: present
 
+- name: pacman | add target user to wheel group
+  ansible.builtin.user:
+    name: "{{ target_user }}"
+    groups: wheel
+    append: yes
+
+- name: pacman | allow wheel users to run sudo without a password
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/10-wheel-nopasswd
+    line: "%wheel ALL=(ALL) NOPASSWD: ALL"
+    create: yes
+    mode: "0440"
+    owner: root
+    group: root
+    validate: "visudo -cf %s"
+
 - name: pacman | update the package cache
   ansible.builtin.pacman:
     update_cache: yes
