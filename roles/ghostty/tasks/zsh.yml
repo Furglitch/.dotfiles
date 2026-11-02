@@ -1,8 +1,71 @@
 ---
+- name: zsh | ensure zsh installed
+  kewlfft.aur.aur:
+    name: zsh
+    state: present
+    use: paru
+
+- name: zsh | ensure bat installed
+  kewlfft.aur.aur:
+    name: bat
+    state: present
+    use: paru
+
+- name: zsh | ensure fzf installed
+  kewlfft.aur.aur:
+    name: fzf
+    state: present
+    use: paru
+
+- name: zsh | ensure eza installed
+  kewlfft.aur.aur:
+    name: eza
+    state: present
+    use: paru
+
+- name: zsh | ensure starship installed
+  kewlfft.aur.aur:
+    name: starship
+    state: present
+    use: paru
+
+- name: zsh | ensure thefuck installed
+  kewlfft.aur.aur:
+    name: thefuck
+    state: present
+    use: paru
+
 - name: zsh | symlink .zshrc
   ansible.builtin.file:
     src: "{{ role_path }}/files/zsh/.zshrc"
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
+    state: link
+    force: true
+
+- name: zsh | ensure zsh config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/zsh"
+    state: directory
+    mode: "0755"
+
+- name: zsh | symlink zsh config files
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/zsh/{{ item | basename }}"
+    state: link
+    force: true
+  loop: "{{ lookup('ansible.builtin.fileglob', role_path + '/files/zsh/config/*.zsh', wantlist=True) }}"
+
+- name: zsh | ensure starship directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/starship"
+    state: directory
+    mode: "0755"
+
+- name: zsh | symlink starship config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/starship/starship.toml"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/starship/starship.toml"
     state: link
     force: true
 

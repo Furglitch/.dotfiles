@@ -1,0 +1,6 @@
+---
+- name: hyprshutdown | Install hyprshutdown
+  kewlfft.aur.aur:
+    name: hyprshutdown
+    state: present
+    use: paru

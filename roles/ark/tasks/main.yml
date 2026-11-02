@@ -1,0 +1,12 @@
+---
+- name: ark | ensure 7zip installed
+  kewlfft.aur.aur:
+    name: 7zip
+    state: present
+    use: paru
+
+- name: ark | ensure ark installed
+  kewlfft.aur.aur:
+    name: ark
+    state: present
+    use: paru

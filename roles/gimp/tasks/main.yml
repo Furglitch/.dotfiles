@@ -1,16 +1,18 @@
 ---
-- name: gimp | ensure packages are installed
-  ansible.builtin.dnf:
-    name: "{{ gimp_packages }}"
+- name: gimp | Install gimp
+  kewlfft.aur.aur:
+    name: gimp
     state: present
-  tags:
-    - gimp
+    use: paru
 
-- name: gimp | ensure URL rpms are installed
-  ansible.builtin.dnf:
-    name: "{{ gimp_rpm_urls }}"
+- name: gimp | Install imagemagick
+  kewlfft.aur.aur:
+    name: imagemagick-full
     state: present
-    disable_gpg_check: true
-  tags:
-    - gimp
+    use: paru
 
+- name: gimp | Install upscayl
+  kewlfft.aur.aur:
+    name: upscayl-bin
+    state: present
+    use: paru

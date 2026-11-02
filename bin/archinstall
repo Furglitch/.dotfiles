@@ -1,0 +1,4 @@
+#!/bin/bash
+
+curl -Lso /tmp/config.json https://raw.githubusercontent.com/Furglitch/archdot/main/bin/archinstall.json
+archinstall --config /tmp/config.json

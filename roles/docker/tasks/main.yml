@@ -1,10 +1,15 @@
 ---
-- name: docker-ce | ensure packages are installed
-  ansible.builtin.dnf:
-    name: "{{ docker_ce_packages }}"
+- name: docker | ensure docker installed
+  kewlfft.aur.aur:
+    name: docker
     state: present
-  tags:
-    - docker-ce
+    use: paru
+
+- name: docker | ensure docker-compose installed
+  kewlfft.aur.aur:
+    name: docker-compose
+    state: present
+    use: paru
 
 - name: docker | add user to docker group
   ansible.builtin.user:

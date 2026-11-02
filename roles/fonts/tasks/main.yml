@@ -1,0 +1,10 @@
+---
+- name: fonts | Install fonts
+  kewlfft.aur.aur:
+    name:
+     - nerd-fonts
+     - ttf-google-fonts-git
+     - noto-fonts-emoji
+     - noto-color-emoji-fontconfig
+    state: present
+    use: paru

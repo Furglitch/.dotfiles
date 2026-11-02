@@ -1,8 +1,8 @@
 ---
-- name: ssh | ensure packages are installed
+- name: ssh | Install ssh packages
   ansible.builtin.dnf:
-    name: "{{ ssh_packages }}"
+    name:
+      - openssh
+      - sshpass
+      - sshfs
     state: present
-  tags:
-    - ssh
-

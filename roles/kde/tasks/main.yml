@@ -1,80 +1,41 @@
 ---
-- name: kde | install plasma-systemsettings stack
-  ansible.builtin.import_tasks: plasma-systemsettings.yml
-  tags:
-    - kde
+- name: kde | run ark tasks
+  ansible.builtin.include_tasks: ark.yml
 
-- name: kde | install kwalletmanager5 stack
-  ansible.builtin.import_tasks: kwalletmanager5.yml
-  tags:
-    - kde
+- name: kde | run dolphin tasks
+  ansible.builtin.include_tasks: dolphin.yml
 
-- name: kde | install dolphin stack
-  ansible.builtin.import_tasks: dolphin.yml
-  tags:
-    - kde
+- name: kde | run kinfocenter tasks
+  ansible.builtin.include_tasks: kinfocenter.yml
 
-- name: kde | install kvantum stack
-  ansible.builtin.import_tasks: kvantum.yml
-  tags:
-    - kde
+- name: kde | run partitionmanager tasks
+  ansible.builtin.include_tasks: partitionmanager.yml
 
-- name: kde | install kinfocenter
-  ansible.builtin.import_tasks: kinfocenter.yml
-  tags:
-    - kde
+- name: kde | Install additional packages
+  kewlfft.aur.aur:
+    name:
+      - iwd
+      - plasma-nm
+      - plasma-pa
+      - plasma-systemmonitor
+      - systemsettings
+      - bluedevil
+      - colord-kde-git
+      - kde-gtk-config
+      - pinentry-hypr
+    state: present
+    use: paru
 
-- name: kde | install plasma-pa
-  ansible.builtin.import_tasks: plasma-pa.yml
-  tags:
-    - kde
-
-- name: kde | install kde-partitionmanager stack
-  ansible.builtin.import_tasks: kde-partitionmanager.yml
-  tags:
-    - kde
-
-- name: kde | install ark stack
-  ansible.builtin.import_tasks: ark.yml
-  tags:
-    - kde
-
-- name: kde | install plasma-nm stack
-  ansible.builtin.import_tasks: plasma-nm.yml
-  tags:
-    - kde
-
-- name: kde | install plasma-systemmonitor
-  ansible.builtin.import_tasks: plasma-systemmonitor.yml
-  tags:
-    - kde
-
-- name: kde | symlink config files
+- name: kde | Symlink kdeglobals
   ansible.builtin.file:
-    src: "{{ role_path }}/files/kde/config/{{ item.path }}"
-    dest: "{{ ansible_facts['user_dir'] }}/{{ item.path }}"
+    src: "{{ role_path }}/files/kdeglobals"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/kdeglobals"
     state: link
     force: true
-  with_filetree: kde/config
-  when: item.state == "file"
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
 
-- name: kde | symlink mimeapps.list
+- name: kde | Symlink mimeapps.list
   ansible.builtin.file:
     src: "{{ role_path }}/files/mimeapps.list"
     dest: "{{ ansible_facts['user_dir'] }}/.config/mimeapps.list"
     state: link
     force: true
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
-
-- name: kde | refresh desktop application metadata caches
-  ansible.builtin.shell:
-    cmd: "update-desktop-database {{ ansible_facts['user_dir'] }}/.local/share/applications && kbuildsycoca6"
-  become: true
-  become_user: "{{ target_user }}"
-  become_flags: "-H"
-  changed_when: false

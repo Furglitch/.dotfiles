@@ -1,48 +1,25 @@
 ---
-- name: discord | ensure rpmfusion repos are installed
-  ansible.builtin.dnf:
-    name:
-      - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-44.noarch.rpm"
-      - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-44.noarch.rpm"
+- name: discord | ensure discord is installed
+  kewlfft.aur.aur:
+    name: discord
     state: present
-  tags:
-    - discord
+    use: paru
 
-- name: discord | ensure copr repos are enabled
-  community.general.copr:
-    host: copr.fedorainfracloud.org
-    name: "{{ item }}"
-    state: enabled
-  loop: "{{ discord_copr_repos }}"
-  tags:
-    - discord
-
-- name: discord | ensure packages are installed
-  ansible.builtin.dnf:
-    name: "{{ discord_packages }}"
+- name: discord | ensure betterdiscordctl is installed
+  kewlfft.aur.aur:
+    name: betterdiscordctl
     state: present
-  tags:
-    - discord
+    use: paru
 
-- name: discord | symlink betterdiscordctl upgrade script (to .local/bin)
+- name: discord | bin betterdiscordctl-upgrade script
   ansible.builtin.file:
     src: "{{ role_path }}/files/betterdiscord/bin/betterdiscord-upgrade"
     dest: "{{ ansible_facts['user_dir'] }}/.local/bin/betterdiscord-upgrade"
     state: link
-    owner: "{{ target_user }}"
-    group: "{{ target_user }}"
     mode: "0755"
-    force: true
-  tags:
-    - discord
 
-- name: discord | symlink BetterDiscord config directory
+- name: discord | apply betterdiscord config
   ansible.builtin.file:
     src: "{{ role_path }}/files/betterdiscord/config"
     dest: "{{ ansible_facts['user_dir'] }}/.config/BetterDiscord"
     state: link
-    owner: "{{ target_user }}"
-    group: "{{ target_user }}"
-    force: true
-  tags:
-    - discord

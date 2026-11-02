@@ -1,8 +1,7 @@
----
-- name: ruby-devel | ensure ruby-devel is installed
-  ansible.builtin.dnf:
-    name: ruby-devel
+- name: ruby | Install ruby and related packages
+  kewlfft.aur.aur:
+    name:
+      - ruby
+      - rubygems
     state: present
-  tags:
-    - ruby-devel
-
+    use: paru

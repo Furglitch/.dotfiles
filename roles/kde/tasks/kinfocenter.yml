@@ -1,8 +1,8 @@
 ---
-- name: kde | ensure kinfocenter is installed
-  ansible.builtin.dnf:
-    name: kinfocenter
+- name: kinfocenter | Install kinfocenter and related packages
+  kewlfft.aur.aur:
+    name:
+      - kinfocenter
+      - kdeclarative
     state: present
-  tags:
-    - kde
-    - kinfocenter
+    use: paru

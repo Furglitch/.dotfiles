@@ -44,5 +44,3 @@
   loop: "{{ devices }}"
   loop_control:
     label: "{{ item.device }} -> {{ item.mountpoint }}"
-  tags:
-    - fstab

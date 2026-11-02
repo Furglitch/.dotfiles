@@ -1,0 +1,6 @@
+---
+- name: uwsm | Install uwsm
+  kewlfft.aur.aur:
+    name: uwsm
+    state: present
+    use: paru

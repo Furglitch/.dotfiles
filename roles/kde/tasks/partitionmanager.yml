@@ -1,0 +1,10 @@
+---
+- name: partition manager | Install kde-partitionmanager and related packages
+  kewlfft.aur.aur:
+    name:
+      - partitionmanager
+      - smartmontools
+      - nfs-utils
+      - qdirstat
+    state: present
+    use: paru

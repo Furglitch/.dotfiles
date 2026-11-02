@@ -1,8 +1,6 @@
 ---
-- name: wine | ensure wine is installed
-  ansible.builtin.dnf:
+- name: wine | Install packages
+  kewlfft.aur.aur:
     name: wine
     state: present
-  tags:
-    - wine
-
+    use: paru

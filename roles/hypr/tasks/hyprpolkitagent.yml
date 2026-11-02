@@ -1,0 +1,6 @@
+---
+- name: hyprpolkitagent | Install hyprpolkitagent
+  kewlfft.aur.aur:
+    name: hyprpolkitagent
+    state: present
+    use: paru
