@@ -1,4 +1,4 @@
 #!/bin/bash
 
-curl -Lso /tmp/config.json https://raw.githubusercontent.com/Furglitch/.dotfiles/refactor/bin/archinstall.json
+curl -Lso /tmp/config.json https://raw.githubusercontent.com/Furglitch/.dotfiles/main/bin/archinstall.json
 archinstall --config /tmp/config.json

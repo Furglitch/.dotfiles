@@ -4,7 +4,7 @@ if [ -d ~/.dotfiles ]; then
     cd ~/.dotfiles
     git pull
 else
-    git clone https://github.com/Furglitch/.dotfiles.git ~/.dotfiles -b refactor
+    git clone https://github.com/Furglitch/.dotfiles.git ~/.dotfiles
     cd ~/.dotfiles
 fi
 

@@ -4,11 +4,11 @@ default_roles:
   - paru
   - git
   # Core
-  # - fstab
+  - fstab
   - kde
   - hypr
   - ghostty
-  # - fonts
+  - fonts
   - firefox
   # Themes
   - grub
