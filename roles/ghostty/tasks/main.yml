@@ -5,6 +5,7 @@
     state: present
     use: paru
   become_user: "{{ target_user }}"
+
 - name: ghostty | ensure the .config/ghostty directory exists
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.config/ghostty"
@@ -27,11 +28,6 @@
     force: true
   with_filetree: ghostty/config
   when: item.state == "file"
-
-- name: ghostty | run command-based installers
-  ansible.builtin.shell:
-    cmd: "{{ item }}"
-  loop: "{{ ghostty_commands }}"
 
 - name: ghostty | run zsh tasks
   ansible.builtin.include_tasks: zsh.yml
