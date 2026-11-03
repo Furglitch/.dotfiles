@@ -6,6 +6,12 @@
     use: paru
   become_user: "{{ target_user }}"
 
+- name: vicinae | ensure config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/vicinae"
+    state: directory
+    mode: "0755"
+
 - name: vicinae | symlink the config
   ansible.builtin.file:
     src: "{{ role_path }}/files/settings.json"

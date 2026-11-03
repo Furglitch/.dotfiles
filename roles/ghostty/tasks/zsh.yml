@@ -13,18 +13,37 @@
     use: paru
   become_user: "{{ target_user }}"
 
-- name: zsh | symlink fastfetch config files
+- name: zsh | ensure fastfetch config dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/fastfetch"
+    state: directory
+    mode: "0755"
+
+- name: zsh | ensure zsh config dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/zsh"
+    state: directory
+    mode: "0755"
+
+- name: zsh | ensure starship config dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/starship"
+    state: directory
+    mode: "0755"
+
+- name: zsh | symlink fastfetch config
   ansible.builtin.file:
     src: "{{ role_path }}/files/fastfetch.config.jsonc"
     dest: "{{ ansible_facts['user_dir'] }}/.config/fastfetch/config.jsonc"
     state: link
+    force: true
 
 - name: zsh | symlink .zshrc
   ansible.builtin.file:
     src: "{{ role_path }}/files/zsh/.zshrc"
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
     state: link
-    force: target_user
+    force: true
 
 - name: zsh | symlink zsh config files
   ansible.builtin.file:

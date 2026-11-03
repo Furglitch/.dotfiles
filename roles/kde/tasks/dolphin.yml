@@ -12,6 +12,12 @@
   become_user: "{{ target_user }}"
   ignore_errors: true
 
+- name: dolphin | ensure config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config"
+    state: directory
+    mode: "0755"
+
 - name: dolphin | symlink dolphinrc
   ansible.builtin.file:
     src: "{{ role_path }}/files/dolphinrc"

@@ -13,6 +13,12 @@
     use: paru
   become_user: "{{ target_user }}"
 
+- name: prismlauncher | ensure Prism Launcher config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.local/share/PrismLauncher"
+    state: directory
+    mode: "0755"
+
 - name: prismlauncher | symlink catpacks
   ansible.builtin.file:
     src: "{{ role_path }}/files/catpacks"
