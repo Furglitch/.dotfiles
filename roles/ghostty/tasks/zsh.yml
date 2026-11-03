@@ -60,10 +60,6 @@
     state: link
     force: true
 
-- name: zsh | run Starship installer
-  ansible.builtin.command: 'curl -sS https://starship.rs/install.sh | sh -s -- --yes'
-  changed_when: true
-
 - name: zsh | ensure zsh is the default shell
   ansible.builtin.user:
     name: "{{ target_user }}"
