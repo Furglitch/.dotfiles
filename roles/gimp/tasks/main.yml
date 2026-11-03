@@ -8,7 +8,7 @@
 
 - name: gimp | install ImageMagick
   kewlfft.aur.aur:
-    name: imagemagick-full
+    name: imagemagick
     state: present
     use: paru
   become_user: "{{ target_user }}"
