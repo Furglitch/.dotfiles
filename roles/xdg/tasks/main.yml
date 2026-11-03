@@ -11,7 +11,7 @@
 
 - name: xdg | ensure config directory exists
   ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.config"
+    path: "{{ ansible_facts['user_dir'] }}/.config/xdg-desktop-portal"
     state: directory
     mode: "0755"
 

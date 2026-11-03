@@ -15,12 +15,6 @@
     state: directory
     mode: "0755"
 
-- name: kvantum | create the Qt6ct config directory
-  ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.config/qt6ct"
-    state: directory
-    mode: "0755"
-
 - name: kvantum | symlink config files
   ansible.builtin.file:
     src: "{{ role_path }}/files/kvantum/config/{{ item.path }}"
@@ -29,6 +23,12 @@
     force: true
   with_filetree: kvantum/config
   when: item.state == "file"
+
+- name: kvantum | create the Qt6ct config directory
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/qt6ct"
+    state: directory
+    mode: "0755"
 
 - name: kvantum | symlink the Qt6ct config
   ansible.builtin.file:
