@@ -39,12 +39,18 @@
   with_filetree: qt6ct/config
   when: item.state == "file"
 
+- name: kvantum | check theme directory
+  ansible.builtin.stat:
+    path: "{{ role_path }}/files/kvantum/theme/{{ kvantum.theme.path }}"
+  register: kvantum_theme_repo
+
 - name: kvantum | clone the theme
   ansible.builtin.git:
     repo: "{{ kvantum.theme.repo }}"
     dest: "{{ role_path }}/files/kvantum/theme/{{ kvantum.theme.path }}"
     version: "main"
     force: true
+  when: not kvantum_theme_repo.stat.exists
 
 - name: kvantum | symlink the theme
   ansible.builtin.file:

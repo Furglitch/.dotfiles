@@ -21,6 +21,13 @@
     group: "{{ target_user }}"
     mode: '0755'
 
+- name: wallpaper | check upscayl source directory
+  become: true
+  become_user: "{{ target_user }}"
+  ansible.builtin.stat:
+    path: "{{ ansible_facts['user_dir'] }}/.local/src/upscayl-ncnn"
+  register: upscayl_source_dir
+
 - name: wallpaper | checkout upscayl-ncnn source
   become: true
   become_user: "{{ target_user }}"
@@ -30,6 +37,7 @@
     version: master
     recursive: true
     update: true
+  when: not upscayl_source_dir.stat.exists
 
 - name: wallpaper | ensure upscayl-ncnn build directory exists
   ansible.builtin.file:

@@ -26,12 +26,18 @@
     state: link
     force: true
 
+- name: prismlauncher | check theme directory
+  ansible.builtin.stat:
+    path: "{{ role_path }}/files/theme"
+  register: prism_theme_repo
+
 - name: prismlauncher | clone theme
   ansible.builtin.git:
     repo: "{{ theme.repo }}"
     dest: "{{ role_path }}/files/theme"
     version: main
     force: true
+  when: not prism_theme_repo.stat.exists
 
 - name: prismlauncher | symlink theme
   ansible.builtin.file:

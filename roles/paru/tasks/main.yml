@@ -8,12 +8,18 @@
     state: absent
   when: paru_needs_build | default(true) | bool
 
+- name: paru | check Paru source directory
+  ansible.builtin.stat:
+    path: /tmp/paru
+  register: paru_source_dir
+  when: paru_needs_build | default(true) | bool
+
 - name: paru | clone Paru from the AUR
   ansible.builtin.git:
     repo: https://aur.archlinux.org/paru-bin.git
     dest: /tmp/paru
   become_user: "{{ target_user }}"
-  when: paru_needs_build | default(true) | bool
+  when: paru_needs_build | default(true) | bool and not paru_source_dir.stat.exists
 
 - name: paru | ensure Paru dependencies are installed
   ansible.builtin.pacman:
