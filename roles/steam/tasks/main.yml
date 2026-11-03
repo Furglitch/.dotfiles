@@ -4,7 +4,7 @@
     name:
       - steam
       - proton-ge-custom-bin
-      - millenium
+      - millennium
     state: present
     use: paru
   become_user: "{{ target_user }}"
