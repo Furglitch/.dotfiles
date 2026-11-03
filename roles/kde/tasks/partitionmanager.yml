@@ -1,0 +1,11 @@
+---
+- name: partition manager | install KDE Partition Manager and related packages
+  kewlfft.aur.aur:
+    name:
+      - partitionmanager
+      - smartmontools
+      - nfs-utils
+      - qdirstat
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"

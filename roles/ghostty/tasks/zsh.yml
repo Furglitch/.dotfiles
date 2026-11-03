@@ -1,4 +1,18 @@
 ---
+- name: zsh | install zsh and dependencies
+  kewlfft.aur.aur:
+    name:
+      - zsh
+      - bat
+      - fzf
+      - eza
+      - starship
+      - thefuck
+      - fastfetch
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
+
 - name: zsh | symlink .zshrc
   ansible.builtin.file:
     src: "{{ role_path }}/files/zsh/.zshrc"
@@ -6,7 +20,47 @@
     state: link
     force: true
 
-- name: zsh | ensure zsh is default shell
+- name: zsh | ensure fastfetch config dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/fastfetch"
+    state: directory
+    mode: "0755"
+
+- name: zsh | symlink fastfetch config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/fastfetch.config.jsonc"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/fastfetch/config.jsonc"
+    state: link
+    force: true
+
+- name: zsh | ensure zsh config dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/zsh"
+    state: directory
+    mode: "0755"
+
+- name: zsh | symlink zsh config files
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/zsh/{{ item | basename }}"
+    state: link
+    force: true
+  loop: "{{ lookup('ansible.builtin.fileglob', role_path + '/files/zsh/config/*.zsh', wantlist=True) }}"
+
+- name: zsh | ensure starship config dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/starship"
+    state: directory
+    mode: "0755"
+
+- name: zsh | symlink the Starship config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/starship.toml"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/starship/starship.toml"
+    state: link
+    force: true
+
+- name: zsh | ensure zsh is the default shell
   ansible.builtin.user:
     name: "{{ target_user }}"
     shell: /usr/bin/zsh

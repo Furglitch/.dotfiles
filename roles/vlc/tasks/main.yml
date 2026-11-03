@@ -1,8 +1,10 @@
 ---
-- name: vlc | ensure vlc is installed
-  ansible.builtin.dnf:
-    name: vlc
+- name: vlc | install packages
+  kewlfft.aur.aur:
+    name:
+      - vlc
+      - vlc-plugins-base
+      - vlc-plugins-extra
     state: present
-  tags:
-    - vlc
-
+    use: paru
+  become_user: "{{ target_user }}"

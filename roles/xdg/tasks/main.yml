@@ -1,41 +1,22 @@
 ---
-- name: xdg | ensure xdg-utils is installed
-  ansible.builtin.dnf:
-    name: xdg-utils
+- name: xdg | install XDG packages
+  kewlfft.aur.aur:
+    name:
+      - xdg-utils
+      - xdg-desktop-portal
+      - xdg-desktop-portal-hyprland
     state: present
-  tags:
-    - xdg
+    use: paru
+  become_user: "{{ target_user }}"
 
-- name: xdg | ensure copr repo is enabled
-  community.general.copr:
-    host: copr.fedorainfracloud.org
-    name: lionheartp/Hyprland
-    state: enabled
-  tags:
-    - xdg
-
-- name: xdg | ensure xdg-desktop-portal-hyprland is installed
-  ansible.builtin.dnf:
-    name: xdg-desktop-portal-hyprland
-    state: present
-  tags:
-    - xdg
-
-- name: xdg | ensure .config/xdg-desktop-portal exists
+- name: xdg | ensure config directory exists
   ansible.builtin.file:
-    path: '{{ ansible_facts["user_dir"] }}/.config/xdg-desktop-portal'
+    path: "{{ ansible_facts['user_dir'] }}/.config/xdg-desktop-portal"
     state: directory
-    mode: '0755'
-    owner: '{{ target_user }}'
-    group: '{{ target_user }}'
-  tags:
-    - xdg
+    mode: "0755"
 
-- name: xdg | symlink xdg config directory
+- name: xdg | symlink portals config
   ansible.builtin.file:
-    src: "{{ role_path }}/files/xdg/config"
-    dest: "{{ ansible_facts['user_dir'] }}/.config/xdg-desktop-portal"
+    src: "{{ role_path }}/files/portals.conf"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/xdg-desktop-portal/portals.conf"
     state: link
-    force: true
-  tags:
-    - xdg

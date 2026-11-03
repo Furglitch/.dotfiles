@@ -1,8 +1,8 @@
----
-- name: python3-13 | ensure python3.13 is installed
-  ansible.builtin.dnf:
-    name: python3.13
+- name: python | install Python and related packages
+  kewlfft.aur.aur:
+    name:
+      - python3-aur
+      - uv
     state: present
-  tags:
-    - python3-13
-
+    use: paru
+  become_user: "{{ target_user }}"

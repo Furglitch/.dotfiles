@@ -1,0 +1,7 @@
+---
+- name: heroic-games-launcher | install Heroic Games Launcher
+  kewlfft.aur.aur:
+    name: heroic-games-launcher-bin
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"

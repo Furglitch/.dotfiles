@@ -1,0 +1,7 @@
+---
+- name: uwsm | install uwsm
+  kewlfft.aur.aur:
+    name: uwsm
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"

@@ -1,0 +1,47 @@
+---
+- name: paru | check for updates
+  ansible.builtin.include_tasks: update.yml
+
+- name: paru | clear the lingering build directory
+  ansible.builtin.file:
+    path: /tmp/paru
+    state: absent
+  when: paru_needs_build | default(true) | bool
+
+- name: paru | check Paru source directory
+  ansible.builtin.stat:
+    path: /tmp/paru
+  register: paru_source_dir
+  when: paru_needs_build | default(true) | bool
+
+- name: paru | clone Paru from the AUR
+  ansible.builtin.git:
+    repo: https://aur.archlinux.org/paru-bin.git
+    dest: /tmp/paru
+  become_user: "{{ target_user }}"
+  when: paru_needs_build | default(true) | bool and not paru_source_dir.stat.exists
+
+- name: paru | ensure Paru dependencies are installed
+  ansible.builtin.pacman:
+    name:
+      - base-devel
+      - git
+    state: present
+  when: paru_needs_build | default(true) | bool
+
+- name: paru | install Paru
+  ansible.builtin.command:
+    cmd: makepkg -si --noconfirm
+    chdir: /tmp/paru
+  become_user: "{{ target_user }}"
+  become_flags: "-H"
+  when: paru_needs_build | default(true) | bool
+
+- name: paru | configure the Chaotic AUR repo
+  ansible.builtin.include_tasks: chaotic-aur.yml
+
+- name: paru | clear the build directory
+  ansible.builtin.file:
+    path: /tmp/paru
+    state: absent
+  when: paru_needs_build | default(true) | bool

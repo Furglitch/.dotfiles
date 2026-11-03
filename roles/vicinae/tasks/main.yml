@@ -1,34 +1,19 @@
 ---
-- name: vicinae | ensure copr repo is enabled
-  community.general.copr:
-    host: copr.fedorainfracloud.org
-    name: quadratech188/vicinae
-    state: enabled
-  tags:
-    - vicinae
-
-- name: vicinae | ensure vicinae is installed
-  ansible.builtin.dnf:
+- name: vicinae | install Vicinae
+  kewlfft.aur.aur:
     name: vicinae
     state: present
-  tags:
-    - vicinae
+    use: paru
+  become_user: "{{ target_user }}"
 
-- name: vicinae | ensure .config/vicinae exists
+- name: vicinae | ensure config directory exists
   ansible.builtin.file:
-    path: '{{ ansible_facts["user_dir"] }}/.config/vicinae'
+    path: "{{ ansible_facts['user_dir'] }}/.config/vicinae"
     state: directory
-    mode: '0755'
-    owner: '{{ target_user }}'
-    group: '{{ target_user }}'
-  tags:
-    - vicinae
+    mode: "0755"
 
-- name: vicinae | symlink vicinae config directory
+- name: vicinae | symlink the config
   ansible.builtin.file:
-    src: "{{ role_path }}/files/vicinae/config"
-    dest: "{{ ansible_facts['user_dir'] }}/.config/vicinae"
+    src: "{{ role_path }}/files/settings.json"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/vicinae/settings.json"
     state: link
-    force: true
-  tags:
-    - vicinae

@@ -1,8 +1,38 @@
 ---
-- name: git | ensure packages are installed
-  ansible.builtin.dnf:
-    name: "{{ git_packages }}"
+- name: git | install Git
+  kewlfft.aur.aur:
+    name: git
     state: present
-  tags:
-    - git
+    use: paru
+  become_user: "{{ target_user }}"
 
+- name: git | install GitHub CLI
+  kewlfft.aur.aur:
+    name: github-cli
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
+
+- name: git | configure global username
+  community.general.git_config:
+    name: user.name
+    value: "{{ git.user }}"
+    scope: global
+
+- name: git | configure global email
+  community.general.git_config:
+    name: user.email
+    value: "{{ git.mail }}"
+    scope: global
+
+- name: git | configure default branch
+  community.general.git_config:
+    name: init.defaultBranch
+    value: main
+    scope: global
+
+- name: git | configure rebase pulls
+  community.general.git_config:
+    name: pull.rebase
+    value: true
+    scope: global

@@ -1,29 +1,31 @@
 ---
-- name: sddm | ensure packages are installed
-  ansible.builtin.dnf:
-    name: "{{ sddm_packages }}"
+- name: sddm | install SDDM packages
+  kewlfft.aur.aur:
+    name:
+      - sddm
+      - sddm-kcm
+      - qt5-declarative
     state: present
-  tags:
-    - sddm
+    use: paru
+  become_user: "{{ target_user }}"
 
-- name: sddm | remove existing silent sddm theme directory
-  ansible.builtin.file:
-    path: "{{ sddm_theme_dir }}"
-    state: absent
-  tags:
-    - sddm
-
-- name: sddm | copy silent sddm theme directory
+- name: sddm | copy theme directory
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/sddm/theme/"
-    dest: "{{ sddm_theme_dir }}/"
+    src: "{{ role_path }}/files/theme/"
+    dest: "{{ theme.path }}"
     mode: preserve
     owner: root
     group: root
-  tags:
-    - sddm
 
-- name: sddm | ensure sddm uses silent sddm theme
+- name: sddm | ensure SDDM config directory exists
+  ansible.builtin.file:
+    path: "/etc/sddm.conf.d"
+    state: directory
+    mode: "0755"
+    owner: root
+    group: root
+
+- name: sddm | ensure SDDM uses the silent SDDM theme
   ansible.builtin.copy:
     dest: /etc/sddm.conf.d/10-theme.conf
     mode: '0644'
@@ -31,29 +33,30 @@
     group: root
     content: |
       [Theme]
-      Current={{ sddm_theme_name }}
-  tags:
-    - sddm
+      Current={{ theme.name }}
 
-- name: sddm | set system default target to graphical
+- name: sddm | set the default system target to graphical
   ansible.builtin.file:
     src: /usr/lib/systemd/system/graphical.target
     dest: /etc/systemd/system/default.target
     state: link
     force: true
-  tags:
-    - sddm
 
-- name: sddm | ensure sddm service is enabled
+- name: sddm | ensure the SDDM service is enabled
   ansible.builtin.systemd_service:
     name: sddm.service
     enabled: true
-  tags:
-    - sddm
 
-- name: sddm | apply furglitch avatar
-  ansible.builtin.command:
-    cmd: ./change_avatar.sh furglitch ./icons/avatar.furglitch.png
-    chdir: "{{ sddm_theme_dir }}"
-  tags:
-    - sddm
+- name: sddm | copy the custom background image
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/custom/background.png"
+    dest: "/usr/share/sddm/themes/{{ theme.name }}/background.png"
+    mode: preserve
+    owner: root
+    group: root
+
+- name: sddm | insert the custom background into theme.conf
+  ansible.builtin.lineinfile:
+    path: "/usr/share/sddm/themes/{{ theme.name }}/theme.conf"
+    regexp: '^(Background=).*'
+    line: 'Background=background.png'

@@ -1,0 +1,7 @@
+---
+- name: hyprshutdown | install hyprshutdown
+  kewlfft.aur.aur:
+    name: hyprshutdown
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"

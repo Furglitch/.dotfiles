@@ -1,0 +1,39 @@
+---
+- name: paru | import the Chaotic AUR signing key
+  ansible.builtin.command: pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+  register: chaotic_key
+  changed_when: false
+
+- name: paru | locally trust the Chaotic AUR signing key
+  ansible.builtin.command: pacman-key --lsign-key 3056513887B78AEB
+  register: chaotic_lsign
+  changed_when: false
+
+- name: paru | check whether the Chaotic repo packages are installed
+  ansible.builtin.command: pacman -Qq chaotic-keyring chaotic-mirrorlist
+  register: chaotic_repo_packages
+  changed_when: false
+  failed_when: false
+
+- name: paru | install the Chaotic repo package files
+  ansible.builtin.command:
+    argv:
+      - pacman
+      - -U
+      - --noconfirm
+      - https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst
+      - https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst
+  when: chaotic_repo_packages.stdout_lines | length < 2
+
+- name: paru | configure the Chaotic AUR repository block
+  ansible.builtin.blockinfile:
+    path: /etc/pacman.conf
+    marker: "# {mark} ANSIBLE MANAGED CHAOTIC AUR"
+    block: |
+      [chaotic-aur]
+      Include = /etc/pacman.d/chaotic-mirrorlist
+    state: present
+
+- name: paru | refresh the package database
+  ansible.builtin.command: pacman -Sy
+  changed_when: true

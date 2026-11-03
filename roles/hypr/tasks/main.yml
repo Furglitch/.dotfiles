@@ -1,0 +1,21 @@
+---
+- name: hypr | include hyprland tasks
+  ansible.builtin.include_tasks: hyprland.yml
+
+- name: hypr | include hyprcursor tasks
+  ansible.builtin.include_tasks: hyprcursor.yml
+
+- name: hypr | include hyprpolkitagent tasks
+  ansible.builtin.include_tasks: hyprpolkitagent.yml
+
+- name: hypr | include hyprshutdown tasks
+  ansible.builtin.include_tasks: hyprshutdown.yml
+
+- name: hypr | include uwsm tasks
+  ansible.builtin.include_tasks: uwsm.yml
+
+- name: hypr | include wayle tasks
+  ansible.builtin.include_tasks: wayle.yml
+
+- name: hypr | include waypaper tasks
+  ansible.builtin.include_tasks: waypaper.yml

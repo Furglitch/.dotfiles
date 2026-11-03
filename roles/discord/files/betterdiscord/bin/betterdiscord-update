@@ -1,0 +1,7 @@
+paru -Sy discord --noconfirm
+Discord & disown
+sleep 10s
+if ! betterdiscordctl reinstall; then
+    betterdiscordctl install
+fi
+Discord & disown

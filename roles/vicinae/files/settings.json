@@ -1,0 +1,279 @@
+// This configuration is merged with the default vicinae configuration file, which you can obtain by running the `vicinae config default` command.
+// Every item defined in this file takes precedence over the values defined in the default config or any other imported file.
+//
+// You can make manual edits to this file, however you should keep in mind that this file may be written to by vicinae when a configuration change is made through the GUI.
+// When that happens, any custom comments or formatting will be lost.
+//
+// If you want to maintain a configuration file with your own comments and formatting, you should create a separate file and add it to the 'imports' array.
+//
+// Learn more about configuration at https://docs.vicinae.com/config
+
+{
+   "$schema": "https://vicinae.com/schemas/config.json",
+   "theme": {
+      "light": {
+         "name": "tokyo-night",
+         "icon_theme": "Breeze Dark"
+      },
+      "dark": {
+         "name": "tokyo-night",
+         "icon_theme": "Breeze Dark"
+      }
+   },
+   "favorites": [],
+   "providers": {
+      "@knoopx/store.vicinae.github": {
+         "preferences": {
+            "defaultIssueFilter": "my",
+            "defaultRepositoryFilter": "my",
+            "numberOfResults": "50"
+         }
+      },
+      "applications": {
+         "entrypoints": {
+            "avahi-discover": {
+               "enabled": false
+            },
+            "bssh": {
+               "enabled": false
+            },
+            "bvnc": {
+               "enabled": false
+            },
+            "cmake-gui": {
+               "enabled": false
+            },
+            "jconsole-jdk17-temurin": {
+               "enabled": false
+            },
+            "jconsole-jdk21-temurin": {
+               "enabled": false
+            },
+            "jshell-jdk17-temurin": {
+               "enabled": false
+            },
+            "jshell-jdk21-temurin": {
+               "enabled": false
+            },
+            "kvantummanager": {
+               "enabled": false
+            },
+            "nm-connection-editor": {
+               "enabled": false
+            },
+            "nwg-panel-config": {
+               "enabled": false
+            },
+            "obsidian": {
+               "enabled": true
+            },
+            "org.dosbox-staging.dosbox-staging": {
+               "enabled": false
+            },
+            "org.freedesktop.MalcontentControl": {
+               "enabled": false
+            },
+            "org.gnome.ColorProfileViewer": {
+               "enabled": false
+            },
+            "org.kde.kwalletmanager": {
+               "enabled": false
+            },
+            "org.kde.partitionmanager": {
+               "enabled": true
+            },
+            "qt6ct": {
+               "enabled": false
+            },
+            "qv4l2": {
+               "enabled": false
+            },
+            "qvidcap": {
+               "enabled": false
+            },
+            "rofi": {
+               "enabled": false
+            },
+            "rofi-theme-selector": {
+               "enabled": false
+            },
+            "rygel-preferences": {
+               "enabled": false
+            },
+            "uuctl": {
+               "enabled": false
+            },
+            "wine-notepad": {
+               "enabled": false
+            },
+            "wine-oleview": {
+               "enabled": false
+            },
+            "wine-regedit": {
+               "enabled": false
+            },
+            "wine-uninstaller": {
+               "enabled": false
+            },
+            "wine-wineboot": {
+               "enabled": false
+            },
+            "wine-winecfg": {
+               "enabled": false
+            },
+            "wine-winefile": {
+               "enabled": false
+            },
+            "wine-winemine": {
+               "enabled": false
+            },
+            "wine-winhelp": {
+               "enabled": false
+            },
+            "wine-wordpad": {
+               "enabled": false
+            },
+            "yad-icon-browser": {
+               "enabled": false
+            }
+         }
+      },
+      "browser-extension": {
+         "enabled": false
+      },
+      "calculator": {
+         "enabled": false
+      },
+      "clipboard": {
+         "preferences": {
+            "monitoring": true
+         },
+         "entrypoints": {
+            "clear": {
+               "enabled": false
+            },
+            "clear-history": {
+               "enabled": false
+            }
+         }
+      },
+      "core": {
+         "entrypoints": {
+            "about": {
+               "enabled": false
+            },
+            "documentation": {
+               "enabled": false
+            },
+            "keybind-settings": {
+               "enabled": false
+            },
+            "list-extensions": {
+               "enabled": false
+            },
+            "manage-fallback": {
+               "enabled": false
+            },
+            "open-default-config": {
+               "enabled": false
+            },
+            "prune-memory": {
+               "enabled": false
+            },
+            "reload-scripts": {
+               "enabled": false
+            },
+            "report-bug": {
+               "enabled": false
+            },
+            "search-builtin-icons": {
+               "enabled": false
+            },
+            "sponsor": {
+               "enabled": false
+            }
+         }
+      },
+      "developer": {
+         "enabled": false,
+         "entrypoints": {
+            "create": {
+               "enabled": false
+            }
+         }
+      },
+      "font": {
+         "enabled": false
+      },
+      "manage-shortcuts": {
+         "enabled": false,
+         "entrypoints": {
+            "manage": {
+               "enabled": true
+            }
+         }
+      },
+      "power": {
+         "enabled": false,
+         "entrypoints": {
+            "hibernate": {
+               "enabled": false
+            },
+            "lock": {
+               "alias": "Lock"
+            },
+            "logout": {
+               "alias": "Log Out"
+            },
+            "power-off": {
+               "alias": "Power Off"
+            },
+            "reboot": {
+               "alias": "Reboot"
+            },
+            "sleep": {
+               "alias": "Sleep"
+            },
+            "soft-reboot": {
+               "enabled": false
+            },
+            "suspend": {
+               "enabled": false
+            }
+         }
+      },
+      "scripts": {
+         "enabled": false
+      },
+      "shortcuts": {
+         "enabled": false
+      },
+      "snippets": {
+         "enabled": false
+      },
+      "system": {
+         "enabled": false,
+         "entrypoints": {
+            "browse-apps": {
+               "enabled": true
+            }
+         }
+      },
+      "theme": {
+         "enabled": false,
+         "entrypoints": {
+            "set": {
+               "enabled": false
+            }
+         }
+      },
+      "wm": {
+         "enabled": false,
+         "entrypoints": {
+            "switch-windows": {
+               "enabled": false
+            }
+         }
+      }
+   }
+}

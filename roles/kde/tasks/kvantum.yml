@@ -1,21 +1,19 @@
 ---
-- name: kde | ensure kvantum packages are installed
-  ansible.builtin.dnf:
+- name: kvantum | install Kvantum
+  kewlfft.aur.aur:
     name:
-      - kvantum
-      - qt6-qtwayland
+      - kinfocenter
+      - kdeclarative
+      - qt6ct-kde
     state: present
-  tags:
-    - kde
-    - kvantum
+    use: paru
+  become_user: "{{ target_user }}"
 
-- name: kvantum | ensure .config/Kvantum directory exists
+- name: kvantum | create the Kvantum config directory
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.config/Kvantum"
     state: directory
     mode: "0755"
-    owner: "{{ target_user }}"
-    group: "{{ target_user }}"
 
 - name: kvantum | symlink config files
   ansible.builtin.file:
@@ -25,26 +23,39 @@
     force: true
   with_filetree: kvantum/config
   when: item.state == "file"
-  tags:
-    - kde
-    - kvantum
 
-- name: kvantum | clone catppuccin theme
+- name: kvantum | create the Qt6ct config directory
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/qt6ct"
+    state: directory
+    mode: "0755"
+
+- name: kvantum | symlink the Qt6ct config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/qt6ct.conf"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/qt6ct/qt6ct.conf"
+    state: link
+    force: true
+  with_filetree: qt6ct/config
+  when: item.state == "file"
+
+- name: kvantum | check theme directory
+  ansible.builtin.stat:
+    path: "{{ role_path }}/files/kvantum/theme/{{ kvantum.theme.path }}"
+  register: kvantum_theme_repo
+
+- name: kvantum | clone the theme
   ansible.builtin.git:
-    repo: "https://github.com/catppuccin/Kvantum.git"
-    dest: "{{ role_path }}/files/kvantum/repo/catppuccin-kvantum"
+    repo: "{{ kvantum.theme.repo }}"
+    dest: "{{ role_path }}/files/kvantum/theme/{{ kvantum.theme.path }}"
     version: "main"
     force: true
-  tags:
-    - kde
-    - kvantum
+  when: not kvantum_theme_repo.stat.exists
 
-- name: kvantum | symlink theme files
+- name: kvantum | symlink the theme
   ansible.builtin.file:
-    src: "{{ role_path }}/files/kvantum/repo/catppuccin-kvantum/themes/catppuccin-mocha-sky"
-    dest: "{{ ansible_facts['user_dir'] }}/.config/Kvantum/catppuccin-mocha-sky"
+    src: "{{ role_path }}/files/kvantum/theme/{{ kvantum.theme.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/Kvantum/custom-theme"
     state: link
     force: true
   tags:
-    - kde
-    - kvantum

@@ -1,0 +1,34 @@
+---
+- name: wayle | install Wayle and dependencies
+  kewlfft.aur.aur:
+    name:
+      - wireplumber
+      - networkmanager
+      - bluez
+      - upower
+      - power-profiles-daemon
+      - wayle-bin
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
+
+- name: wayle | ensure the config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/wayle"
+    state: directory
+    mode: "0755"
+
+- name: wayle | symlink the config file
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/wayle/config.toml"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/wayle/config.toml"
+    state: link
+    mode: "0644"
+
+- name: wayle | set up icons
+  become: true
+  become_user: "{{ target_user }}"
+  ansible.builtin.command: wayle icons sync
+  environment:
+    HOME: "{{ ansible_facts['user_dir'] }}"
+    XDG_CONFIG_HOME: "{{ ansible_facts['user_dir'] }}/.config"

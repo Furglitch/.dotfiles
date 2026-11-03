@@ -1,29 +1,33 @@
----
 default_roles:
-  - sddm
-  - hyprland
-  - kde
-  - xdg
-  - vicinae
+  # Dependencies
+  - pacman
+  - paru
   - git
-  - code
-  - pre-commit
-  - neovim
-  - python
-  - uv
-  - ruby
-  - java
-  - docker
-  - steam
-  - prismlauncher
-  - heroic-launcher
-  - wine
-  - discord
-  - telegram
-  - firefox
-  - gimp
-  - vlc
-  - grub
+  # Core
   - fstab
-  - ssh
+  - kde
+  - hypr
   - ghostty
+  - fonts
+  - firefox
+  # Themes
+  - grub
+  - sddm
+  # Misc
+  - ark
+  - discord
+  - docker
+  - gimp
+  - heroic
+  - java
+  - neovim
+  - pre-commit
+  - python
+  - ruby
+  - ssh
+  - steam
+  - telegram
+  - vicinae
+  - vlc
+  - wine
+  - xdg

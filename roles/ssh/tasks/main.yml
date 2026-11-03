@@ -1,8 +1,10 @@
 ---
-- name: ssh | ensure packages are installed
-  ansible.builtin.dnf:
-    name: "{{ ssh_packages }}"
+- name: ssh | install SSH packages
+  kewlfft.aur.aur:
+    name:
+      - openssh
+      - sshpass
+      - sshfs
     state: present
-  tags:
-    - ssh
-
+    use: paru
+  become_user: "{{ target_user }}"

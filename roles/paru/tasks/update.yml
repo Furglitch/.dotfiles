@@ -1,0 +1,28 @@
+---
+- name: paru | check whether Paru is installed
+  ansible.builtin.command: command -v paru
+  register: paru_installed
+  changed_when: false
+  failed_when: false
+
+- name: paru | check for a Paru update
+  ansible.builtin.command: paru -Qu paru
+  register: paru_update_selfcheck
+  when: paru_installed.rc == 0
+  changed_when: false
+  failed_when: false   # rc 1 == up to date, not an error
+
+- name: paru | update Paru if needed
+  ansible.builtin.command: paru -S --needs --noconfirm paru
+  when:
+    - paru_installed.rc == 0
+    - paru_update_selfcheck.rc == 0
+  register: paru_update_result
+  changed_when: paru_update_result.rc == 0
+
+- name: paru | report whether Paru needs a rebuild
+  ansible.builtin.set_fact:
+    paru_needs_build: >-
+      {{ paru_installed.rc != 0
+         or (paru_update_selfcheck.rc | default(1)) == 0
+         or (paru_update_result.rc | default(0)) != 0 }}

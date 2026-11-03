@@ -1,0 +1,14 @@
+---
+- name: ark | install 7zip
+  kewlfft.aur.aur:
+    name: 7zip
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
+
+- name: ark | install Ark
+  kewlfft.aur.aur:
+    name: ark
+    state: present
+    use: paru
+  become_user: "{{ target_user }}"
