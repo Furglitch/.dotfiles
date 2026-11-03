@@ -4,10 +4,7 @@
     name:
       - steam
       - proton-ge-custom-bin
+      - millenium
     state: present
     use: paru
   become_user: "{{ target_user }}"
-
-- name: steam | install Millennium
-  ansible.builtin.shell:
-    cmd: 'curl -fsSL "https://steambrew.app/install.sh" | bash'
