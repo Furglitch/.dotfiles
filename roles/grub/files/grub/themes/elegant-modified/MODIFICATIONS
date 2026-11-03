@@ -10,9 +10,9 @@
 [theme.txt]
 - Apply fonts
 - Apply 2K resolution wallpaper
-- Change desktop-color to Catppuccin Mocha 'base'
+- Change desktop-color to Tokyo Night 'base'
 + boot_menu
-    - Change item_color to Catppuccin Mocha 'overlay'
-    - Change selected_item_color to Catppuccin Mocha 'text'
+    - Change item_color to Tokyo Night 'overlay'
+    - Change selected_item_color to Tokyo Night 'text'
 + label
-    - Change color to Catppuccin Mocha 'crust'
+    - Change color to Tokyo Night 'crust'

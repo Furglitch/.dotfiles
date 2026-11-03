@@ -24,7 +24,7 @@ hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
-hl.env("HYPRCURSOR_THEME", "catppuccin-mocha-dark-cursors")
+hl.env("HYPRCURSOR_THEME", "xcursor-simp1e-tokyo-night")
 hl.env("HYPRCURSOR_SIZE", "18")
 
 -- Bind Variables
@@ -40,33 +40,31 @@ local screenshotFile = "hyprshot_" .. os.date("%Y-%m-%d_%H-%M-%S") .. ".png"
 screenshot = "hyprshot --freeze -f " .. screenshotFile .. " -o " .. screenshotPath .. " -m "
 
 -- Color Palette
-catppuccin = ({
-    mocha = {
-        rosewater = "rgb(f5e0dc)",
-        flamingo = "rgb(f2cdcd)",
-        pink = "rgb(f5c2e7)",
-        mauve = "rgb(cba6f7)",
-        red = "rgb(f38ba8)",
-        maroon = "rgb(eba0ac)",
-        peach = "rgb(fab387)",
-        yellow = "rgb(f9e2af)",
-        green = "rgb(a6e3a1)",
-        teal = "rgb(94e2d5)",
-        sky = "rgb(89b4fa)",
-        sapphire = "rgb(74c7ec)",
-        blue = "rgb(89b4fa)",
-        lavender = "rgb(b4befe)",
-        text = "rgb(cdd6f4)",
-        subtext1 = "rgb(bac2de)",
-        subtext0 = "rgb(a6adc8)",
-        overlay2 = "rgb(9399b2)",
-        overlay1 = "rgb(7f849c)",
-        overlay0 = "rgb(6c7086)",
-        surface2 = "rgb(585b70)",
-        surface1 = "rgb(45475a)",
-        surface0 = "rgb(313244)",
-        base = "rgb(1e1e2e)",
-        mantle = "rgb(181825)",
-        crust = "rgb(11111b)"
-    }
-})
+tokyonight = {
+        rosewater = "rgb(c0caf5)",
+        flamingo = "rgb(a9b1d6)",
+        pink = "rgb(bb9af7)",
+        mauve = "rgb(9d7cd8)",
+        red = "rgb(f7768e)",
+        maroon = "rgb(f7768e)",
+        peach = "rgb(ff9e64)",
+        yellow = "rgb(e0af68)",
+        green = "rgb(9ece6a)",
+        teal = "rgb(7dcfff)",
+        sky = "rgb(7dcfff)",
+        sapphire = "rgb(7aa2f7)",
+        blue = "rgb(7aa2f7)",
+        lavender = "rgb(bb9af7)",
+        text = "rgb(c0caf5)",
+        subtext1 = "rgb(a9b1d6)",
+        subtext0 = "rgb(9aa5ce)",
+        overlay2 = "rgb(565f89)",
+        overlay1 = "rgb(414868)",
+        overlay0 = "rgb(292e42)",
+        surface2 = "rgb(24283b)",
+        surface1 = "rgb(1f2335)",
+        surface0 = "rgb(1a1b26)",
+        base = "rgb(1a1b26)",
+        mantle = "rgb(16161e)",
+        crust = "rgb(0f1117)"
+}

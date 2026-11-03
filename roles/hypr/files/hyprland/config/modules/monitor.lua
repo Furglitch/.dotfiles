@@ -77,5 +77,5 @@ hl.window_rule({
         class = ".*"
     },
     border_size = 2,
-    border_color = catppuccin.mocha.base .. " " .. catppuccin.mocha.crust,
+    border_color = tokyonight.base .. " " .. tokyonight.crust,
 })
