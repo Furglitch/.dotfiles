@@ -4,13 +4,12 @@
     name:
       - dolphin
       - ffmpegthumbs-git
-      - kdegraphics-thumbnailers-git
-      - kio-admin
+      - kdegraphics-thumbnailers
+      - kio
       - baloo
     state: present
     use: paru
   become_user: "{{ target_user }}"
-  ignore_errors: true
 
 - name: dolphin | ensure config directory exists
   ansible.builtin.file:
