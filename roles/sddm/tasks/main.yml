@@ -17,6 +17,14 @@
     owner: root
     group: root
 
+- name: sddm | ensure SDDM config directory exists
+  ansible.builtin.file:
+    path: "/etc/sddm.conf.d"
+    state: directory
+    mode: "0755"
+    owner: root
+    group: root
+
 - name: sddm | ensure SDDM uses the silent SDDM theme
   ansible.builtin.copy:
     dest: /etc/sddm.conf.d/10-theme.conf
