@@ -5,6 +5,7 @@
       - sddm
       - sddm-kcm
       - qt5-declarative
+      - plasma-meta
     state: present
     use: paru
   become_user: "{{ target_user }}"
